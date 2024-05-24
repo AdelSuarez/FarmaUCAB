@@ -1,20 +1,28 @@
 
 package views;
 
+import database.DataBase;
+
+// Mejorar diseño del login
+
 public class Login extends javax.swing.JPanel {
     private main.Main main;
 
     public Login(main.Main main) {
         this.main = main;
         initComponents();
+        
         this.setSize(1200,800);
         this.setLocation(0,0);
-        if (true){
-            PanelInicioSesion.setVisible(true);
-            PanelAdmin.setVisible(false);
-        } else {
+        
+        // Muestra el panel de inicio de sesion dependiendo si hay usuarios o no en la tabla empleados
+        if (new DataBase().isEmptyTabla("Empleados")){
             PanelAdmin.setVisible(true);
             PanelInicioSesion.setVisible(false);
+        } else {
+            PanelInicioSesion.setVisible(true);
+            PanelAdmin.setVisible(false);
+
         }
     }
 
@@ -63,7 +71,7 @@ public class Login extends javax.swing.JPanel {
         btnRegistrar.setRadius(15);
 
         inputRepetirPassword.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        inputRepetirPassword.setLabelText("Repetir contraseña");
+        inputRepetirPassword.setLabelText("Confirmar contraseña");
         inputRepetirPassword.setShowAndHide(true);
 
         inputPassword.setToolTipText("");
@@ -223,6 +231,8 @@ public class Login extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioSesionActionPerformed
+        // todavia en desarrollo, primero hay que implementar el registro del primer usuario
+        
         System.out.println(inputUsuarioSesion.getText());
         System.out.println(inputPasswordUsuario.getText());
         this.setVisible(false);
