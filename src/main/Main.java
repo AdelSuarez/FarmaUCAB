@@ -28,7 +28,7 @@ public class Main extends javax.swing.JFrame {
         // solo de test
         System.out.println("base");
         new DataBase().createDB();
-        new DataBase().createTabla();        
+        new DataBase().createTabla(new DataBase().getSqlCreateTablaEmpleados());        
         //
         
         

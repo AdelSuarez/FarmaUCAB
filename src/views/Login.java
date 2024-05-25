@@ -1,6 +1,7 @@
 
 package views;
 
+import java.awt.Color;
 import database.DataBase;
 
 // Mejorar diseño del login
@@ -69,6 +70,11 @@ public class Login extends javax.swing.JPanel {
         btnRegistrar.setColorOver(new java.awt.Color(0, 102, 204));
         btnRegistrar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnRegistrar.setRadius(15);
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
 
         inputRepetirPassword.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         inputRepetirPassword.setLabelText("Confirmar contraseña");
@@ -232,14 +238,65 @@ public class Login extends javax.swing.JPanel {
 
     private void btnInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioSesionActionPerformed
         // todavia en desarrollo, primero hay que implementar el registro del primer usuario
+        validarInput(inputUsuarioSesion, "Usuario");
+        validarInputPassword(inputPasswordUsuario, "Contraseña");
         
         System.out.println(inputUsuarioSesion.getText());
         System.out.println(inputPasswordUsuario.getText());
-        this.setVisible(false);
-        main.initView(main.getDashboard());
+//        this.setVisible(false);
+//        main.initView(main.getDashboard());
 //        this.removeAll();
     }//GEN-LAST:event_btnInicioSesionActionPerformed
 
+   
+    
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+
+        validarInput(inputNombre, "Nombre");
+        validarInput(inputApellido, "Apellido");
+        validarInput(inputTelefono, "Telefono");
+        validarInput(inputCorreo, "Correo");
+        validarInput(inputUsuarioRegistro, "Usuario");
+        validarInputPassword(inputPassword, "Contraseña");
+        validarInputPassword(inputRepetirPassword, "Confirmar contraseña");
+
+
+        inputNombre.getText();
+        inputApellido.getText();
+        
+        String telefono = inputTelefono.getText().trim();
+        inputCorreo.getText();
+        inputUsuarioRegistro.getText();
+        inputPassword.getText();
+        inputRepetirPassword.getText();
+
+        new DataBase().insertEmpleado(inputNombre.getText(), inputApellido.getText(), Integer.parseInt(telefono), inputCorreo.getText(), inputUsuarioRegistro.getText(), true,inputPassword.getText());
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    
+    private void validarInput(components.TextField textfiel, String Texto){
+        if(textfiel.getText().equals("")){
+            textfiel.setLineColor(new Color(225,0,0));
+            textfiel.setLabelText(Texto + " (No puede estar Vacio)");
+        } else {
+            textfiel.setLineColor(new Color(3, 155, 216));
+            textfiel.setLabelText(Texto);
+        }
+        this.repaint();
+
+    }
+    
+    private void validarInputPassword(components.PasswordField textfielpassword, String Texto){
+        if(textfielpassword.getText().equals("")){
+            textfielpassword.setLineColor(new Color(225,0,0));
+            textfielpassword.setLabelText(Texto + " (No puede estar Vacio)");
+        } else {
+            textfielpassword.setLineColor(new Color(3, 155, 216));
+            textfielpassword.setLabelText(Texto);
+        }
+        this.repaint();
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FarmaUCAB;

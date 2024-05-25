@@ -7,34 +7,8 @@ import java.sql.*;
 public class DataBase {
     private Connection conexion = null;
     private Statement statement = null;
-
-    public void createDB(){
-        try {
-            Class.forName("org.sqlite.JDBC");
-            conexion = DriverManager.getConnection("jdbc:sqlite:./DataBase.db");
-            System.out.println("La base de datos ha sido creada exitosamente en la carpeta del proyecto.");
-        } catch (ClassNotFoundException | SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            try {
-                if (conexion != null) {
-                    conexion.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    
-    }
-    
-    // hacer que el codigo reciba varias tablas para crear diferentes tablas 
-    public void createTabla( ){
-         try {
-            Class.forName("org.sqlite.JDBC");
-            conexion = DriverManager.getConnection("jdbc:sqlite:./DataBase.db");
-
-            String sqlTabla = "CREATE TABLE IF NOT EXISTS Empleados " +
-                                   "(ID INT PRIMARY KEY     NOT NULL UNIQUE," +
+    private final String sqlCreateTablaEmpleados = "CREATE TABLE IF NOT EXISTS Empleados " +
+                                   "(ID INTEGER PRIMARY KEY     NOT NULL," +
                                    " NOMBRE           TEXT    NOT NULL, " + 
                                    " APELLIDO            TEXT     NOT NULL, " + 
                                    " TELEFONO            INT     NOT NULL, " + 
@@ -42,12 +16,85 @@ public class DataBase {
                                    " USUARIO            TEXT     NOT NULL UNIQUE, " + 
                                     " ADMIN            BOOLEAM     NOT NULL, " + 
                                    " PASSWORD       CHAR(50)) "; 
+    private final String ORG = "org.sqlite.JDBC";
+    private final String DIRECCIONDB = "jdbc:sqlite:./DataBase.db"; 
+    
+    
+    // Funciones
+    
+    public String getSqlCreateTablaEmpleados() {
+        return sqlCreateTablaEmpleados;
+    }
 
-            Statement sentencia = (Statement) conexion.createStatement();
-            sentencia.executeUpdate(sqlTabla);
-            sentencia.close();
+    public void createDB(){
+        // Crea la base de datos, si no existe
+        try {
+            Class.forName(ORG);
+            conexion = DriverManager.getConnection(DIRECCIONDB);
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    
+    }
+    
+    public void insertEmpleado(String nombre, String apellido, int telefono, String correo, String usuario, boolean admin, String password) {
+    try {
+        Class.forName(ORG);
+        conexion = DriverManager.getConnection(DIRECCIONDB);
+        conexion.setAutoCommit(false);
+        String sqlInsert = "INSERT INTO Empleados (nombre, apellido, telefono, correo, usuario, admin, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement preparedStatement = conexion.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);
+        preparedStatement.setString(1, nombre);
+        preparedStatement.setString(2, apellido);
+        preparedStatement.setInt(3, telefono);
+        preparedStatement.setString(4, correo);
+        preparedStatement.setString(5, usuario);
+        preparedStatement.setBoolean(6, admin);
+        preparedStatement.setString(7, password);
 
-            System.out.println("La tabla ha sido creada exitosamente en la base de datos.");
+        int filasInsertadas = preparedStatement.executeUpdate();
+        if (filasInsertadas > 0) {
+            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    int idGenerado = generatedKeys.getInt(1);
+                    System.out.println("ID generado: " + idGenerado);
+                }
+            }
+            conexion.commit(); // Confirmar la transacción
+            System.out.println("Empleado insertado correctamente.");
+        } else {
+            System.out.println("Error al insertar el empleado.");
+        }
+    } catch (ClassNotFoundException | SQLException e) {
+        System.out.println(e.getMessage());
+    } finally {
+        try {
+            if (conexion != null) {
+                conexion.close();
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
+    
+    public void createTabla(String sqlTabla ){
+        // Crea cual tabla en la base de datos
+        try {
+            Class.forName(ORG);
+            conexion = DriverManager.getConnection(DIRECCIONDB);
+            statement = (Statement) conexion.createStatement();
+            statement.executeUpdate(sqlTabla);
+            statement.close(); 
+
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -61,16 +108,16 @@ public class DataBase {
         }
     }
     
+   
     
     public void viewTabla(String nombreTabla){
          try {
-            Class.forName("org.sqlite.JDBC");
-            conexion = DriverManager.getConnection("jdbc:sqlite:./DataBase.db");
-
+            Class.forName(ORG);
+            conexion = DriverManager.getConnection(DIRECCIONDB);
             String sqlConsulta = "SELECT * FROM " + nombreTabla;
 
-            Statement sentencia = (Statement) conexion.createStatement();
-            ResultSet resultados = sentencia.executeQuery(sqlConsulta);
+            statement = (Statement) conexion.createStatement();
+            ResultSet resultados = statement.executeQuery(sqlConsulta);
 
             ResultSetMetaData rsmd = resultados.getMetaData();
             int numColumnas = rsmd.getColumnCount();
@@ -85,7 +132,7 @@ public class DataBase {
             }
 
             resultados.close();
-            sentencia.close();
+            statement.close();
 
             System.out.println("Los datos de la tabla '" + nombreTabla + "' se han mostrado exitosamente.");
         } catch (ClassNotFoundException | SQLException e) {
@@ -103,24 +150,30 @@ public class DataBase {
     }
     
     public boolean isEmptyTabla(String nameTabla) {
+        // Verifica si la tabla contiene algun elemento
         boolean isEmpty = true;
         try {
-            Class.forName("org.sqlite.JDBC");
-            conexion = DriverManager.getConnection("jdbc:sqlite:./DataBase.db");
-            String sqlConsulta = "SELECT EXISTS(SELECT 1 FROM " + nameTabla + " LIMIT 1)";
+            Class.forName(ORG);
+            conexion = DriverManager.getConnection(DIRECCIONDB);
+            DatabaseMetaData metaData = conexion.getMetaData();
+            ResultSet tablas = metaData.getTables(null, null, nameTabla, null);
+            
+            if(tablas.next()){
+                String sqlConsulta = "SELECT EXISTS(SELECT 1 FROM " + nameTabla + " LIMIT 1)";
 
-            Statement sentencia = (Statement) conexion.createStatement();
-            ResultSet resultados = sentencia.executeQuery(sqlConsulta);
+                statement = (Statement) conexion.createStatement();
+                try (ResultSet resultados = statement.executeQuery(sqlConsulta)) {
+                    if (resultados.next()) {
+                        int existe = resultados.getInt(1);
+                        if (existe == 1) {
+                            isEmpty = false;
+                        }
+                    }
+                }   
+                statement.close();
 
-            if (resultados.next()) {
-                int existe = resultados.getInt(1);
-                if (existe == 1) {
-                    isEmpty = false;
-                }
             }
 
-            resultados.close();
-            sentencia.close();
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage() + " error al verificar si la tabla está vacía");
         } finally {
