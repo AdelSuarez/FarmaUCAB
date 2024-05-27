@@ -8,11 +8,12 @@ import database.DataBase;
 
 public class Login extends javax.swing.JPanel {
     private main.Main main;
+    private String aviso = " (Campo vacío)";
 
     public Login(main.Main main) {
         this.main = main;
         initComponents();
-        
+        textoPassword.setVisible(false);
         this.setSize(1200,800);
         this.setLocation(0,0);
         
@@ -43,6 +44,7 @@ public class Login extends javax.swing.JPanel {
         inputNombre = new components.TextField();
         inputUsuarioRegistro = new components.TextField();
         inputCorreo = new components.TextField();
+        textoPassword = new javax.swing.JLabel();
         PanelInicioSesion = new components.PanelRound();
         btnInicioSesion = new button.ButtonCustom();
         inputPasswordUsuario = new components.PasswordField();
@@ -76,16 +78,19 @@ public class Login extends javax.swing.JPanel {
             }
         });
 
-        inputRepetirPassword.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        inputRepetirPassword.setForeground(new java.awt.Color(80, 80, 80));
+        inputRepetirPassword.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         inputRepetirPassword.setLabelText("Confirmar contraseña");
         inputRepetirPassword.setShowAndHide(true);
 
+        inputPassword.setForeground(new java.awt.Color(80, 80, 80));
         inputPassword.setToolTipText("");
-        inputPassword.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        inputPassword.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         inputPassword.setLabelText("Contraseña");
         inputPassword.setShowAndHide(true);
 
-        inputTelefono.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        inputTelefono.setForeground(new java.awt.Color(80, 80, 80));
+        inputTelefono.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         inputTelefono.setLabelText("Telefono");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -95,19 +100,27 @@ public class Login extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(169, 169, 169));
         jLabel2.setText("Admin");
 
+        inputApellido.setForeground(new java.awt.Color(80, 80, 80));
         inputApellido.setToolTipText("");
-        inputApellido.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        inputApellido.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         inputApellido.setLabelText("Apellido");
 
+        inputNombre.setForeground(new java.awt.Color(80, 80, 80));
         inputNombre.setToolTipText("");
-        inputNombre.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        inputNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         inputNombre.setLabelText("Nombre");
 
-        inputUsuarioRegistro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        inputUsuarioRegistro.setForeground(new java.awt.Color(80, 80, 80));
+        inputUsuarioRegistro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         inputUsuarioRegistro.setLabelText("Usuario");
 
-        inputCorreo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        inputCorreo.setForeground(new java.awt.Color(80, 80, 80));
+        inputCorreo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         inputCorreo.setLabelText("Correo");
+
+        textoPassword.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        textoPassword.setForeground(new java.awt.Color(225, 0, 0));
+        textoPassword.setText("Las contraseñas no coinciden!");
 
         javax.swing.GroupLayout PanelAdminLayout = new javax.swing.GroupLayout(PanelAdmin);
         PanelAdmin.setLayout(PanelAdminLayout);
@@ -116,28 +129,30 @@ public class Login extends javax.swing.JPanel {
             .addGroup(PanelAdminLayout.createSequentialGroup()
                 .addGroup(PanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelAdminLayout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addGroup(PanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(inputTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(inputRepetirPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(inputApellido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                            .addComponent(inputNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                            .addComponent(inputUsuarioRegistro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(inputPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(inputCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(PanelAdminLayout.createSequentialGroup()
                         .addGap(149, 149, 149)
-                        .addComponent(jLabel2)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAdminLayout.createSequentialGroup()
+                        .addComponent(jLabel2))
+                    .addGroup(PanelAdminLayout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addGroup(PanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(inputApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(PanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(inputUsuarioRegistro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(inputPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                                .addComponent(inputCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(inputRepetirPassword, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textoPassword, javax.swing.GroupLayout.Alignment.LEADING))))
+                .addContainerGap(41, Short.MAX_VALUE))
+            .addGroup(PanelAdminLayout.createSequentialGroup()
                 .addContainerGap(63, Short.MAX_VALUE)
                 .addGroup(PanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAdminLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(56, 56, 56))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAdminLayout.createSequentialGroup()
                         .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(127, 127, 127))))
+                        .addGap(127, 127, 127))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAdminLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(56, 56, 56))))
         );
         PanelAdminLayout.setVerticalGroup(
             PanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,21 +161,23 @@ public class Login extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(inputNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
                 .addComponent(inputApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(inputTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(inputCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(inputUsuarioRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(inputPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
                 .addComponent(inputRepetirPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoPassword)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12))
         );
@@ -179,7 +196,7 @@ public class Login extends javax.swing.JPanel {
         btnInicioSesion.setColor(new java.awt.Color(0, 102, 255));
         btnInicioSesion.setColorClick(new java.awt.Color(0, 102, 255));
         btnInicioSesion.setColorOver(new java.awt.Color(0, 102, 204));
-        btnInicioSesion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnInicioSesion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnInicioSesion.setRadius(15);
         btnInicioSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -188,15 +205,16 @@ public class Login extends javax.swing.JPanel {
         });
 
         inputPasswordUsuario.setToolTipText("");
-        inputPasswordUsuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        inputPasswordUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         inputPasswordUsuario.setLabelText("Contraseña");
         inputPasswordUsuario.setShowAndHide(true);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel3.setText("Iniciar sesion");
 
+        inputUsuarioSesion.setForeground(new java.awt.Color(80, 80, 80));
         inputUsuarioSesion.setToolTipText("");
-        inputUsuarioSesion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        inputUsuarioSesion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         inputUsuarioSesion.setLabelText("Usuario");
 
         javax.swing.GroupLayout PanelInicioSesionLayout = new javax.swing.GroupLayout(PanelInicioSesion);
@@ -228,7 +246,7 @@ public class Login extends javax.swing.JPanel {
                 .addComponent(inputUsuarioSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(inputPasswordUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 202, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 198, Short.MAX_VALUE)
                 .addComponent(btnInicioSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39))
         );
@@ -238,65 +256,106 @@ public class Login extends javax.swing.JPanel {
 
     private void btnInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioSesionActionPerformed
         // todavia en desarrollo, primero hay que implementar el registro del primer usuario
-        validarInput(inputUsuarioSesion, "Usuario");
-        validarInputPassword(inputPasswordUsuario, "Contraseña");
+//        validarInput(inputUsuarioSesion, "Usuario");
+//        validarInputPassword(inputPasswordUsuario, "Contraseña");
         
         System.out.println(inputUsuarioSesion.getText());
         System.out.println(inputPasswordUsuario.getText());
-//        this.setVisible(false);
-//        main.initView(main.getDashboard());
-//        this.removeAll();
     }//GEN-LAST:event_btnInicioSesionActionPerformed
 
    
     
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
 
-        validarInput(inputNombre, "Nombre");
-        validarInput(inputApellido, "Apellido");
-        validarInput(inputTelefono, "Telefono");
-        validarInput(inputCorreo, "Correo");
-        validarInput(inputUsuarioRegistro, "Usuario");
-        validarInputPassword(inputPassword, "Contraseña");
-        validarInputPassword(inputRepetirPassword, "Confirmar contraseña");
+        if (ceroCamposVacios()){
+            
+            if (verificacionPassword()){
+                System.out.println("las claves son iguales");
+                System.out.println("No hay campos vacios");
 
-
-        inputNombre.getText();
-        inputApellido.getText();
+            } else {
+                textoPassword.setVisible(true);
+            }
+        } else {
+            System.out.println("hay campos vacios");
+            verificacionPassword();
+        }
         
-        String telefono = inputTelefono.getText().trim();
-        inputCorreo.getText();
-        inputUsuarioRegistro.getText();
-        inputPassword.getText();
-        inputRepetirPassword.getText();
-
-        new DataBase().insertEmpleado(inputNombre.getText(), inputApellido.getText(), Integer.parseInt(telefono), inputCorreo.getText(), inputUsuarioRegistro.getText(), true,inputPassword.getText());
+//        new DataBase().insertEmpleado(
+//                inputNombre.getText().trim(),
+//                inputApellido.getText().trim(), 
+//                Integer.parseInt(inputTelefono.getText().trim()), 
+//                inputCorreo.getText().trim(),
+//                inputUsuarioRegistro.getText().trim(), 
+//                true,
+//                inputPassword.getText().trim());        
     }//GEN-LAST:event_btnRegistrarActionPerformed
-
     
-    private void validarInput(components.TextField textfiel, String Texto){
+    private boolean verificacionPassword(){
+        boolean estanIguales = false;
+        // Activa el JLabel que muestra si las dos contraseñas son iguales
+        if (inputPassword.getText().trim().equals(inputRepetirPassword.getText().trim())){
+            textoPassword.setVisible(false);
+            estanIguales = true;
+
+        } else {
+            textoPassword.setVisible(true);
+        }
+        return estanIguales;
+    }
+    
+    private boolean ceroCamposVacios(){
+        boolean estanVacios = false;
+        // se usa un array para que se se guarde los cambios que se realizan a la variable con las otras funciones
+        int[] contadorInput = {0};
+        
+        validarInput(inputNombre, "Nombre", contadorInput);
+        validarInput(inputApellido, "Apellido", contadorInput);
+        validarInput(inputTelefono, "Telefono", contadorInput);
+        validarInput(inputCorreo, "Correo", contadorInput);
+        validarInput(inputUsuarioRegistro, "Usuario", contadorInput);
+        validarInputPassword(inputPassword, "Contraseña", contadorInput);
+        validarInputPassword(inputRepetirPassword, "Confirmar contraseña", contadorInput);
+        System.out.println(contadorInput[0]);
+        
+        if(contadorInput[0] == 7){
+            estanVacios = true;
+        }
+        return estanVacios;
+    }
+    
+    // no se ha usado
+    private boolean validarNombre(components.TextField textfiel){
+        String regex = "^[a-zA-Z]*$";
+        return textfiel.getText().matches(regex);
+    }
+     
+    
+    // Verificadores de campos vacios
+    private void validarInput(components.TextField textfiel, String Texto, int[] contador){
         if(textfiel.getText().equals("")){
             textfiel.setLineColor(new Color(225,0,0));
-            textfiel.setLabelText(Texto + " (No puede estar Vacio)");
+            textfiel.setLabelText(Texto + aviso);
         } else {
             textfiel.setLineColor(new Color(3, 155, 216));
             textfiel.setLabelText(Texto);
+            contador[0]++;
         }
         this.repaint();
-
     }
     
-    private void validarInputPassword(components.PasswordField textfielpassword, String Texto){
+    private void validarInputPassword(components.PasswordField textfielpassword, String Texto, int[] contador){
         if(textfielpassword.getText().equals("")){
             textfielpassword.setLineColor(new Color(225,0,0));
-            textfielpassword.setLabelText(Texto + " (No puede estar Vacio)");
+            textfielpassword.setLabelText(Texto + aviso);
         } else {
             textfielpassword.setLineColor(new Color(3, 155, 216));
             textfielpassword.setLabelText(Texto);
+            contador[0]++;
         }
         this.repaint();
-
     }
+    //
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FarmaUCAB;
@@ -316,6 +375,7 @@ public class Login extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel textoPassword;
     // End of variables declaration//GEN-END:variables
 
 }
