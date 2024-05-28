@@ -2,7 +2,7 @@
 package main;
 import database.DataBase;
 import java.awt.BorderLayout;
-import style.StyleViews;
+import style.styleWindow;
 
 // colocar todo en español, pero despues de la entrega final, colocarlo en ingles para el portafolio
 // optimizar codigo, testear las ventanas para conseguir errores, y si se puede implementar test unitarios, no mostrar los test en la entrega
@@ -17,7 +17,7 @@ public class Main extends javax.swing.JFrame {
 //      Configuraciones de la ventana
         login = new views.Login(this);
         dashboard = new views.Dashboard();
-        StyleViews ventana = new StyleViews();
+        styleWindow ventana = new styleWindow();
         initComponents();
         ventana.configuracionesVentana(this, 1600, 1000, "Enfermeria UCAB");
         setIconImage(ventana.getIconImage("images/logo.png"));
