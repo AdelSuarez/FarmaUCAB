@@ -11,7 +11,7 @@ public class DataBase {
                                    "(ID INTEGER PRIMARY KEY     NOT NULL," +
                                    " NOMBRE           TEXT    NOT NULL, " + 
                                    " APELLIDO            TEXT     NOT NULL, " + 
-                                   " TELEFONO            INT     NOT NULL, " + 
+                                   " TELEFONO            TEXT     NOT NULL, " + 
                                    " CORREO            TEXT     NOT NULL UNIQUE, " + 
                                    " USUARIO            TEXT     NOT NULL UNIQUE, " + 
                                     " ADMIN            BOOLEAM     NOT NULL, " + 
@@ -45,7 +45,7 @@ public class DataBase {
     
     }
     
-    public void insertEmpleado(String nombre, String apellido, int telefono, String correo, String usuario, boolean admin, String password) {
+    public void insertEmpleado(String nombre, String apellido, String telefono, String correo, String usuario, boolean admin, String password) {
     try {
         Class.forName(ORG);
         conexion = DriverManager.getConnection(DIRECCIONDB);
@@ -54,7 +54,7 @@ public class DataBase {
         PreparedStatement preparedStatement = conexion.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);
         preparedStatement.setString(1, nombre);
         preparedStatement.setString(2, apellido);
-        preparedStatement.setInt(3, telefono);
+        preparedStatement.setString(3, telefono);
         preparedStatement.setString(4, correo);
         preparedStatement.setString(5, usuario);
         preparedStatement.setBoolean(6, admin);
