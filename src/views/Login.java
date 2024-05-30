@@ -3,6 +3,7 @@ package views;
 
 import database.DataBase;
 import validaciones.ValidacionLogin;
+import style.MyColor;
 
 // Mejorar diseño del login
 
@@ -285,18 +286,25 @@ public class Login extends javax.swing.JPanel {
 
     private void btnInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioSesionActionPerformed
         // todavia en desarrollo, primero hay que implementar el registro del primer usuario
-//        validarInput(inputUsuarioSesion, "Usuario");
-//        validarInputPassword(inputPasswordUsuario, "Contraseña");
         
-        System.out.println(inputUsuarioSesion.getText());
-        System.out.println(inputPasswordUsuario.getText());
+
+        if (validacion.ceroCamposVaciosInicioSesion(inputUsuarioSesion, inputPasswordUsuario) == 2){
+            if(new DataBase().buscarUser("Empleados", inputUsuarioSesion.getText(), inputPasswordUsuario.getText().trim())){
+                main.initView(main.getDashboard());
+            } else {
+                inputUsuarioSesion.setLineColor( new MyColor().getRED());
+                inputPasswordUsuario.setLineColor( new MyColor().getRED());
+            }
+        }
+        this.repaint();
+
     }//GEN-LAST:event_btnInicioSesionActionPerformed
 
    
     
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-
-        if (validacion.ceroCamposVacios(inputNombre, inputApellido, inputTelefono, inputCorreo, inputUsuarioRegistro, inputPassword, inputRepetirPassword) 
+//        validacion.validarInputPassword(inputPassword, "aaaaa");
+        if (validacion.ceroCamposVaciosRegistro(inputNombre, inputApellido, inputTelefono, inputCorreo, inputUsuarioRegistro, inputPassword, inputRepetirPassword) 
                 && validacion.verificacionPassword(textoMensaje, inputPassword, inputRepetirPassword)){
             new DataBase().insertEmpleado(
                 inputNombre.getText().trim(),

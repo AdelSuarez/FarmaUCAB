@@ -9,7 +9,7 @@ public class ValidacionLogin {
     private final String AVISOCARACTERES = " (Caracteres invalidos)";
     private final String REGEXNOMBRE = "^[A-Za-z ]*$";
     private final String REGEXCORREO = "[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}";
-    private final String REGEXNUMERO = "^[0-9]+$";
+    private final String REGEXNUMERO = "^[0-9 ]+$";
     
     private void mensaje(JLabel jlabel, String mensaje){
         jlabel.setText(mensaje);
@@ -17,24 +17,47 @@ public class ValidacionLogin {
 //        this.repaint();
     }    
     public boolean verificacionPassword(JLabel jlabel, components.PasswordField inputPassword, components.PasswordField inputRepetirPassword){
-        boolean estanIguales = false;
+//        boolean estanIguales = false;
         // Activa el JLabel que muestra si las dos contraseñas son iguales
-        if (inputPassword.getText().trim().equals(inputRepetirPassword.getText().trim())){
+        if (inputPassword.getText().trim().equals(inputRepetirPassword.getText().trim()) && !inputPassword.getText().equals("") && !inputRepetirPassword.getText().equals("") ){
             jlabel.setVisible(false);
-            estanIguales = true;
+//            estanIguales = true;
             inputPassword.setLineColor(new MyColor().getAZUL());
             inputRepetirPassword.setLineColor(new MyColor().getAZUL());
-
+            return true;
 
         } else {
             inputPassword.setLineColor(new MyColor().getRED());
             inputRepetirPassword.setLineColor(new MyColor().getRED());
+            if (!inputPassword.getText().equals("") && !inputRepetirPassword.getText().equals(""))
             mensaje(jlabel,"Las contraseñas no coinciden!");
+            return false;
+
         }
-        return estanIguales;
+//        return (null);
     }
     
-    public boolean ceroCamposVacios(
+    public int ceroCamposVaciosInicioSesion(components.TextField inputUsuario, components.PasswordField inputPassword){
+        int contador = 0;
+        if (validarInput(inputUsuario, "Usuario")){   
+            contador++;
+        }
+        if (validarInputPassword(inputPassword, "Contraseña")){
+            contador++;
+            inputPassword.setLineColor(new MyColor().getAZUL());
+
+        } else {
+            inputPassword.setLineColor(new MyColor().getRED());
+
+        }
+        
+        return contador;
+                
+    }
+    
+    
+    
+    public boolean ceroCamposVaciosRegistro(
             components.TextField inputNombre, 
             components.TextField inputApellido, 
             components.TextField inputTelefono, 
@@ -42,7 +65,7 @@ public class ValidacionLogin {
             components.TextField inputUsuarioRegistro,
             components.PasswordField inputPassword,
             components.PasswordField inputRepetirPassword){
-        boolean estanVacios = false;
+//        boolean estanVacios = false;
         // se usa un array para que se se guarde los cambios que se realizan a la variable con las otras funciones
         int[] contadorInput = {0};
         
@@ -68,15 +91,22 @@ public class ValidacionLogin {
         if (validarInput(inputUsuarioRegistro, "Usuario")){
             contadorInput[0]++;
         }
+        if (validarInputPassword(inputPassword, "Contraseña")){
+            contadorInput[0]++;
+        }
         
-        validarInputPassword(inputPassword, "Contraseña", contadorInput);
-        validarInputPassword(inputRepetirPassword, "Confirmar contraseña", contadorInput);
+        if (validarInputPassword(inputRepetirPassword, "Confirmar contraseña")) {
+            contadorInput[0]++;
+        }
         System.out.println(contadorInput[0]);
         
         if(contadorInput[0] == 7){
-            estanVacios = true;
+//            estanVacios = true;
+            return true;
+        } else {
+            return false;
         }
-        return estanVacios;
+//        return estanVacios;
     }
     
     private void validarCaracteresInput(components.TextField textfiel, String texto, String regex, int[] contador){
@@ -98,27 +128,31 @@ public class ValidacionLogin {
     
     // Verificadores de campos vacios
     private boolean validarInput(components.TextField textfiel, String texto){
-        boolean estaVacio = false;
+//        boolean estaVacio = false;
         if(textfiel.getText().equals("")){
             textfiel.setLineColor(new MyColor().getRED());
             textfiel.setLabelText(texto + AVISOVACIO);
+            return false;
         } else {
             textfiel.setLineColor(new MyColor().getAZUL());
             textfiel.setLabelText(texto);
-            estaVacio = true;
+//            estaVacio = true;
+            return true;
         }
-        return estaVacio;
+//        return estaVacio;
     }
-    
-    private void validarInputPassword(components.PasswordField textfielpassword, String Texto, int[] contador){
+
+    public boolean validarInputPassword(components.PasswordField textfielpassword, String Texto){
+//        boolean estaVacio = false;
         if(textfielpassword.getText().equals("")){
-            System.out.println("Vacio");
-            textfielpassword.setLineColor(new MyColor().getRED());
             textfielpassword.setLabelText(Texto + AVISOVACIO);
+            return false;
         } else {
-            textfielpassword.setLineColor(new MyColor().getAZUL());
             textfielpassword.setLabelText(Texto);
-            contador[0]++;
+//            estaVacio = true;
+            return true;
         }
+//        return estaVacio;
+
     }
 }
