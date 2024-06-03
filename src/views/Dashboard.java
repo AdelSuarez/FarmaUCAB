@@ -39,6 +39,7 @@ public class Dashboard extends javax.swing.JPanel {
         btnPaciente = new components.ButtonCustom();
         btnInsumo = new components.ButtonCustom();
         jSeparator1 = new javax.swing.JSeparator();
+        buttonCustom1 = new components.ButtonCustom();
         jPanel3 = new javax.swing.JPanel();
         Content = new javax.swing.JPanel();
 
@@ -107,6 +108,10 @@ public class Dashboard extends javax.swing.JPanel {
         jPanel2.add(btnInsumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 180, -1, -1));
         jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 78, 248, 10));
 
+        buttonCustom1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout.png"))); // NOI18N
+        buttonCustom1.setBorderColor(new java.awt.Color(255, 255, 255));
+        jPanel2.add(buttonCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 900, -1, -1));
+
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, -1));
 
         jPanel3.setBackground(new java.awt.Color(250, 250, 250));
@@ -172,6 +177,7 @@ public class Dashboard extends javax.swing.JPanel {
     private components.ButtonCustom btnConsulta;
     private components.ButtonCustom btnInsumo;
     private components.ButtonCustom btnPaciente;
+    private components.ButtonCustom buttonCustom1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
