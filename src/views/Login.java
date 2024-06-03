@@ -36,7 +36,7 @@ public class Login extends javax.swing.JPanel {
 
         FarmaUCAB = new javax.swing.JLabel();
         PanelAdmin = new components.PanelRound();
-        btnRegistrar = new button.ButtonCustom();
+        btnRegistrar = new components.ButtonCustom();
         inputRepetirPassword = new components.PasswordField();
         inputPassword = new components.PasswordField();
         inputTelefono = new components.TextField();
@@ -48,7 +48,7 @@ public class Login extends javax.swing.JPanel {
         inputCorreo = new components.TextField();
         textoMensaje = new javax.swing.JLabel();
         PanelInicioSesion = new components.PanelRound();
-        btnInicioSesion = new button.ButtonCustom();
+        btnInicioSesion = new components.ButtonCustom();
         inputPasswordUsuario = new components.PasswordField();
         jLabel3 = new javax.swing.JLabel();
         inputUsuarioSesion = new components.TextField();
@@ -327,8 +327,8 @@ public class Login extends javax.swing.JPanel {
     private javax.swing.JLabel FarmaUCAB;
     private components.PanelRound PanelAdmin;
     private components.PanelRound PanelInicioSesion;
-    private button.ButtonCustom btnInicioSesion;
-    private button.ButtonCustom btnRegistrar;
+    private components.ButtonCustom btnInicioSesion;
+    private components.ButtonCustom btnRegistrar;
     private components.TextField inputApellido;
     private components.TextField inputCorreo;
     private components.TextField inputNombre;

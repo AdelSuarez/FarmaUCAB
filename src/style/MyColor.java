@@ -7,6 +7,16 @@ public class MyColor {
     private final Color REDPRIMARIO = new Color(225,0,0);
     private final Color REDSECUNDARIO = new Color(245,183,177);
     private final Color AZUL = new Color(3, 155, 216);
+    private final Color BTNSELECTCOLOR = new Color(215,215,215);
+    private final Color BTNBGDASHBOAR = new Color(240,240,240);
+
+    public Color getBTNBGDASHBOAR() {
+        return BTNBGDASHBOAR;
+    }
+
+    public Color getBTNSELECTCOLOR() {
+        return BTNSELECTCOLOR;
+    }
 
     public Color getREDSECUNDARIO() {
         return REDSECUNDARIO;
