@@ -33,5 +33,21 @@ public class MyColor {
     public Color getAZUL() {
         return AZUL;
     }
+    
+    // Colores
+    // Azul
+    // 0069ff 0%
+    // 005fe6 10%
+    // 0054cc 20%
+    
+    // Rojo
+    // E74C3C 0%
+    // d04436 10%
+    // b93d30 20%
+    
+    // Amarillo
+    // F4D03F 0%
+    // dcbb39 10%
+    // c3a632 20%
 
 }

@@ -16,7 +16,7 @@ public class Main extends javax.swing.JFrame {
     public Main() {    
 //      Configuraciones de la ventana
         login = new views.Login(this);
-        dashboard = new views.Dashboard();
+        dashboard = new views.Dashboard(this);
         styleWindow ventana = new styleWindow();
         initComponents();
         ventana.configuracionesVentana(this, 1600, 1000, "Enfermeria UCAB");
@@ -30,12 +30,16 @@ public class Main extends javax.swing.JFrame {
         
         
         initView(dashboard);
-        initView(login);
+//        initView(login);
 
     }
     
-    public  views.Dashboard getDashboard() {
+    public views.Dashboard getDashboard() {
         return dashboard;
+    }
+    
+    public views.Login getLogin(){
+        return login;
     }
  
     public void initView(javax.swing.JPanel view){
