@@ -16,6 +16,8 @@ public class NuevoPaciente extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         buttonCustom1 = new components.ButtonCustom();
+        panelRound1 = new components.PanelRound();
+        textField1 = new components.TextField();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -37,6 +39,33 @@ public class NuevoPaciente extends javax.swing.JPanel {
             }
         });
         jPanel1.add(buttonCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 50, -1));
+
+        panelRound1.setBackground(new java.awt.Color(240, 240, 240));
+        panelRound1.setRoundBottomLeft(15);
+        panelRound1.setRoundBottomRight(15);
+        panelRound1.setRoundTopLeft(15);
+        panelRound1.setRoundTopRight(15);
+
+        textField1.setText("textField1");
+
+        javax.swing.GroupLayout panelRound1Layout = new javax.swing.GroupLayout(panelRound1);
+        panelRound1.setLayout(panelRound1Layout);
+        panelRound1Layout.setHorizontalGroup(
+            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRound1Layout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(723, Short.MAX_VALUE))
+        );
+        panelRound1Layout.setVerticalGroup(
+            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRound1Layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(453, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 1010, 560));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -61,5 +90,7 @@ public class NuevoPaciente extends javax.swing.JPanel {
     private components.ButtonCustom buttonCustom1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private components.PanelRound panelRound1;
+    private components.TextField textField1;
     // End of variables declaration//GEN-END:variables
 }

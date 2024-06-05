@@ -29,7 +29,7 @@ public class Main extends javax.swing.JFrame {
         //
         
         initView(dashboard);
-        initView(login);
+//        initView(login);
 
     }
     
