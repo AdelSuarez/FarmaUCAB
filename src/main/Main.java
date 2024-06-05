@@ -19,7 +19,7 @@ public class Main extends javax.swing.JFrame {
         dashboard = new views.Dashboard(this);
         styleWindow ventana = new styleWindow();
         initComponents();
-        ventana.configuracionesVentana(this, 1600, 1000, "Enfermeria UCAB");
+        ventana.configuracionesVentana(this, 1400, 800, "Enfermeria UCAB");
         setIconImage(ventana.getIconImage("images/logo.png"));
         
         
@@ -28,9 +28,8 @@ public class Main extends javax.swing.JFrame {
         new DataBase().createTabla(new DataBase().getSqlCreateTablaEmpleados());        
         //
         
-        
         initView(dashboard);
-//        initView(login);
+        initView(login);
 
     }
     
