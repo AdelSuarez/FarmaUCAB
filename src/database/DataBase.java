@@ -5,25 +5,38 @@ import java.sql.*;
 // optimizar el codigo y evitar el codigo repetido
 
 public class DataBase {
-    private Connection conexion = null;
-    private Statement statement = null;
+    protected Connection conexion = null;
+    protected Statement statement = null;
     private final String sqlCreateTablaEmpleados = "CREATE TABLE IF NOT EXISTS Empleados " +
-                                   "(ID INTEGER PRIMARY KEY     NOT NULL," +
+                                   "(ID INTEGER PRIMARY KEY   NOT NULL," +
                                    " NOMBRE           TEXT    NOT NULL, " + 
-                                   " APELLIDO            TEXT     NOT NULL, " + 
-                                   " TELEFONO            TEXT     NOT NULL, " + 
-                                   " CORREO            TEXT     NOT NULL UNIQUE, " + 
-                                   " USUARIO            TEXT     NOT NULL UNIQUE, " + 
-                                   " ADMIN            BOOLEAN     NOT NULL, " + 
-                                   " PASSWORD       TEXT NOT NULL )"; 
-    private final String ORG = "org.sqlite.JDBC";
-    private final String DIRECCIONDB = "jdbc:sqlite:./DataBase.db"; 
+                                   " APELLIDO         TEXT    NOT NULL, " + 
+                                   " TELEFONO         TEXT    NOT NULL, " + 
+                                   " CORREO           TEXT    NOT NULL UNIQUE, " + 
+                                   " USUARIO          TEXT    NOT NULL UNIQUE, " + 
+                                   " ADMIN            BOOLEAN NOT NULL, " + 
+                                   " PASSWORD         TEXT    NOT NULL )";
+    private final String sqlCreateTablaPacientes = "CREATE TABLE IF NOT EXISTS Pacientes " +
+                                   "(ID INTEGER PRIMARY KEY   NOT NULL," +
+                                   " NOMBRE           TEXT    NOT NULL, " + 
+                                   " APELLIDO         TEXT    NOT NULL, " +
+                                   " CEDULA           TEXT    NOT NULL UNIQUE, " + 
+                                   " TELEFONO         TEXT    NOT NULL, " + 
+                                   " GENERO           TEXT    NOT NULL, " + 
+                                   " EDAD             INT     NOT NULL, " + 
+                                   " DESCRIPCION      TEXT  NOT NULL) ";
+    protected final String ORG = "org.sqlite.JDBC";
+    protected final String DIRECCIONDB = "jdbc:sqlite:./DataBase.db"; 
     
     
     // Funciones
     
     public String getSqlCreateTablaEmpleados() {
         return sqlCreateTablaEmpleados;
+    }
+    
+    public String getSqlCreateTablaPacientes(){
+        return sqlCreateTablaPacientes;
     }
 
     public void createDB(){
@@ -43,47 +56,6 @@ public class DataBase {
             }
         }
     
-    }
-    
-    public void insertEmpleado(String nombre, String apellido, String telefono, String correo, String usuario, boolean admin, String password) {
-        try {
-            Class.forName(ORG);
-            conexion = DriverManager.getConnection(DIRECCIONDB);
-            conexion.setAutoCommit(false);
-            String sqlInsert = "INSERT INTO Empleados (nombre, apellido, telefono, correo, usuario, admin, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement preparedStatement = conexion.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1, nombre);
-            preparedStatement.setString(2, apellido);
-            preparedStatement.setString(3, telefono);
-            preparedStatement.setString(4, correo);
-            preparedStatement.setString(5, usuario);
-            preparedStatement.setBoolean(6, admin);
-            preparedStatement.setString(7, password);
-
-            int filasInsertadas = preparedStatement.executeUpdate();
-            if (filasInsertadas > 0) {
-                try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
-                    if (generatedKeys.next()) {
-                        int idGenerado = generatedKeys.getInt(1);
-                        System.out.println("ID generado: " + idGenerado);
-                    }
-                }
-                conexion.commit(); // Confirmar la transacción
-                System.out.println("Empleado insertado correctamente.");
-            } else {
-                System.out.println("Error al insertar el empleado.");
-            }
-        } catch (ClassNotFoundException | SQLException e) {
-            System.out.println(e.getMessage() + "insertar");
-        } finally {
-            try {
-                if (conexion != null) {
-                    conexion.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
-        }
     }
     
     public void createTabla(String sqlTabla ){
@@ -186,47 +158,6 @@ public class DataBase {
             }
         }
         return isEmpty;
-    }
-
-    
-    public boolean buscarUser(String nombreTabla, String user, String password){
-         try {
-            Class.forName(ORG);
-            conexion = DriverManager.getConnection(DIRECCIONDB);
-            String sqlConsulta = "SELECT * FROM " + nombreTabla + " WHERE USUARIO = ?";
-
-            PreparedStatement ps = conexion.prepareStatement(sqlConsulta);
-            ps.setString(1, user);
-            ResultSet resultados = ps.executeQuery();
-            if (resultados.next()) {
-                
-                  if (password.equals(resultados.getString("PASSWORD"))){
-                      return true;
-                  } else {
-                      return false;
-                  }
-            } else {
-                System.out.println("Usuario no encontrado en la tabla " + nombreTabla);
-            }
-            
-            resultados.close();
-            ps.close();
-
-        } catch (ClassNotFoundException | SQLException e) {
-            System.out.println(e.getMessage() + " error al mostrar los datos de la tabla");
-        } finally {
-            try {
-                if (conexion != null) {
-                    conexion.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-         
-//        return (null);
-        return false;
-
     }
 
 }

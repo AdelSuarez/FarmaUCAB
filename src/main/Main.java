@@ -9,6 +9,7 @@ import style.styleWindow;
 
 
 public class Main extends javax.swing.JFrame {
+        private database.DataBase DB = new DataBase();
         private views.Login login;
         private views.Dashboard dashboard;
 
@@ -23,11 +24,11 @@ public class Main extends javax.swing.JFrame {
         setIconImage(ventana.getIconImage("images/logo.png"));
         
         
-        // solo de test
-        new DataBase().createDB();
-        new DataBase().createTabla(new DataBase().getSqlCreateTablaEmpleados());        
-        //
+        // DB
+        iniciadorDB();
         
+
+        // Interfaz
         initView(dashboard);
 //        initView(login);
 
@@ -46,6 +47,12 @@ public class Main extends javax.swing.JFrame {
         background.add(view, BorderLayout.CENTER);
         background.revalidate();
         background.repaint();
+    }
+    
+    private void iniciadorDB(){
+        DB.createDB();
+        DB.createTabla(DB.getSqlCreateTablaEmpleados());  
+        DB.createTabla(DB.getSqlCreateTablaPacientes());  
     }
     
     @SuppressWarnings("unchecked")

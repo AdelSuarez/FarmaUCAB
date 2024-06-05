@@ -14,31 +14,37 @@ public class NuevoPaciente extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        buttonCustom1 = new components.ButtonCustom();
+        btnRegresar = new components.ButtonCustom();
         panelRound1 = new components.PanelRound();
-        textField1 = new components.TextField();
+        apellidoPaciente = new components.TextField();
+        nombrePaciente = new components.TextField();
+        telefonoPaciente = new components.TextField();
+        cedulaPaciente = new components.TextField();
+        DEPaciente = new components.TextField();
+        textAreaScroll2 = new components.TextAreaScroll();
+        descripcionPaciente = new components.TextArea();
+        generoPaciente = new components.Combobox();
+        jLabel2 = new javax.swing.JLabel();
+        edadPaciente = new components.TextField();
+        btnGuardarPaciente = new components.ButtonCustom();
+        jLabel3 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel2.setText("Nuevo Paciente");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 20, -1, -1));
-
-        buttonCustom1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/arrow_back_black.png"))); // NOI18N
-        buttonCustom1.setBorderColor(new java.awt.Color(255, 255, 255));
-        buttonCustom1.setColorClick(new java.awt.Color(230, 230, 230));
-        buttonCustom1.setColorOver(new java.awt.Color(240, 240, 240));
-        buttonCustom1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        buttonCustom1.setPreferredSize(new java.awt.Dimension(40, 40));
-        buttonCustom1.setRadius(15);
-        buttonCustom1.addActionListener(new java.awt.event.ActionListener() {
+        btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/arrow_back_black.png"))); // NOI18N
+        btnRegresar.setBorderColor(new java.awt.Color(255, 255, 255));
+        btnRegresar.setColorClick(new java.awt.Color(230, 230, 230));
+        btnRegresar.setColorOver(new java.awt.Color(240, 240, 240));
+        btnRegresar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnRegresar.setPreferredSize(new java.awt.Dimension(40, 40));
+        btnRegresar.setRadius(15);
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCustom1ActionPerformed(evt);
+                btnRegresarActionPerformed(evt);
             }
         });
-        jPanel1.add(buttonCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 50, -1));
+        jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 50, -1));
 
         panelRound1.setBackground(new java.awt.Color(240, 240, 240));
         panelRound1.setRoundBottomLeft(15);
@@ -46,26 +52,125 @@ public class NuevoPaciente extends javax.swing.JPanel {
         panelRound1.setRoundTopLeft(15);
         panelRound1.setRoundTopRight(15);
 
-        textField1.setText("textField1");
+        apellidoPaciente.setBackground(new java.awt.Color(240, 240, 240));
+        apellidoPaciente.setForeground(new java.awt.Color(80, 80, 80));
+        apellidoPaciente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        apellidoPaciente.setLabelText("Apellido");
+
+        nombrePaciente.setBackground(new java.awt.Color(240, 240, 240));
+        nombrePaciente.setForeground(new java.awt.Color(80, 80, 80));
+        nombrePaciente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        nombrePaciente.setLabelText("Nombre");
+
+        telefonoPaciente.setBackground(new java.awt.Color(240, 240, 240));
+        telefonoPaciente.setForeground(new java.awt.Color(80, 80, 80));
+        telefonoPaciente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        telefonoPaciente.setLabelText("Telefono");
+
+        cedulaPaciente.setBackground(new java.awt.Color(240, 240, 240));
+        cedulaPaciente.setForeground(new java.awt.Color(80, 80, 80));
+        cedulaPaciente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cedulaPaciente.setLabelText("Cedula");
+
+        DEPaciente.setBackground(new java.awt.Color(240, 240, 240));
+        DEPaciente.setForeground(new java.awt.Color(80, 80, 80));
+        DEPaciente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        DEPaciente.setLabelText("Dependecia/Escuela");
+
+        textAreaScroll2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        textAreaScroll2.setLabelText("Descripcion");
+
+        descripcionPaciente.setBackground(new java.awt.Color(235, 235, 235));
+        descripcionPaciente.setColumns(20);
+        descripcionPaciente.setForeground(new java.awt.Color(0, 0, 0));
+        descripcionPaciente.setRows(5);
+        descripcionPaciente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        textAreaScroll2.setViewportView(descripcionPaciente);
+
+        generoPaciente.setBackground(new java.awt.Color(240, 240, 240));
+        generoPaciente.setForeground(new java.awt.Color(0, 0, 0));
+        generoPaciente.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Masculino", "Femenino" }));
+        generoPaciente.setSelectedIndex(-1);
+        generoPaciente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        generoPaciente.setLabeText("Genero");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel2.setText("Datos del Paciente");
+
+        edadPaciente.setBackground(new java.awt.Color(240, 240, 240));
+        edadPaciente.setForeground(new java.awt.Color(80, 80, 80));
+        edadPaciente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        edadPaciente.setLabelText("Edad");
+
+        btnGuardarPaciente.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuardarPaciente.setBorderColor(new java.awt.Color(240, 240, 240));
+        btnGuardarPaciente.setColor(new java.awt.Color(0, 105, 255));
+        btnGuardarPaciente.setColorClick(new java.awt.Color(0, 95, 230));
+        btnGuardarPaciente.setColorOver(new java.awt.Color(0, 84, 204));
+        btnGuardarPaciente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnGuardarPaciente.setLabel("Guardar");
+        btnGuardarPaciente.setPreferredSize(new java.awt.Dimension(86, 40));
+        btnGuardarPaciente.setRadius(15);
+        btnGuardarPaciente.setRolloverEnabled(true);
 
         javax.swing.GroupLayout panelRound1Layout = new javax.swing.GroupLayout(panelRound1);
         panelRound1.setLayout(panelRound1Layout);
         panelRound1Layout.setHorizontalGroup(
             panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelRound1Layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(723, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound1Layout.createSequentialGroup()
+                .addContainerGap(134, Short.MAX_VALUE)
+                .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addGroup(panelRound1Layout.createSequentialGroup()
+                        .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(nombrePaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(apellidoPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(telefonoPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(DEPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cedulaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(82, 82, 82)
+                        .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(textAreaScroll2, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelRound1Layout.createSequentialGroup()
+                                .addComponent(generoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(edadPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(btnGuardarPaciente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         panelRound1Layout.setVerticalGroup(
             panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRound1Layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(453, Short.MAX_VALUE))
+                .addGap(45, 45, 45)
+                .addComponent(jLabel2)
+                .addGap(50, 50, 50)
+                .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelRound1Layout.createSequentialGroup()
+                        .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(generoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(edadPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(textAreaScroll2, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelRound1Layout.createSequentialGroup()
+                        .addComponent(nombrePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(apellidoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cedulaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(telefonoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(DEPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addComponent(btnGuardarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49))
         );
 
-        jPanel1.add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 1010, 560));
+        jPanel1.add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 1010, 560));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel3.setText("Nuevo Paciente");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 20, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -79,18 +184,28 @@ public class NuevoPaciente extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonCustom1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCustom1ActionPerformed
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
         dashboard.initView(dashboard.getViewPaciente());
         this.repaint();
-    }//GEN-LAST:event_buttonCustom1ActionPerformed
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private components.ButtonCustom buttonCustom1;
+    private components.TextField DEPaciente;
+    private components.TextField apellidoPaciente;
+    private components.ButtonCustom btnGuardarPaciente;
+    private components.ButtonCustom btnRegresar;
+    private components.TextField cedulaPaciente;
+    private components.TextArea descripcionPaciente;
+    private components.TextField edadPaciente;
+    private components.Combobox generoPaciente;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private components.TextField nombrePaciente;
     private components.PanelRound panelRound1;
-    private components.TextField textField1;
+    private components.TextField telefonoPaciente;
+    private components.TextAreaScroll textAreaScroll2;
     // End of variables declaration//GEN-END:variables
 }

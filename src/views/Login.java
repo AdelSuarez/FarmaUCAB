@@ -2,6 +2,7 @@
 package views;
 
 import database.DataBase;
+import database.Empleado;
 import validaciones.ValidacionLogin;
 import style.MyColor;
 
@@ -9,6 +10,7 @@ import style.MyColor;
 
 public class Login extends javax.swing.JPanel {
     private ValidacionLogin validacion = new ValidacionLogin();
+    private database.Empleado empleado = new Empleado();
     private main.Main main;
 
 
@@ -263,7 +265,7 @@ public class Login extends javax.swing.JPanel {
         
 
         if (validacion.ceroCamposVaciosInicioSesion(inputUsuarioSesion, inputPasswordUsuario) == 2){
-            if(new DataBase().buscarUser("Empleados", inputUsuarioSesion.getText(), inputPasswordUsuario.getText().trim())){
+            if(empleado.inicioEmpleado("Empleados", inputUsuarioSesion.getText(), inputPasswordUsuario.getText().trim())){
                 main.initView(main.getDashboard());
             } else {
                 inputUsuarioSesion.setLineColor( new MyColor().getRED());
@@ -278,7 +280,7 @@ public class Login extends javax.swing.JPanel {
         //        validacion.validarInputPassword(inputPassword, "aaaaa");
         if (validacion.ceroCamposVaciosRegistro(inputNombre, inputApellido, inputTelefono, inputCorreo, inputUsuarioRegistro, inputPassword, inputRepetirPassword)
             && validacion.verificacionPassword(textoMensaje, inputPassword, inputRepetirPassword)){
-            new DataBase().insertEmpleado(
+            empleado.nuevoEmpleado(
                 inputNombre.getText().trim(),
                 inputApellido.getText().trim(),
                 inputTelefono.getText().trim(),
