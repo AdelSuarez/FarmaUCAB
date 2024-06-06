@@ -4,7 +4,7 @@ import database.DataBase;
 import java.awt.BorderLayout;
 import style.styleWindow;
 
-// colocar todo en español, pero despues de la entrega final, colocarlo en ingles para el portafolio
+// colocar todo en español, pero despues de la entrega final, colocarlo en ingles para el portafolio y repositorio
 // optimizar codigo, testear las ventanas para conseguir errores, y si se puede implementar test unitarios, no mostrar los test en la entrega
 
 
@@ -30,7 +30,7 @@ public class Main extends javax.swing.JFrame {
 
         // Interfaz
         initView(dashboard);
-//        initView(login);
+        initView(login);
 
     }
     
@@ -53,6 +53,7 @@ public class Main extends javax.swing.JFrame {
         DB.createDB();
         DB.createTabla(DB.getSqlCreateTablaEmpleados());  
         DB.createTabla(DB.getSqlCreateTablaPacientes());  
+//        DB.viewTabla("Pacientes");
     }
     
     @SuppressWarnings("unchecked")

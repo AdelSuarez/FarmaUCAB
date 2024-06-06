@@ -5,9 +5,9 @@ import javax.swing.*;
 import style.MyColor;
 
 public class ValidacionLogin extends Validacion{
-    private final String REGEXNOMBRE = "^[A-Za-z ]*$";
-    private final String REGEXCORREO = "[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}";
-    private final String REGEXNUMERO = "^[0-9 ]+$";
+    private final String REGEXNOMBRE = getREGEXNOMBRE();
+    private final String REGEXCORREO = getREGEXCORREO();
+    private final String REGEXNUMERO = getREGEXNUMERO();
     
    
     public boolean verificacionPassword(JLabel jlabel, components.PasswordField inputPassword, components.PasswordField inputRepetirPassword){

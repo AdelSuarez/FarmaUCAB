@@ -1,12 +1,21 @@
 
 package views.viewsPaciente;
+import validaciones.ValidacionPaciente;
+import database.Paciente;
 
 public class NuevoPaciente extends javax.swing.JPanel {
+    private Paciente paciente = new Paciente();
     private views.Dashboard dashboard;
-    public NuevoPaciente(views.Dashboard dashboard) {
+    private views.ViewPaciente viewPaciente;
+    private ValidacionPaciente validacionPaciente = new ValidacionPaciente();
+    
+    
+    public NuevoPaciente(views.Dashboard dashboard, views.ViewPaciente viewPaciente) {
         this.dashboard = dashboard;
+        this.viewPaciente = viewPaciente;
         initComponents();
         this.setSize(1180,720);
+        this.messajeGuardado.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -27,6 +36,7 @@ public class NuevoPaciente extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         edadPaciente = new components.TextField();
         btnGuardarPaciente = new components.ButtonCustom();
+        messajeGuardado = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -75,14 +85,14 @@ public class NuevoPaciente extends javax.swing.JPanel {
         DEPaciente.setBackground(new java.awt.Color(240, 240, 240));
         DEPaciente.setForeground(new java.awt.Color(80, 80, 80));
         DEPaciente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        DEPaciente.setLabelText("Dependecia/Escuela");
+        DEPaciente.setLabelText("Dependencia/Escuela");
 
         textAreaScroll2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         textAreaScroll2.setLabelText("Descripcion");
 
         descripcionPaciente.setBackground(new java.awt.Color(235, 235, 235));
         descripcionPaciente.setColumns(20);
-        descripcionPaciente.setForeground(new java.awt.Color(0, 0, 0));
+        descripcionPaciente.setForeground(new java.awt.Color(80, 80, 80));
         descripcionPaciente.setRows(5);
         descripcionPaciente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         textAreaScroll2.setViewportView(descripcionPaciente);
@@ -112,46 +122,52 @@ public class NuevoPaciente extends javax.swing.JPanel {
         btnGuardarPaciente.setPreferredSize(new java.awt.Dimension(86, 40));
         btnGuardarPaciente.setRadius(15);
         btnGuardarPaciente.setRolloverEnabled(true);
+        btnGuardarPaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarPacienteActionPerformed(evt);
+            }
+        });
+
+        messajeGuardado.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        messajeGuardado.setForeground(new java.awt.Color(40, 180, 99));
 
         javax.swing.GroupLayout panelRound1Layout = new javax.swing.GroupLayout(panelRound1);
         panelRound1.setLayout(panelRound1Layout);
         panelRound1Layout.setHorizontalGroup(
             panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound1Layout.createSequentialGroup()
-                .addContainerGap(134, Short.MAX_VALUE)
+                .addGap(105, 105, 105)
                 .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
                     .addGroup(panelRound1Layout.createSequentialGroup()
-                        .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(nombrePaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(apellidoPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(telefonoPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(DEPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cedulaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(82, 82, 82)
+                        .addComponent(messajeGuardado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnGuardarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelRound1Layout.createSequentialGroup()
+                        .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(nombrePaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(apellidoPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(telefonoPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(DEPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cedulaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
                         .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(textAreaScroll2, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(panelRound1Layout.createSequentialGroup()
                                 .addComponent(generoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(edadPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addComponent(btnGuardarPaciente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(edadPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap(57, Short.MAX_VALUE))
         );
         panelRound1Layout.setVerticalGroup(
             panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelRound1Layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(jLabel2)
-                .addGap(50, 50, 50)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound1Layout.createSequentialGroup()
                 .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelRound1Layout.createSequentialGroup()
-                        .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(generoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edadPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(textAreaScroll2, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelRound1Layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addComponent(jLabel2)
+                        .addGap(50, 50, 50)
                         .addComponent(nombrePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(apellidoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -160,9 +176,19 @@ public class NuevoPaciente extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(telefonoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(DEPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                .addComponent(btnGuardarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(DEPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panelRound1Layout.createSequentialGroup()
+                        .addGap(142, 142, 142)
+                        .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(generoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(edadPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(textAreaScroll2, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                        .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnGuardarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(messajeGuardado))))
                 .addGap(49, 49, 49))
         );
 
@@ -187,9 +213,40 @@ public class NuevoPaciente extends javax.swing.JPanel {
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
         dashboard.initView(dashboard.getViewPaciente());
+        this.messajeGuardado.setVisible(false);
+        viewPaciente.cargarTabla();
         this.repaint();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+    private void btnGuardarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarPacienteActionPerformed
+        // TODO add your handling code here:
+//        telefonoPaciente.getText();
+        if(validacionPaciente.ceroCamposVacios(nombrePaciente,apellidoPaciente, cedulaPaciente, edadPaciente,telefonoPaciente, DEPaciente, generoPaciente)){
+            if (paciente.nuevoPaciente(nombrePaciente.getText().trim(),
+                                   apellidoPaciente.getText().trim(),
+                                   cedulaPaciente.getText().trim(), 
+                                   telefonoPaciente.getText().trim(),
+                                   generoPaciente.getSelectedItem().toString(),
+                                   Integer.parseInt(edadPaciente.getText().trim()),
+                                   descripcionPaciente.getText().trim())) {
+                validacionPaciente.mensaje(messajeGuardado, "Paciente guardado");
+                limpiarInput(); 
+                this.repaint();
+           }
+        }
+        this.repaint();
+    }//GEN-LAST:event_btnGuardarPacienteActionPerformed
+    
+    private void limpiarInput(){
+        nombrePaciente.setText("");
+        apellidoPaciente.setText("");
+        cedulaPaciente.setText("");
+        telefonoPaciente.setText("");
+        edadPaciente.setText("");
+        DEPaciente.setText("");
+        descripcionPaciente.setText("");
+        generoPaciente.setSelectedIndex(-1);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private components.TextField DEPaciente;
@@ -203,6 +260,7 @@ public class NuevoPaciente extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel messajeGuardado;
     private components.TextField nombrePaciente;
     private components.PanelRound panelRound1;
     private components.TextField telefonoPaciente;

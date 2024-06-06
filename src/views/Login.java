@@ -12,6 +12,7 @@ public class Login extends javax.swing.JPanel {
     private ValidacionLogin validacion = new ValidacionLogin();
     private database.Empleado empleado = new Empleado();
     private main.Main main;
+    private boolean viewLogin = false;
 
 
     public Login(main.Main main) {
@@ -22,7 +23,7 @@ public class Login extends javax.swing.JPanel {
         this.setLocation(0,0);
         
         // Muestra el panel de inicio de sesion dependiendo si hay usuarios o no en la tabla empleados
-        if (new DataBase().isEmptyTabla("Empleados")){
+        if (new DataBase().isEmptyTabla("Empleados") && !viewLogin){
             PanelAdmin.setVisible(true);
             PanelInicioSesion.setVisible(false);
         } else {
@@ -30,6 +31,10 @@ public class Login extends javax.swing.JPanel {
             PanelAdmin.setVisible(false);
 
         }
+    }
+    
+    public void cambioLogin(){
+        viewLogin = true;
     }
 
     @SuppressWarnings("unchecked")
@@ -263,10 +268,12 @@ public class Login extends javax.swing.JPanel {
     private void btnInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioSesionActionPerformed
         // todavia en desarrollo, primero hay que implementar el registro del primer usuario
         
-
         if (validacion.ceroCamposVaciosInicioSesion(inputUsuarioSesion, inputPasswordUsuario) == 2){
             if(empleado.inicioEmpleado("Empleados", inputUsuarioSesion.getText(), inputPasswordUsuario.getText().trim())){
+                inputUsuarioSesion.setText("");
+                inputPasswordUsuario.setText("");
                 main.initView(main.getDashboard());
+                
             } else {
                 inputUsuarioSesion.setLineColor( new MyColor().getRED());
                 inputPasswordUsuario.setLineColor( new MyColor().getRED());

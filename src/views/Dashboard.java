@@ -1,6 +1,7 @@
 
 package views;
 
+import dialog.DialogCerrarSesion;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import style.MyColor;
@@ -211,7 +212,9 @@ public class Dashboard extends javax.swing.JPanel {
 
     private void buttonCustom2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCustom2ActionPerformed
         // TODO add your handling code here:
-        main.initView(main.getLogin());
+        dialog.DialogCerrarSesion dialog = new DialogCerrarSesion(main);
+        dialog.setVisible(true);
+//        main.initView(main.getLogin());
     }//GEN-LAST:event_buttonCustom2ActionPerformed
 
 

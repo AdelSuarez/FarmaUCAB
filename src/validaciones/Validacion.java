@@ -6,6 +6,21 @@ import style.MyColor;
 public abstract class Validacion {
     private final String AVISOVACIO = " (Campo vacío)";
     private final String AVISOCARACTERES = " (Caracteres invalidos)";
+    private final String REGEXNOMBRE = "^[A-Za-z ]*$";
+    private final String REGEXCORREO = "[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}";
+    private final String REGEXNUMERO = "^[0-9 ]+$";
+
+    public String getREGEXNOMBRE() {
+        return REGEXNOMBRE;
+    }
+
+    public String getREGEXCORREO() {
+        return REGEXCORREO;
+    }
+
+    public String getREGEXNUMERO() {
+        return REGEXNUMERO;
+    }
     
     public abstract void mensaje(JLabel jlabel, String mensaje);
 

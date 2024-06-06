@@ -2,15 +2,20 @@
 package views;
 
 import views.viewsPaciente.NuevoPaciente;
+import database.Paciente;
 
 public class ViewPaciente extends javax.swing.JPanel {
-    private views.viewsPaciente.NuevoPaciente nuevoPaciente;
+    private NuevoPaciente nuevoPaciente;
     private views.Dashboard dashboard;
+    private Paciente paciente = new Paciente();    
+    
     public ViewPaciente(views.Dashboard dashboard) {
         this.dashboard = dashboard;
-        this.nuevoPaciente = new NuevoPaciente(dashboard);
+        this.nuevoPaciente = new NuevoPaciente(dashboard, this);
         initComponents();
+        cargarTabla();
         this.setSize(1180,720);
+        configuracionesTabla();
         this.repaint();
 
     }
@@ -22,10 +27,10 @@ public class ViewPaciente extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tablaPacientes = new javax.swing.JTable();
         textField1 = new components.TextField();
         btnNuevoPaciente = new components.ButtonCustom();
-        buttonCustom2 = new components.ButtonCustom();
+        btnBorrarPaciente = new components.ButtonCustom();
         buttonCustom3 = new components.ButtonCustom();
         buttonCustom4 = new components.ButtonCustom();
 
@@ -37,44 +42,24 @@ public class ViewPaciente extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Pacientes");
 
-        jTable2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tablaPacientes.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tablaPacientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Cedula", "Nombre", "Edad", "Genero", "Telefono"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
-        });
-        jTable2.setFocusable(false);
-        jTable2.setGridColor(new java.awt.Color(153, 153, 153));
-        jTable2.setIntercellSpacing(new java.awt.Dimension(0, 0));
-        jTable2.setOpaque(false);
-        jTable2.setRowHeight(26);
-        jTable2.setShowGrid(true);
-        jTable2.setShowVerticalLines(false);
-        jTable2.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setResizable(false);
-            jTable2.getColumnModel().getColumn(0).setPreferredWidth(10);
-            jTable2.getColumnModel().getColumn(1).setResizable(false);
-            jTable2.getColumnModel().getColumn(1).setPreferredWidth(250);
-            jTable2.getColumnModel().getColumn(2).setResizable(false);
-            jTable2.getColumnModel().getColumn(2).setPreferredWidth(10);
-            jTable2.getColumnModel().getColumn(3).setResizable(false);
-            jTable2.getColumnModel().getColumn(3).setPreferredWidth(20);
-            jTable2.getColumnModel().getColumn(4).setResizable(false);
-            jTable2.getColumnModel().getColumn(4).setPreferredWidth(50);
-        }
+        ));
+        tablaPacientes.setFocusable(false);
+        tablaPacientes.setGridColor(new java.awt.Color(153, 153, 153));
+        tablaPacientes.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        tablaPacientes.setOpaque(false);
+        tablaPacientes.setRowHeight(26);
+        tablaPacientes.setShowGrid(true);
+        tablaPacientes.setShowVerticalLines(false);
+        tablaPacientes.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(tablaPacientes);
 
         textField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         textField1.setLabelText("Buscar");
@@ -95,15 +80,20 @@ public class ViewPaciente extends javax.swing.JPanel {
             }
         });
 
-        buttonCustom2.setForeground(new java.awt.Color(255, 255, 255));
-        buttonCustom2.setText("Borrar");
-        buttonCustom2.setBorderColor(new java.awt.Color(255, 255, 255));
-        buttonCustom2.setColor(new java.awt.Color(231, 76, 60));
-        buttonCustom2.setColorClick(new java.awt.Color(208, 68, 54));
-        buttonCustom2.setColorOver(new java.awt.Color(185, 61, 48));
-        buttonCustom2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        buttonCustom2.setPreferredSize(new java.awt.Dimension(230, 50));
-        buttonCustom2.setRadius(15);
+        btnBorrarPaciente.setForeground(new java.awt.Color(255, 255, 255));
+        btnBorrarPaciente.setText("Borrar");
+        btnBorrarPaciente.setBorderColor(new java.awt.Color(255, 255, 255));
+        btnBorrarPaciente.setColor(new java.awt.Color(231, 76, 60));
+        btnBorrarPaciente.setColorClick(new java.awt.Color(208, 68, 54));
+        btnBorrarPaciente.setColorOver(new java.awt.Color(185, 61, 48));
+        btnBorrarPaciente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnBorrarPaciente.setPreferredSize(new java.awt.Dimension(230, 50));
+        btnBorrarPaciente.setRadius(15);
+        btnBorrarPaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarPacienteActionPerformed(evt);
+            }
+        });
 
         buttonCustom3.setForeground(new java.awt.Color(255, 255, 255));
         buttonCustom3.setText("Editar");
@@ -131,7 +121,7 @@ public class ViewPaciente extends javax.swing.JPanel {
                 .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(buttonCustom2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBorrarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(buttonCustom3, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -161,7 +151,7 @@ public class ViewPaciente extends javax.swing.JPanel {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonCustom2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBorrarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonCustom3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -173,16 +163,42 @@ public class ViewPaciente extends javax.swing.JPanel {
         dashboard.initView(nuevoPaciente);
     }//GEN-LAST:event_btnNuevoPacienteActionPerformed
 
+    private void btnBorrarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarPacienteActionPerformed
+        int filaSeleccionada = tablaPacientes.getSelectedRow();
+        if (filaSeleccionada != -1) { // Verifica si se ha seleccionado una fila
+            String cedula = tablaPacientes.getValueAt(filaSeleccionada, 0).toString();
+            dialog.DialogEliminarPaciente dialog = new dialog.DialogEliminarPaciente(cedula, this);
+            dialog.setVisible(true);
+            this.repaint();
+        }
+    }//GEN-LAST:event_btnBorrarPacienteActionPerformed
 
+    public void cargarTabla(){
+        paciente.mostrarPacientes("Pacientes", tablaPacientes);
+    }
+    
+    private void configuracionesTabla(){
+        tablaPacientes.getColumnModel().getColumn(0).setPreferredWidth(40);
+        tablaPacientes.getColumnModel().getColumn(0).setResizable(false);
+        tablaPacientes.getColumnModel().getColumn(1).setPreferredWidth(250);
+        tablaPacientes.getColumnModel().getColumn(1).setResizable(false);
+        tablaPacientes.getColumnModel().getColumn(2).setPreferredWidth(40);
+        tablaPacientes.getColumnModel().getColumn(2).setResizable(false);
+        tablaPacientes.getColumnModel().getColumn(3).setPreferredWidth(100);
+        tablaPacientes.getColumnModel().getColumn(3).setResizable(false);
+        tablaPacientes.getColumnModel().getColumn(4).setPreferredWidth(100);
+        tablaPacientes.getColumnModel().getColumn(4).setResizable(false);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private components.ButtonCustom btnBorrarPaciente;
     private components.ButtonCustom btnNuevoPaciente;
-    private components.ButtonCustom buttonCustom2;
     private components.ButtonCustom buttonCustom3;
     private components.ButtonCustom buttonCustom4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable tablaPacientes;
     private components.TextField textField1;
     // End of variables declaration//GEN-END:variables
 }
