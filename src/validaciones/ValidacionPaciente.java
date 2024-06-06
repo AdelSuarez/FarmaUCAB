@@ -32,11 +32,12 @@ public class ValidacionPaciente  extends Validacion{
         }
         
         validarCaracteresInput(inputDE, "Dependencia/Escuela",REGEXNOMBRE, contadorInput);
+        validarCaracteresInput(inputTelefono, "Telefono", REGEXNUMERO, contadorInput);
         
         if(!validarComboBox(combobox).equals("")){
             contadorInput[0]++;
         }
-        if(contadorInput[0] == 6){
+        if(contadorInput[0] == 7){
             return true;
         } else {
             return false;

@@ -8,14 +8,19 @@ public class NuevoPaciente extends javax.swing.JPanel {
     private views.Dashboard dashboard;
     private views.ViewPaciente viewPaciente;
     private ValidacionPaciente validacionPaciente = new ValidacionPaciente();
+    private String cedula;
+    private String [] datosPaciente;
+    private String id;
     
-    
-    public NuevoPaciente(views.Dashboard dashboard, views.ViewPaciente viewPaciente) {
+    public NuevoPaciente(views.Dashboard dashboard, views.ViewPaciente viewPaciente, String ventana) {
+        this.cedula = ventana;
+        System.out.println(cedula);
         this.dashboard = dashboard;
         this.viewPaciente = viewPaciente;
         initComponents();
         this.setSize(1180,720);
         this.messajeGuardado.setVisible(false);
+        seleccionVentana(ventana);   
     }
 
     @SuppressWarnings("unchecked")
@@ -33,11 +38,11 @@ public class NuevoPaciente extends javax.swing.JPanel {
         textAreaScroll2 = new components.TextAreaScroll();
         descripcionPaciente = new components.TextArea();
         generoPaciente = new components.Combobox();
-        jLabel2 = new javax.swing.JLabel();
+        tittuloSecundario = new javax.swing.JLabel();
         edadPaciente = new components.TextField();
         btnGuardarPaciente = new components.ButtonCustom();
         messajeGuardado = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        tituloPrincipal = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -104,8 +109,8 @@ public class NuevoPaciente extends javax.swing.JPanel {
         generoPaciente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         generoPaciente.setLabeText("Genero");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel2.setText("Datos del Paciente");
+        tittuloSecundario.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        tittuloSecundario.setText("Datos del Paciente");
 
         edadPaciente.setBackground(new java.awt.Color(240, 240, 240));
         edadPaciente.setForeground(new java.awt.Color(80, 80, 80));
@@ -144,7 +149,7 @@ public class NuevoPaciente extends javax.swing.JPanel {
                         .addComponent(btnGuardarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelRound1Layout.createSequentialGroup()
                         .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
+                            .addComponent(tittuloSecundario)
                             .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(nombrePaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(apellidoPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -166,7 +171,7 @@ public class NuevoPaciente extends javax.swing.JPanel {
                 .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelRound1Layout.createSequentialGroup()
                         .addGap(55, 55, 55)
-                        .addComponent(jLabel2)
+                        .addComponent(tittuloSecundario)
                         .addGap(50, 50, 50)
                         .addComponent(nombrePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -194,19 +199,19 @@ public class NuevoPaciente extends javax.swing.JPanel {
 
         jPanel1.add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 1010, 560));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel3.setText("Nuevo Paciente");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 20, -1, -1));
+        tituloPrincipal.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        tituloPrincipal.setText("Nuevo Paciente");
+        jPanel1.add(tituloPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 20, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1123, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 667, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -220,21 +225,42 @@ public class NuevoPaciente extends javax.swing.JPanel {
 
     private void btnGuardarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarPacienteActionPerformed
         // TODO add your handling code here:
-//        telefonoPaciente.getText();
-        if(validacionPaciente.ceroCamposVacios(nombrePaciente,apellidoPaciente, cedulaPaciente, edadPaciente,telefonoPaciente, DEPaciente, generoPaciente)){
-            if (paciente.nuevoPaciente(nombrePaciente.getText().trim(),
-                                   apellidoPaciente.getText().trim(),
-                                   cedulaPaciente.getText().trim(), 
-                                   telefonoPaciente.getText().trim(),
-                                   generoPaciente.getSelectedItem().toString(),
-                                   Integer.parseInt(edadPaciente.getText().trim()),
-                                   descripcionPaciente.getText().trim())) {
-                validacionPaciente.mensaje(messajeGuardado, "Paciente guardado");
-                limpiarInput(); 
-                this.repaint();
-           }
+        if (cedula.equals("Nuevo")){
+            if(validacionPaciente.ceroCamposVacios(nombrePaciente,apellidoPaciente, cedulaPaciente, edadPaciente,telefonoPaciente, DEPaciente, generoPaciente)){
+                if (paciente.nuevoPaciente(nombrePaciente.getText().trim(),
+                                       apellidoPaciente.getText().trim(),
+                                       cedulaPaciente.getText().trim(), 
+                                       telefonoPaciente.getText().trim(),
+                                       DEPaciente.getText().trim(),
+                                       generoPaciente.getSelectedItem().toString(),
+                                       Integer.parseInt(edadPaciente.getText().trim()),
+                                       descripcionPaciente.getText().trim())) {
+                    validacionPaciente.mensaje(messajeGuardado, "Paciente guardado");
+                    limpiarInput(); 
+                    this.repaint();
+                    }
+            }
+            this.repaint();
+        
+        }else{
+            if(validacionPaciente.ceroCamposVacios(nombrePaciente,apellidoPaciente, cedulaPaciente, edadPaciente,telefonoPaciente, DEPaciente, generoPaciente)){
+                if(paciente.editarPaciente(id, 
+                                        nombrePaciente.getText().trim(), 
+                                        apellidoPaciente.getText().trim(), 
+                                        cedulaPaciente.getText().trim(), 
+                                        telefonoPaciente.getText().trim(), 
+                                        DEPaciente.getText().trim(), 
+                                        generoPaciente.getSelectedItem().toString(), 
+                                        Integer.parseInt(edadPaciente.getText().trim()),
+                                        descripcionPaciente.getText().trim())){
+                    validacionPaciente.mensaje(messajeGuardado, "Editado con exito");
+                    limpiarInput(); 
+                    this.repaint();
+                }
+            
+            }
         }
-        this.repaint();
+        
     }//GEN-LAST:event_btnGuardarPacienteActionPerformed
     
     private void limpiarInput(){
@@ -247,6 +273,32 @@ public class NuevoPaciente extends javax.swing.JPanel {
         descripcionPaciente.setText("");
         generoPaciente.setSelectedIndex(-1);
     }
+    
+    private void seleccionVentana(String ventana){
+        if (ventana.equals("Nuevo") ){
+            tituloPrincipal.setText("Nuevo Paciente");
+            
+        } else {
+            tituloPrincipal.setText("Editar Paciente");
+            this.datosPaciente = paciente.buscar(ventana);
+            this.id = datosPaciente[0];
+            nombrePaciente.setText(datosPaciente[1]);
+            apellidoPaciente.setText(datosPaciente[2]);
+            edadPaciente.setText(datosPaciente[3]);
+            telefonoPaciente.setText(datosPaciente[5]);
+            cedulaPaciente.setText(datosPaciente[6]);
+            DEPaciente.setText(datosPaciente[7]);
+            System.out.println(datosPaciente[4]);
+            if (datosPaciente[4].equals("Masculino")){
+                generoPaciente.setSelectedIndex(0);
+            } else {
+                generoPaciente.setSelectedIndex(1);
+
+            }
+            descripcionPaciente.setText(datosPaciente[8]);
+
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private components.TextField DEPaciente;
@@ -257,13 +309,13 @@ public class NuevoPaciente extends javax.swing.JPanel {
     private components.TextArea descripcionPaciente;
     private components.TextField edadPaciente;
     private components.Combobox generoPaciente;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel messajeGuardado;
     private components.TextField nombrePaciente;
     private components.PanelRound panelRound1;
     private components.TextField telefonoPaciente;
     private components.TextAreaScroll textAreaScroll2;
+    private javax.swing.JLabel tittuloSecundario;
+    private javax.swing.JLabel tituloPrincipal;
     // End of variables declaration//GEN-END:variables
 }

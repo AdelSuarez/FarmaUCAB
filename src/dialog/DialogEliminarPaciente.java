@@ -22,7 +22,6 @@ public class DialogEliminarPaciente extends javax.swing.JFrame {
         this.setUndecorated(true);
         initComponents();
         setBackground(new Color(0,0,0,0));
-//        this.cedula = cedula;
         this.repaint();
     }
 
@@ -132,7 +131,7 @@ public class DialogEliminarPaciente extends javax.swing.JFrame {
 
     private void btnEliminarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPacienteActionPerformed
         // TODO add your handling code here:
-        if(paciente.eliminarPaciente("Pacientes", cedula)){
+        if(paciente.eliminarPaciente(cedula)){
             viewPaciente.cargarTabla();
             this.dispose();
         }

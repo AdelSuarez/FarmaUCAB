@@ -51,11 +51,11 @@ public class Empleado extends DataBase{
     }
     
     
-    public boolean inicioEmpleado(String nombreTabla, String user, String password){
+    public boolean inicioEmpleado( String user, String password){
          try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
-            String sqlConsulta = "SELECT * FROM " + nombreTabla + " WHERE USUARIO = ?";
+            String sqlConsulta = "SELECT * FROM Empleados WHERE USUARIO = ?";
 
             PreparedStatement ps = conexion.prepareStatement(sqlConsulta);
             ps.setString(1, user);
@@ -68,7 +68,7 @@ public class Empleado extends DataBase{
                       return false;
                   }
             } else {
-                System.out.println("Usuario no encontrado en la tabla " + nombreTabla);
+                System.out.println("Usuario no encontrado en la tabla Empleados");
             }
             
             resultados.close();

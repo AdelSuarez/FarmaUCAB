@@ -269,7 +269,7 @@ public class Login extends javax.swing.JPanel {
         // todavia en desarrollo, primero hay que implementar el registro del primer usuario
         
         if (validacion.ceroCamposVaciosInicioSesion(inputUsuarioSesion, inputPasswordUsuario) == 2){
-            if(empleado.inicioEmpleado("Empleados", inputUsuarioSesion.getText(), inputPasswordUsuario.getText().trim())){
+            if(empleado.inicioEmpleado(inputUsuarioSesion.getText(), inputPasswordUsuario.getText().trim())){
                 inputUsuarioSesion.setText("");
                 inputPasswordUsuario.setText("");
                 main.initView(main.getDashboard());

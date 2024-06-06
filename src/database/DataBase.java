@@ -1,8 +1,7 @@
 
 package database;
 import java.sql.*;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+
 // Colocar todo en ingles para mantener estandar para el repositorio
 // optimizar el codigo y evitar el codigo repetido
 
@@ -24,6 +23,7 @@ public class DataBase {
                                    " APELLIDO         TEXT    NOT NULL, " +
                                    " CEDULA           TEXT    NOT NULL UNIQUE, " + 
                                    " TELEFONO         TEXT    NOT NULL, " + 
+                                   " DE               TEXT    NOT NULL, " + 
                                    " GENERO           TEXT    NOT NULL, " + 
                                    " EDAD             INT     NOT NULL, " + 
                                    " DESCRIPCION      TEXT  NOT NULL) ";
@@ -82,51 +82,6 @@ public class DataBase {
         }
     }
     
-   
-    
-    public void viewTabla(String nombreTabla, JTable table){
-         try {
-            Class.forName(ORG);
-            conexion = DriverManager.getConnection(DIRECCIONDB);
-            String sqlConsulta = "SELECT * FROM " + nombreTabla;
-
-            statement = (Statement) conexion.createStatement();
-            ResultSet resultado = statement.executeQuery(sqlConsulta);
-            DefaultTableModel model = new DefaultTableModel();
-            model.addColumn("Cedula");
-            model.addColumn("Nombre");
-            model.addColumn("Edad");
-            model.addColumn("Genero");
-            model.addColumn("Telefono");
-            table.setModel(model);
-
-            
-            String [] datos = new String[6];
-            while (resultado.next()) {
-                datos[0] = resultado.getString(4);
-                datos[1] = resultado.getString(2)+ " " + resultado.getString(3);
-                datos[2] = resultado.getString(7);
-                datos[3] = resultado.getString(6);
-                datos[4] = resultado.getString(5);
-                model.addRow(datos);
-            }
-
-            resultado.close();
-            statement.close();
-
-        } catch (ClassNotFoundException | SQLException e) {
-            System.out.println(e.getMessage() + " error al mostrar los datos de la tabla");
-        } finally {
-            try {
-                if (conexion != null) {
-                    conexion.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-    }
     
     public boolean isEmptyTabla(String nameTabla) {
         // Verifica si la tabla contiene algun elemento

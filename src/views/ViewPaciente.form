@@ -42,15 +42,15 @@
                       <Group type="102" attributes="0">
                           <Component id="btnBorrarPaciente" min="-2" pref="111" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="buttonCustom3" min="-2" pref="113" max="-2" attributes="0"/>
+                          <Component id="btnEditarPaciente" min="-2" pref="113" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="textField1" min="-2" pref="262" max="-2" attributes="0"/>
+                              <Component id="inputSearchPaciente" min="-2" pref="262" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="buttonCustom4" min="-2" pref="48" max="-2" attributes="0"/>
+                              <Component id="btnBuscarPaciente" min="-2" pref="48" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="btnNuevoPaciente" min="-2" pref="188" max="-2" attributes="0"/>
                           </Group>
@@ -69,18 +69,18 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="btnNuevoPaciente" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="textField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="inputSearchPaciente" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="buttonCustom4" alignment="1" min="-2" pref="48" max="-2" attributes="0"/>
+                      <Component id="btnBuscarPaciente" alignment="1" min="-2" pref="48" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                   <Component id="jScrollPane2" min="-2" pref="507" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="btnBorrarPaciente" min="-2" max="-2" attributes="0"/>
-                      <Component id="buttonCustom3" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnEditarPaciente" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -132,7 +132,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="components.TextField" name="textField1">
+        <Component class="components.TextField" name="inputSearchPaciente">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="0"/>
@@ -203,7 +203,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBorrarPacienteActionPerformed"/>
           </Events>
         </Component>
-        <Component class="components.ButtonCustom" name="buttonCustom3">
+        <Component class="components.ButtonCustom" name="btnEditarPaciente">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -230,8 +230,11 @@
             </Property>
             <Property name="radius" type="int" value="15"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditarPacienteActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="components.ButtonCustom" name="buttonCustom4">
+        <Component class="components.ButtonCustom" name="btnBuscarPaciente">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/icons/search_black.png"/>
@@ -250,6 +253,9 @@
             </Property>
             <Property name="radius" type="int" value="15"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarPacienteActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
