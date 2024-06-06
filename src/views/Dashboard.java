@@ -1,4 +1,3 @@
-
 package views;
 
 import dialog.DialogCerrarSesion;
@@ -7,22 +6,28 @@ import javax.swing.JPanel;
 import style.MyColor;
 
 public class Dashboard extends javax.swing.JPanel {
+
     private ViewPaciente viewPaciente = new ViewPaciente(this);
     private ViewConsulta viewConsulta = new ViewConsulta();
     private ViewInsumo viewInsumo = new ViewInsumo();
+    private ViewEmpleado viewEmpleado = new ViewEmpleado(this);
     private main.Main main;
+    private boolean admin = false;
 
-    public Dashboard(main.Main main) {
+    public Dashboard(main.Main main, boolean admin) {
         this.main = main;
+        this.admin = admin;
         initComponents();
-        this.setSize(1400,800);       
+        this.setSize(1400, 800);
         btnPaciente.setColor(new MyColor().getBTNSELECTCOLOR());
-        this.setLocation(0,0);
+        this.setLocation(0, 0);
+        btnEmpleado.setVisible(admin);
         initView(viewPaciente);
-        
+        this.repaint();
+
     }
-    
-    public void initView(JPanel view){
+
+    public void initView(JPanel view) {
         Content.removeAll();
         Content.add(view, BorderLayout.CENTER);
         Content.revalidate();
@@ -32,7 +37,11 @@ public class Dashboard extends javax.swing.JPanel {
     public ViewPaciente getViewPaciente() {
         return viewPaciente;
     }
-    
+
+    public ViewEmpleado getViewEmpleado() {
+        return viewEmpleado;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -40,13 +49,14 @@ public class Dashboard extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        btnConsulta = new components.ButtonCustom();
         btnPaciente = new components.ButtonCustom();
         btnInsumo = new components.ButtonCustom();
         jSeparator1 = new javax.swing.JSeparator();
+        btnConsulta = new components.ButtonCustom();
+        btnEmpleado = new components.ButtonCustom();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        buttonCustom2 = new components.ButtonCustom();
+        btnCerrarSesion = new components.ButtonCustom();
         Content = new javax.swing.JPanel();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -56,30 +66,10 @@ public class Dashboard extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(250, 250, 250));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(169, 169, 169)));
         jPanel2.setPreferredSize(new java.awt.Dimension(220, 800));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 102, 255));
         jLabel2.setText("Enfermeria");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, -1, 40));
-
-        btnConsulta.setForeground(new java.awt.Color(0, 0, 0));
-        btnConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/assignment_black.png"))); // NOI18N
-        btnConsulta.setText("Cosultas");
-        btnConsulta.setBorderColor(new java.awt.Color(250, 250, 250));
-        btnConsulta.setColor(new java.awt.Color(240, 240, 240));
-        btnConsulta.setColorClick(new java.awt.Color(230, 230, 230));
-        btnConsulta.setColorOver(new java.awt.Color(215, 215, 215));
-        btnConsulta.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btnConsulta.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnConsulta.setPreferredSize(new java.awt.Dimension(230, 50));
-        btnConsulta.setRadius(15);
-        btnConsulta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConsultaActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 236, -1, -1));
 
         btnPaciente.setForeground(new java.awt.Color(0, 0, 0));
         btnPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/groups_person_black.png"))); // NOI18N
@@ -97,7 +87,6 @@ public class Dashboard extends javax.swing.JPanel {
                 btnPacienteActionPerformed(evt);
             }
         });
-        jPanel2.add(btnPaciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 124, -1, -1));
 
         btnInsumo.setForeground(new java.awt.Color(0, 0, 0));
         btnInsumo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/vaccines_black.png"))); // NOI18N
@@ -115,11 +104,88 @@ public class Dashboard extends javax.swing.JPanel {
                 btnInsumoActionPerformed(evt);
             }
         });
-        jPanel2.add(btnInsumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 180, -1, -1));
-        jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 78, 248, 10));
+
+        btnConsulta.setForeground(new java.awt.Color(0, 0, 0));
+        btnConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/assignment_black.png"))); // NOI18N
+        btnConsulta.setText("Cosultas");
+        btnConsulta.setBorderColor(new java.awt.Color(250, 250, 250));
+        btnConsulta.setColor(new java.awt.Color(240, 240, 240));
+        btnConsulta.setColorClick(new java.awt.Color(230, 230, 230));
+        btnConsulta.setColorOver(new java.awt.Color(215, 215, 215));
+        btnConsulta.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnConsulta.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnConsulta.setPreferredSize(new java.awt.Dimension(230, 50));
+        btnConsulta.setRadius(15);
+        btnConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultaActionPerformed(evt);
+            }
+        });
+
+        btnEmpleado.setForeground(new java.awt.Color(0, 0, 0));
+        btnEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/badge_black.png"))); // NOI18N
+        btnEmpleado.setText("Empleados");
+        btnEmpleado.setBorderColor(new java.awt.Color(250, 250, 250));
+        btnEmpleado.setColor(new java.awt.Color(240, 240, 240));
+        btnEmpleado.setColorClick(new java.awt.Color(230, 230, 230));
+        btnEmpleado.setColorOver(new java.awt.Color(215, 215, 215));
+        btnEmpleado.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnEmpleado.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnEmpleado.setPreferredSize(new java.awt.Dimension(230, 50));
+        btnEmpleado.setRadius(15);
+        btnEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEmpleadoActionPerformed(evt);
+            }
+        });
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ecg_heart.png"))); // NOI18N
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(jLabel1)
+                .addGap(6, 6, 6)
+                .addComponent(jLabel2))
+            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(btnPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(btnInsumo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(btnConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(4, 4, 4)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(btnPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(btnInsumo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(btnConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, -1));
 
@@ -128,16 +194,16 @@ public class Dashboard extends javax.swing.JPanel {
         jPanel3.setForeground(new java.awt.Color(250, 250, 250));
         jPanel3.setPreferredSize(new java.awt.Dimension(1180, 80));
 
-        buttonCustom2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/logout_black.png"))); // NOI18N
-        buttonCustom2.setBorderColor(new java.awt.Color(250, 250, 250));
-        buttonCustom2.setColor(new java.awt.Color(250, 250, 250));
-        buttonCustom2.setColorClick(new java.awt.Color(230, 230, 230));
-        buttonCustom2.setColorOver(new java.awt.Color(240, 240, 240));
-        buttonCustom2.setPreferredSize(new java.awt.Dimension(40, 40));
-        buttonCustom2.setRadius(15);
-        buttonCustom2.addActionListener(new java.awt.event.ActionListener() {
+        btnCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/logout_black.png"))); // NOI18N
+        btnCerrarSesion.setBorderColor(new java.awt.Color(250, 250, 250));
+        btnCerrarSesion.setColor(new java.awt.Color(250, 250, 250));
+        btnCerrarSesion.setColorClick(new java.awt.Color(230, 230, 230));
+        btnCerrarSesion.setColorOver(new java.awt.Color(240, 240, 240));
+        btnCerrarSesion.setPreferredSize(new java.awt.Dimension(40, 40));
+        btnCerrarSesion.setRadius(15);
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCustom2ActionPerformed(evt);
+                btnCerrarSesionActionPerformed(evt);
             }
         });
 
@@ -147,14 +213,14 @@ public class Dashboard extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(1087, Short.MAX_VALUE)
-                .addComponent(buttonCustom2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(buttonCustom2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -192,6 +258,7 @@ public class Dashboard extends javax.swing.JPanel {
         btnPaciente.setColor(new MyColor().getBTNBGDASHBOAR());
         btnInsumo.setColor(new MyColor().getBTNSELECTCOLOR());
         btnConsulta.setColor(new MyColor().getBTNBGDASHBOAR());
+        btnEmpleado.setColor(new MyColor().getBTNBGDASHBOAR());
         initView(viewInsumo);
     }//GEN-LAST:event_btnInsumoActionPerformed
 
@@ -199,31 +266,44 @@ public class Dashboard extends javax.swing.JPanel {
         btnInsumo.setColor(new MyColor().getBTNBGDASHBOAR());
         btnPaciente.setColor(new MyColor().getBTNSELECTCOLOR());
         btnConsulta.setColor(new MyColor().getBTNBGDASHBOAR());
+        btnEmpleado.setColor(new MyColor().getBTNBGDASHBOAR());
         initView(viewPaciente);
     }//GEN-LAST:event_btnPacienteActionPerformed
+
+    private void btnEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadoActionPerformed
+        // TODO add your handling code here:
+        btnPaciente.setColor(new MyColor().getBTNBGDASHBOAR());
+        btnInsumo.setColor(new MyColor().getBTNBGDASHBOAR());
+        btnConsulta.setColor(new MyColor().getBTNBGDASHBOAR());
+        btnEmpleado.setColor(new MyColor().getBTNSELECTCOLOR());
+        initView(viewEmpleado);
+
+    }//GEN-LAST:event_btnEmpleadoActionPerformed
+
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+        // TODO add your handling code here:
+        dialog.DialogCerrarSesion dialog = new DialogCerrarSesion(main);
+        dialog.setVisible(true);
+//        main.initView(main.getLogin());
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaActionPerformed
         // TODO add your handling code here:
         btnPaciente.setColor(new MyColor().getBTNBGDASHBOAR());
         btnInsumo.setColor(new MyColor().getBTNBGDASHBOAR());
         btnConsulta.setColor(new MyColor().getBTNSELECTCOLOR());
+        btnEmpleado.setColor(new MyColor().getBTNBGDASHBOAR());
         initView(viewConsulta);
     }//GEN-LAST:event_btnConsultaActionPerformed
-
-    private void buttonCustom2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCustom2ActionPerformed
-        // TODO add your handling code here:
-        dialog.DialogCerrarSesion dialog = new DialogCerrarSesion(main);
-        dialog.setVisible(true);
-//        main.initView(main.getLogin());
-    }//GEN-LAST:event_buttonCustom2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Content;
+    private components.ButtonCustom btnCerrarSesion;
     private components.ButtonCustom btnConsulta;
+    private components.ButtonCustom btnEmpleado;
     private components.ButtonCustom btnInsumo;
     private components.ButtonCustom btnPaciente;
-    private components.ButtonCustom buttonCustom2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

@@ -1,9 +1,9 @@
-
 package dialog;
 
 import java.awt.Color;
 
 public class DialogEliminarPaciente extends javax.swing.JFrame {
+
     private database.Paciente paciente = new database.Paciente();
     private String cedula = "";
     private views.ViewPaciente viewPaciente;
@@ -11,20 +11,19 @@ public class DialogEliminarPaciente extends javax.swing.JFrame {
     public DialogEliminarPaciente(String cedula, views.ViewPaciente viewPaciente) {
         this.setUndecorated(true);
         initComponents();
-        setBackground(new Color(0,0,0,0));
+        setBackground(new Color(0, 0, 0, 0));
         this.cedula = cedula;
         this.viewPaciente = viewPaciente;
         this.repaint();
-        
+
     }
 
     private DialogEliminarPaciente() {
         this.setUndecorated(true);
         initComponents();
-        setBackground(new Color(0,0,0,0));
+        setBackground(new Color(0, 0, 0, 0));
         this.repaint();
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -131,11 +130,11 @@ public class DialogEliminarPaciente extends javax.swing.JFrame {
 
     private void btnEliminarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPacienteActionPerformed
         // TODO add your handling code here:
-        if(paciente.eliminarPaciente(cedula)){
+        if (paciente.eliminarPaciente(cedula)) {
             viewPaciente.cargarTabla();
             this.dispose();
         }
-        
+
     }//GEN-LAST:event_btnEliminarPacienteActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

@@ -1,22 +1,20 @@
 package views;
 
-import views.viewsGestion.GestionPaciente;
-import database.Paciente;
+import views.viewsGestion.GestionEmpleado;
+import database.Empleado;
 import java.awt.Color;
-import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import validaciones.ValidacionPaciente;
+import javax.swing.table.JTableHeader;
 
-public class ViewPaciente extends javax.swing.JPanel {
+public class ViewEmpleado extends javax.swing.JPanel {
 
-    private GestionPaciente nuevoPaciente;
     private views.Dashboard dashboard;
-    private Paciente paciente = new Paciente();
-    private ValidacionPaciente validacionPaciente = new ValidacionPaciente();
+    private Empleado empleado = new Empleado();
+    private GestionEmpleado viewGestionEmpleado;
 
-    public ViewPaciente(views.Dashboard dashboard) {
+    public ViewEmpleado(views.Dashboard dashboard) {
         this.dashboard = dashboard;
         initComponents();
         cargarTabla();
@@ -32,9 +30,9 @@ public class ViewPaciente extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tablaPacientes = new javax.swing.JTable();
+        tablaEmpleados = new javax.swing.JTable();
         inputSearchPaciente = new components.TextField();
-        btnNuevoPaciente = new components.ButtonCustom();
+        btnNuevoEmpleado = new components.ButtonCustom();
         btnBorrarPaciente = new components.ButtonCustom();
         btnEditarPaciente = new components.ButtonCustom();
         btnBuscarPaciente = new components.ButtonCustom();
@@ -45,11 +43,11 @@ public class ViewPaciente extends javax.swing.JPanel {
         jPanel1.setPreferredSize(new java.awt.Dimension(1350, 920));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("Pacientes");
+        jLabel1.setText("Empleados");
 
-        tablaPacientes.setBackground(new java.awt.Color(255, 255, 255));
-        tablaPacientes.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        tablaPacientes.setModel(new javax.swing.table.DefaultTableModel(
+        tablaEmpleados.setBackground(new java.awt.Color(255, 255, 255));
+        tablaEmpleados.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tablaEmpleados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -57,32 +55,32 @@ public class ViewPaciente extends javax.swing.JPanel {
 
             }
         ));
-        tablaPacientes.setFocusable(false);
-        tablaPacientes.setGridColor(new java.awt.Color(153, 153, 153));
-        tablaPacientes.setIntercellSpacing(new java.awt.Dimension(0, 0));
-        tablaPacientes.setOpaque(false);
-        tablaPacientes.setRowHeight(26);
-        tablaPacientes.setShowGrid(true);
-        tablaPacientes.setShowVerticalLines(false);
-        tablaPacientes.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(tablaPacientes);
+        tablaEmpleados.setFocusable(false);
+        tablaEmpleados.setGridColor(new java.awt.Color(153, 153, 153));
+        tablaEmpleados.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        tablaEmpleados.setOpaque(false);
+        tablaEmpleados.setRowHeight(26);
+        tablaEmpleados.setShowGrid(true);
+        tablaEmpleados.setShowVerticalLines(false);
+        tablaEmpleados.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(tablaEmpleados);
 
         inputSearchPaciente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         inputSearchPaciente.setLabelText("Buscar");
 
-        btnNuevoPaciente.setBackground(new java.awt.Color(0, 105, 255));
-        btnNuevoPaciente.setForeground(new java.awt.Color(255, 255, 255));
-        btnNuevoPaciente.setText("Nuevo paciente");
-        btnNuevoPaciente.setBorderColor(new java.awt.Color(255, 255, 255));
-        btnNuevoPaciente.setColor(new java.awt.Color(0, 105, 255));
-        btnNuevoPaciente.setColorClick(new java.awt.Color(0, 95, 230));
-        btnNuevoPaciente.setColorOver(new java.awt.Color(0, 84, 204));
-        btnNuevoPaciente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btnNuevoPaciente.setPreferredSize(new java.awt.Dimension(230, 50));
-        btnNuevoPaciente.setRadius(15);
-        btnNuevoPaciente.addActionListener(new java.awt.event.ActionListener() {
+        btnNuevoEmpleado.setBackground(new java.awt.Color(0, 105, 255));
+        btnNuevoEmpleado.setForeground(new java.awt.Color(255, 255, 255));
+        btnNuevoEmpleado.setText("Nuevo Empleado");
+        btnNuevoEmpleado.setBorderColor(new java.awt.Color(255, 255, 255));
+        btnNuevoEmpleado.setColor(new java.awt.Color(0, 105, 255));
+        btnNuevoEmpleado.setColorClick(new java.awt.Color(0, 95, 230));
+        btnNuevoEmpleado.setColorOver(new java.awt.Color(0, 84, 204));
+        btnNuevoEmpleado.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnNuevoEmpleado.setPreferredSize(new java.awt.Dimension(230, 50));
+        btnNuevoEmpleado.setRadius(15);
+        btnNuevoEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoPacienteActionPerformed(evt);
+                btnNuevoEmpleadoActionPerformed(evt);
             }
         });
 
@@ -148,9 +146,9 @@ public class ViewPaciente extends javax.swing.JPanel {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(btnBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnNuevoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnNuevoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1073, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(345, 345, 345))
+                .addGap(366, 366, 366))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,7 +156,7 @@ public class ViewPaciente extends javax.swing.JPanel {
                 .addGap(13, 13, 13)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btnNuevoPaciente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnNuevoEmpleado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(inputSearchPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)))
@@ -172,104 +170,69 @@ public class ViewPaciente extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1180, -1));
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1190, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnNuevoPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoPacienteActionPerformed
-        this.nuevoPaciente = new GestionPaciente(dashboard, this, "Nuevo");
-        dashboard.initView(nuevoPaciente);
-    }//GEN-LAST:event_btnNuevoPacienteActionPerformed
+    private void btnNuevoEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoEmpleadoActionPerformed
+        this.viewGestionEmpleado = new GestionEmpleado(dashboard, this);
+        dashboard.initView(viewGestionEmpleado);
+
+    }//GEN-LAST:event_btnNuevoEmpleadoActionPerformed
 
     private void btnBorrarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarPacienteActionPerformed
-        int filaSeleccionada = tablaPacientes.getSelectedRow();
 
-        if (filaSeleccionada != -1) { // Verifica si se ha seleccionado una fila
-            System.out.println(filaSeleccionada);
-            String cedula = tablaPacientes.getValueAt(filaSeleccionada, 0).toString();
-            dialog.DialogEliminarPaciente dialog = new dialog.DialogEliminarPaciente(cedula, this);
-            dialog.setVisible(true);
-            this.repaint();
-        }
     }//GEN-LAST:event_btnBorrarPacienteActionPerformed
 
     // fumada extrema que ni entiendo que hice alksdjklajdklajd
     private void btnBuscarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPacienteActionPerformed
-        if (validacionPaciente.validarInput(inputSearchPaciente, "Burcar")) {
-            int filaSeleccionada = -1;
-            String nombrePaciente = paciente.buscarPaciente(inputSearchPaciente.getText().trim());
-            DefaultTableModel modeloTabla = (DefaultTableModel) tablaPacientes.getModel();
-            for (int i = 0; i < modeloTabla.getRowCount(); i++) {
-                String nombreEnFila = (String) modeloTabla.getValueAt(i, 1); // Ajusta la columna según tu modelo
-                if (nombreEnFila.equals(nombrePaciente)) {
-                    // Encontramos la fila, ahora enfocamos
-                    tablaPacientes.setRowSelectionInterval(i, i);
-                    tablaPacientes.scrollRectToVisible(tablaPacientes.getCellRect(i, 0, true));
-                    break;
-                }
-            }
-            if (filaSeleccionada != -1) {
-                // La fila está seleccionada, puedes enfocarla en el JTable
-                tablaPacientes.setRowSelectionInterval(filaSeleccionada, filaSeleccionada);
-                tablaPacientes.scrollRectToVisible(tablaPacientes.getCellRect(filaSeleccionada, 0, true));
 
-            }
-            inputSearchPaciente.setText("");
-        }
     }//GEN-LAST:event_btnBuscarPacienteActionPerformed
 
     private void btnEditarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarPacienteActionPerformed
-        int filaSeleccionada = tablaPacientes.getSelectedRow();
-        if (filaSeleccionada != -1) { // Verifica si se ha seleccionado una fila
-            String cedula = tablaPacientes.getValueAt(filaSeleccionada, 0).toString();
-            this.nuevoPaciente = new GestionPaciente(dashboard, this, cedula);
-            dashboard.initView(nuevoPaciente);
-        }
 
 
     }//GEN-LAST:event_btnEditarPacienteActionPerformed
 
     public void cargarTabla() {
-        try {
-            paciente.mostrarPacientes(tablaPacientes);
-            configuracionesTabla();
-        } catch (Exception e) {
-        }
+        empleado.mostrarEmpleado(tablaEmpleados);
+        configuracionesTabla();
     }
 
     private void configuracionesTabla() {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        tablaPacientes.getColumnModel().getColumn(0).setPreferredWidth(100);
-        tablaPacientes.getColumnModel().getColumn(0).setResizable(false);
-        tablaPacientes.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-        tablaPacientes.getColumnModel().getColumn(1).setPreferredWidth(250);
-        tablaPacientes.getColumnModel().getColumn(1).setResizable(false);
-        tablaPacientes.getColumnModel().getColumn(2).setPreferredWidth(40);
-        tablaPacientes.getColumnModel().getColumn(2).setResizable(false);
-        tablaPacientes.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
-        tablaPacientes.getColumnModel().getColumn(3).setPreferredWidth(100);
-        tablaPacientes.getColumnModel().getColumn(3).setResizable(false);
-        tablaPacientes.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
-        tablaPacientes.getColumnModel().getColumn(4).setPreferredWidth(100);
-        tablaPacientes.getColumnModel().getColumn(4).setResizable(false);
+        tablaEmpleados.getColumnModel().getColumn(0).setPreferredWidth(250);
+        tablaEmpleados.getColumnModel().getColumn(0).setResizable(false);
+        tablaEmpleados.getColumnModel().getColumn(1).setPreferredWidth(200);
+        tablaEmpleados.getColumnModel().getColumn(1).setResizable(false);
+        tablaEmpleados.getColumnModel().getColumn(2).setPreferredWidth(120);
+        tablaEmpleados.getColumnModel().getColumn(2).setResizable(false);
+        tablaEmpleados.getColumnModel().getColumn(3).setPreferredWidth(120);
+        tablaEmpleados.getColumnModel().getColumn(3).setResizable(false);
+        tablaEmpleados.getColumnModel().getColumn(4).setPreferredWidth(120);
+        tablaEmpleados.getColumnModel().getColumn(4).setResizable(false);
+        tablaEmpleados.getColumnModel().getColumn(5).setPreferredWidth(50);
+        tablaEmpleados.getColumnModel().getColumn(5).setResizable(false);
+        tablaEmpleados.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
         DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
         headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
         headerRenderer.setBackground(new Color(240, 240, 240)); // Cambia el color aquí
 
         // Asigna el renderizador personalizado a la cabecera
-        tablaPacientes.getTableHeader().setDefaultRenderer(headerRenderer);
-        tablaPacientes.setDefaultEditor(Object.class, null);
+        tablaEmpleados.getTableHeader().setDefaultRenderer(headerRenderer);
+        tablaEmpleados.setDefaultEditor(Object.class, null);
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private components.ButtonCustom btnBorrarPaciente;
     private components.ButtonCustom btnBuscarPaciente;
     private components.ButtonCustom btnEditarPaciente;
-    private components.ButtonCustom btnNuevoPaciente;
+    private components.ButtonCustom btnNuevoEmpleado;
     private components.TextField inputSearchPaciente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tablaPacientes;
+    private javax.swing.JTable tablaEmpleados;
     // End of variables declaration//GEN-END:variables
 }

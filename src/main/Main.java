@@ -1,61 +1,62 @@
-
 package main;
+
 import database.DataBase;
 import java.awt.BorderLayout;
 import style.styleWindow;
 
 // colocar todo en español, pero despues de la entrega final, colocarlo en ingles para el portafolio y repositorio
 // optimizar codigo, testear las ventanas para conseguir errores, y si se puede implementar test unitarios, no mostrar los test en la entrega
-
-
 public class Main extends javax.swing.JFrame {
-        private database.DataBase DB = new DataBase();
-        private views.Login login;
-        private views.Dashboard dashboard;
 
- 
-    public Main() {    
+    private database.DataBase DB = new DataBase();
+    private views.Login login;
+    private views.Dashboard dashboard;
+    private boolean admin = false;
+
+    public Main() {
 //      Configuraciones de la ventana
         login = new views.Login(this);
-        dashboard = new views.Dashboard(this);
+        dashboard = new views.Dashboard(this, admin);
         styleWindow ventana = new styleWindow();
         initComponents();
         ventana.configuracionesVentana(this, 1400, 800, "Enfermeria UCAB");
         setIconImage(ventana.getIconImage("images/logo.png"));
-        
-        
+
         // DB
         iniciadorDB();
-        
 
         // Interfaz
-        initView(dashboard);
-        initView(login);
+        initView(viewAdmin(true));
+//        initView(login);
 
     }
-    
+
+    public views.Dashboard viewAdmin(boolean admin) {
+        return dashboard = new views.Dashboard(this, admin);
+    }
+
     public views.Dashboard getDashboard() {
         return dashboard;
     }
-    
-    public views.Login getLogin(){
+
+    public views.Login getLogin() {
         return login;
     }
- 
-    public void initView(javax.swing.JPanel view){
+
+    public void initView(javax.swing.JPanel view) {
         background.removeAll();
         background.add(view, BorderLayout.CENTER);
         background.revalidate();
         background.repaint();
     }
-    
-    private void iniciadorDB(){
+
+    private void iniciadorDB() {
         DB.createDB();
-        DB.createTabla(DB.getSqlCreateTablaEmpleados());  
-        DB.createTabla(DB.getSqlCreateTablaPacientes());  
+        DB.createTabla(DB.getSqlCreateTablaEmpleados());
+        DB.createTabla(DB.getSqlCreateTablaPacientes());
 //        DB.viewTabla("Pacientes");
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

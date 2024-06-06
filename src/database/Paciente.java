@@ -1,5 +1,5 @@
-
 package database;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,8 +8,9 @@ import java.sql.Statement;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class Paciente extends DataBase{
-    public boolean nuevoPaciente(String nombre, String apellido, String cedula, String telefono,String DE ,String genero, int edad, String descripcion) {
+public class Paciente extends DataBase {
+
+    public boolean nuevoPaciente(String nombre, String apellido, String cedula, String telefono, String DE, String genero, int edad, String descripcion) {
         try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
@@ -54,12 +55,11 @@ public class Paciente extends DataBase{
         }
 
     }
-    
-    public void mostrarPacientes( JTable table){
-         try {
+
+    public void mostrarPacientes(JTable table) {
+        try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
-//            String sqlConsulta = "SELECT * FROM " + nombreTabla;
             String sqlConsulta = "SELECT * FROM Pacientes ORDER BY NOMBRE";
 
             statement = (Statement) conexion.createStatement();
@@ -71,12 +71,12 @@ public class Paciente extends DataBase{
             model.addColumn("Genero");
             model.addColumn("Telefono");
             table.setModel(model);
-            
-            String [] datos = new String[6];
+
+            String[] datos = new String[6];
             while (resultado.next()) {
                 // No entiendo el orden, consegui la secuencia tanteando
                 datos[0] = resultado.getString(4);
-                datos[1] = resultado.getString(2)+ " " + resultado.getString(3);
+                datos[1] = resultado.getString(2) + " " + resultado.getString(3);
                 datos[2] = resultado.getString(8);
                 datos[3] = resultado.getString(7);
                 datos[4] = resultado.getString(5);
@@ -99,7 +99,8 @@ public class Paciente extends DataBase{
         }
 
     }
-    public boolean eliminarPaciente( String cedula) {
+
+    public boolean eliminarPaciente(String cedula) {
         try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
@@ -129,6 +130,7 @@ public class Paciente extends DataBase{
             }
         }
     }
+
     public String buscarPaciente(String nombre) {
         try {
             Class.forName(ORG);
@@ -162,7 +164,8 @@ public class Paciente extends DataBase{
             }
         }
     }
-    public String[] buscar( String cedula) {
+
+    public String[] buscar(String cedula) {
         try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
@@ -207,7 +210,6 @@ public class Paciente extends DataBase{
         }
     }
 
-    
     public boolean editarPaciente(String id, String nuevoNombre, String nuevoApellido, String nuevoCedula, String nuevoTelefono, String nuevoDE, String nuevoGenero, int nuevaEdad, String nuevaDescripcion) {
         try {
             Class.forName(ORG);

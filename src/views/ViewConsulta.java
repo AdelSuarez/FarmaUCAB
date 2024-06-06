@@ -1,20 +1,16 @@
-
 package views;
-
-
 
 public class ViewConsulta extends javax.swing.JPanel {
 
     public ViewConsulta() {
         initComponents();
-        this.setSize(1350,920);
+        this.setSize(1350, 920);
 //        jTable2.getTableHeader().setOpaque(false);
 //        jTable2.getTableHeader().setBackground(Color.cyan);
         this.repaint();
 
     }
 
- 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

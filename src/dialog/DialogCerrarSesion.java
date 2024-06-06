@@ -1,30 +1,26 @@
-
 package dialog;
 
 import java.awt.Color;
 
 public class DialogCerrarSesion extends javax.swing.JFrame {
-    
+
     private main.Main main;
 
     public DialogCerrarSesion(main.Main main) {
         this.main = main;
         this.setUndecorated(true);
         initComponents();
-        setBackground(new Color(0,0,0,0));
+        setBackground(new Color(0, 0, 0, 0));
         this.repaint();
-        
+
     }
 
     private DialogCerrarSesion() {
         this.setUndecorated(true);
         initComponents();
-        setBackground(new Color(0,0,0,0));
+        setBackground(new Color(0, 0, 0, 0));
         this.repaint();
     }
-
-
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

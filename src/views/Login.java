@@ -1,4 +1,3 @@
-
 package views;
 
 import database.DataBase;
@@ -7,23 +6,21 @@ import validaciones.ValidacionLogin;
 import style.MyColor;
 
 // Mejorar diseño del login
-
 public class Login extends javax.swing.JPanel {
+
     private ValidacionLogin validacion = new ValidacionLogin();
     private database.Empleado empleado = new Empleado();
     private main.Main main;
-    private boolean viewLogin = false;
-
 
     public Login(main.Main main) {
         this.main = main;
         initComponents();
         textoMensaje.setVisible(false);
-        this.setSize(1400,800);
-        this.setLocation(0,0);
-        
+        this.setSize(1400, 800);
+        this.setLocation(0, 0);
+
         // Muestra el panel de inicio de sesion dependiendo si hay usuarios o no en la tabla empleados
-        if (new DataBase().isEmptyTabla("Empleados") && !viewLogin){
+        if (new DataBase().isEmptyTabla("Empleados")) {
             PanelAdmin.setVisible(true);
             PanelInicioSesion.setVisible(false);
         } else {
@@ -31,10 +28,6 @@ public class Login extends javax.swing.JPanel {
             PanelAdmin.setVisible(false);
 
         }
-    }
-    
-    public void cambioLogin(){
-        viewLogin = true;
     }
 
     @SuppressWarnings("unchecked")
@@ -266,17 +259,23 @@ public class Login extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioSesionActionPerformed
-        // todavia en desarrollo, primero hay que implementar el registro del primer usuario
-        
-        if (validacion.ceroCamposVaciosInicioSesion(inputUsuarioSesion, inputPasswordUsuario) == 2){
-            if(empleado.inicioEmpleado(inputUsuarioSesion.getText(), inputPasswordUsuario.getText().trim())){
-                inputUsuarioSesion.setText("");
-                inputPasswordUsuario.setText("");
-                main.initView(main.getDashboard());
-                
+
+        if (validacion.ceroCamposVaciosInicioSesion(inputUsuarioSesion, inputPasswordUsuario) == 2) {
+            if (empleado.inicioEmpleado(inputUsuarioSesion.getText().trim(), inputPasswordUsuario.getText().trim())) {
+                if (empleado.validarEmpleadoAdmin(inputUsuarioSesion.getText().trim())) {
+                    inputUsuarioSesion.setText("");
+                    inputPasswordUsuario.setText("");
+//                    System.out.println("es admin");
+                    main.initView(main.viewAdmin(true));
+                } else {
+                    inputUsuarioSesion.setText("");
+                    inputPasswordUsuario.setText("");
+                    main.initView(main.getDashboard());
+                }
+
             } else {
-                inputUsuarioSesion.setLineColor( new MyColor().getRED());
-                inputPasswordUsuario.setLineColor( new MyColor().getRED());
+                inputUsuarioSesion.setLineColor(new MyColor().getRED());
+                inputPasswordUsuario.setLineColor(new MyColor().getRED());
             }
         }
         this.repaint();
@@ -286,16 +285,16 @@ public class Login extends javax.swing.JPanel {
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         //        validacion.validarInputPassword(inputPassword, "aaaaa");
         if (validacion.ceroCamposVaciosRegistro(inputNombre, inputApellido, inputTelefono, inputCorreo, inputUsuarioRegistro, inputPassword, inputRepetirPassword)
-            && validacion.verificacionPassword(textoMensaje, inputPassword, inputRepetirPassword)){
+                && validacion.verificacionPassword(textoMensaje, inputPassword, inputRepetirPassword)) {
             empleado.nuevoEmpleado(
-                inputNombre.getText().trim(),
-                inputApellido.getText().trim(),
-                inputTelefono.getText().trim(),
-                inputCorreo.getText().trim(),
-                inputUsuarioRegistro.getText().trim(),
-                true,
-                inputPassword.getText().trim());
-            main.initView(main.getDashboard());
+                    inputNombre.getText().trim(),
+                    inputApellido.getText().trim(),
+                    inputTelefono.getText().trim(),
+                    inputCorreo.getText().trim(),
+                    inputUsuarioRegistro.getText().trim(),
+                    true,
+                    inputPassword.getText().trim());
+            main.initView(main.viewAdmin(true));
 
         } else {
             validacion.verificacionPassword(textoMensaje, inputPassword, inputRepetirPassword);
@@ -304,8 +303,7 @@ public class Login extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
-   
-        
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FarmaUCAB;
     private components.PanelRound PanelAdmin;
