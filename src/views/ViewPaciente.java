@@ -184,7 +184,6 @@ public class ViewPaciente extends javax.swing.JPanel {
         int filaSeleccionada = tablaPacientes.getSelectedRow();
 
         if (filaSeleccionada != -1) { // Verifica si se ha seleccionado una fila
-            System.out.println(filaSeleccionada);
             String cedula = tablaPacientes.getValueAt(filaSeleccionada, 0).toString();
             dialog.DialogEliminarPaciente dialog = new dialog.DialogEliminarPaciente(cedula, this);
             dialog.setVisible(true);
@@ -215,6 +214,7 @@ public class ViewPaciente extends javax.swing.JPanel {
             }
             inputSearchPaciente.setText("");
         }
+        this.repaint();
     }//GEN-LAST:event_btnBuscarPacienteActionPerformed
 
     private void btnEditarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarPacienteActionPerformed

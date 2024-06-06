@@ -172,4 +172,154 @@ public class Empleado extends DataBase {
         }
 
     }
+    
+    
+    
+    public boolean eliminarEmpleado(String usuario) {
+        try {
+            Class.forName(ORG);
+            conexion = DriverManager.getConnection(DIRECCIONDB);
+            String sqlDelete = "DELETE FROM Empleados WHERE USUARIO = ?";
+
+            PreparedStatement preparedStatement = conexion.prepareStatement(sqlDelete);
+            preparedStatement.setString(1, usuario);
+
+            int filasEliminadas = preparedStatement.executeUpdate();
+            if (filasEliminadas > 0) {
+                preparedStatement.close();
+                return true;
+            } else {
+                preparedStatement.close();
+                return false;
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            return false;
+        } finally {
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    
+    public String buscarEmpleado(String nombre) {
+        try {
+            Class.forName(ORG);
+            conexion = DriverManager.getConnection(DIRECCIONDB);
+            String sqlSelect = "SELECT NOMBRE, APELLIDO FROM Empleados WHERE UPPER(NOMBRE) LIKE UPPER(?)";
+
+            PreparedStatement preparedStatement = conexion.prepareStatement(sqlSelect);
+            preparedStatement.setString(1, "%" + nombre + "%"); // Agrega comodines para buscar por coincidencia de palabras
+
+            ResultSet resultado = preparedStatement.executeQuery();
+            if (resultado.next()) {
+                String nombreEmpleado = resultado.getString("NOMBRE") + " " + resultado.getString("APELLIDO");
+                preparedStatement.close();
+                return nombreEmpleado;
+            } else {
+                // No se encontró ningún empleado con ese nombre
+                preparedStatement.close();
+                return "No se encontró ningún empleado con ese nombre.";
+            }
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace(); // Registra el error para depuración
+            return "Error al buscar el empleado.";
+        } finally {
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    
+    public String[] buscar(String usuario) {
+        try {
+            Class.forName(ORG);
+            conexion = DriverManager.getConnection(DIRECCIONDB);
+            String sqlSelect = "SELECT * FROM Empleados WHERE USUARIO = ?";
+
+            PreparedStatement preparedStatement = conexion.prepareStatement(sqlSelect);
+            preparedStatement.setString(1, usuario);
+
+            ResultSet resultado = preparedStatement.executeQuery();
+            if (resultado.next()) {
+                String id = resultado.getString("ID");
+                String nombre = resultado.getString("NOMBRE");
+                String apellido = resultado.getString("APELLIDO");
+                String telefono = resultado.getString("TELEFONO");
+                String correo = resultado.getString("CORREO");
+                String usuarioE = resultado.getString("USUARIO");
+                boolean admin = resultado.getBoolean("ADMIN");
+                String password = resultado.getString("PASSWORD");
+
+                preparedStatement.close();
+
+                // Crear un arreglo con los datos del empleado
+                String[] datosEmpleado = {id, nombre, apellido, telefono, correo, usuarioE, password, String.valueOf(admin)};
+                return datosEmpleado;
+            } else {
+                // No se encontró ningún empleado con ese usuario
+                preparedStatement.close();
+                return null;
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error al buscar el empleado.");
+        } finally {
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    
+    public boolean editarEmpleado(String id, String nuevoNombre, String nuevoApellido, String nuevoTelefono, String nuevoCorreo, String nuevoUsuario, boolean nuevoAdmin, String nuevaPassword) {
+        try {
+            Class.forName(ORG);
+            conexion = DriverManager.getConnection(DIRECCIONDB);
+            conexion.setAutoCommit(false);
+
+            String sqlUpdate = "UPDATE Empleados SET NOMBRE = ?, APELLIDO = ?, TELEFONO = ?, CORREO = ?, USUARIO = ?, ADMIN = ?, PASSWORD = ? WHERE ID = ?";
+            PreparedStatement preparedStatement = conexion.prepareStatement(sqlUpdate);
+            preparedStatement.setString(1, nuevoNombre);
+            preparedStatement.setString(2, nuevoApellido);
+            preparedStatement.setString(3, nuevoTelefono);
+            preparedStatement.setString(4, nuevoCorreo);
+            preparedStatement.setString(5, nuevoUsuario);
+            preparedStatement.setBoolean(6, nuevoAdmin);
+            preparedStatement.setString(7, nuevaPassword);
+            preparedStatement.setString(8, id);
+
+            int filasActualizadas = preparedStatement.executeUpdate();
+            if (filasActualizadas > 0) {
+                conexion.commit(); // Confirmar la transacción
+                System.out.println("Empleado actualizado correctamente.");
+                return true;
+            } else {
+                System.out.println("Error al actualizar el empleado.");
+                return false;
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error al editar el empleado.");
+        } finally {
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
 }

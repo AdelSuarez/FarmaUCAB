@@ -7,13 +7,20 @@ public class GestionEmpleado extends javax.swing.JPanel {
 
     private views.Dashboard dashboard;
     private ValidacionesEmpleado valicacionEmpleado = new ValidacionesEmpleado();
+    private views.ViewEmpleado viewEmpleado;
     private Empleado empleado = new Empleado();
+    private String dato;
+    private String id;
+    private String[] datoEmpleado;
 
-    public GestionEmpleado(views.Dashboard dashboard, views.ViewEmpleado viewEmpleado) {
+    public GestionEmpleado(views.Dashboard dashboard, views.ViewEmpleado viewEmpleado, String dato) {
         this.dashboard = dashboard;
+        this.viewEmpleado = viewEmpleado;
+        this.dato = dato;
         initComponents();
         this.setSize(1180, 720);
         this.mensajeGuardado.setVisible(false);
+        seleccionVentana();
     }
 
     @SuppressWarnings("unchecked")
@@ -192,31 +199,51 @@ public class GestionEmpleado extends javax.swing.JPanel {
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         dashboard.initView(dashboard.getViewEmpleado());
         this.mensajeGuardado.setVisible(false);
+        viewEmpleado.cargarTabla();
         this.repaint();
+        
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnGuardarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarEmpleadoActionPerformed
-
-        if (valicacionEmpleado.datosValidados(nombreEmpleado, apellidoEmpleado, telefonoEmpleado, CorreoEmpleado, usuarioEmpleado, passwordField1)) {
+        if (dato.equals("Nuevo")) {
             guardarEmpleado();
+        }else {
+            editarEmpleado();
         }
+
         this.repaint();
     }//GEN-LAST:event_btnGuardarEmpleadoActionPerformed
 
     private void guardarEmpleado() {
-        empleado.nuevoEmpleado(
-                nombreEmpleado.getText().trim(),
-                apellidoEmpleado.getText().trim(),
-                telefonoEmpleado.getText().trim(),
-                CorreoEmpleado.getText().trim(),
-                usuarioEmpleado.getText().trim(),
-                esAdmin.isSelected(),
-                passwordField1.getText().trim());
-        valicacionEmpleado.mensaje(mensajeGuardado, "Empleado Guardado");
-        limpiarInput();
+        if (valicacionEmpleado.datosValidados(nombreEmpleado, apellidoEmpleado, telefonoEmpleado, CorreoEmpleado, usuarioEmpleado, passwordField1)) {
+            empleado.nuevoEmpleado(
+                    nombreEmpleado.getText().trim(),
+                    apellidoEmpleado.getText().trim(),
+                    telefonoEmpleado.getText().trim(),
+                    CorreoEmpleado.getText().trim(),
+                    usuarioEmpleado.getText().trim(),
+                    esAdmin.isSelected(),
+                    passwordField1.getText().trim());
+            valicacionEmpleado.mensaje(mensajeGuardado, "Empleado Guardado");
+            limpiarInput();
+        } 
+
     }
 
-    private void editarPaciente() {
+    private void editarEmpleado() {
+        if (valicacionEmpleado.datosValidados(nombreEmpleado, apellidoEmpleado, telefonoEmpleado, CorreoEmpleado, usuarioEmpleado, passwordField1)) {
+            empleado.editarEmpleado(id, 
+                    nombreEmpleado.getText().trim(), 
+                    apellidoEmpleado.getText().trim(),
+                    telefonoEmpleado.getText().trim(),
+                    CorreoEmpleado.getText().trim(),
+                    usuarioEmpleado.getText().trim(),
+                    esAdmin.isSelected(), 
+                    passwordField1.getText().trim());
+            valicacionEmpleado.mensaje(mensajeGuardado,"Editado con exito");
+            limpiarInput();
+            
+        }
 
     }
 
@@ -228,6 +255,24 @@ public class GestionEmpleado extends javax.swing.JPanel {
         usuarioEmpleado.setText("");
         passwordField1.setText("");
         esAdmin.setSelected(false);
+    }
+
+    private void seleccionVentana() {
+        if (dato.equals("Nuevo")) {
+            tituloPrincipal.setText("Nuevo Empleado");
+        } else {
+            tituloPrincipal.setText("Editar Empleado");
+            this.datoEmpleado = empleado.buscar(dato);
+            this.id = datoEmpleado[0];
+            nombreEmpleado.setText(datoEmpleado[1]);
+            apellidoEmpleado.setText(datoEmpleado[2]);
+            telefonoEmpleado.setText(datoEmpleado[3]);
+            CorreoEmpleado.setText(datoEmpleado[4]);
+            usuarioEmpleado.setText(datoEmpleado[5]);
+            passwordField1.setText(datoEmpleado[6]);
+            esAdmin.setSelected(Boolean.valueOf(datoEmpleado[7]));
+        }
+
     }
 
 

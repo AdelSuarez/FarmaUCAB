@@ -135,7 +135,7 @@ public class Paciente extends DataBase {
         try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
-            String sqlSelect = "SELECT NOMBRE, APELLIDO FROM Pacientes WHERE NOMBRE LIKE ?";
+            String sqlSelect = "SELECT NOMBRE, APELLIDO FROM Pacientes WHERE UPPER(NOMBRE) LIKE UPPER(?)";
 
             PreparedStatement preparedStatement = conexion.prepareStatement(sqlSelect);
             preparedStatement.setString(1, "%" + nombre + "%"); // Agrega comodines para buscar por coincidencia de palabras

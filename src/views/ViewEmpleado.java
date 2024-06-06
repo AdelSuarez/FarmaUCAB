@@ -4,15 +4,16 @@ import views.viewsGestion.GestionEmpleado;
 import database.Empleado;
 import java.awt.Color;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.JTableHeader;
+import javax.swing.table.DefaultTableModel;
+import validaciones.ValidacionesEmpleado;
 
 public class ViewEmpleado extends javax.swing.JPanel {
 
     private views.Dashboard dashboard;
     private Empleado empleado = new Empleado();
     private GestionEmpleado viewGestionEmpleado;
+    private ValidacionesEmpleado validacionesEmpleado = new ValidacionesEmpleado();
 
     public ViewEmpleado(views.Dashboard dashboard) {
         this.dashboard = dashboard;
@@ -31,11 +32,11 @@ public class ViewEmpleado extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaEmpleados = new javax.swing.JTable();
-        inputSearchPaciente = new components.TextField();
+        inputSearchEmpleado = new components.TextField();
         btnNuevoEmpleado = new components.ButtonCustom();
-        btnBorrarPaciente = new components.ButtonCustom();
-        btnEditarPaciente = new components.ButtonCustom();
-        btnBuscarPaciente = new components.ButtonCustom();
+        btnBorrarEmpleado = new components.ButtonCustom();
+        btnEditarEmpleado = new components.ButtonCustom();
+        btnBuscarEmpleado = new components.ButtonCustom();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -65,8 +66,8 @@ public class ViewEmpleado extends javax.swing.JPanel {
         tablaEmpleados.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tablaEmpleados);
 
-        inputSearchPaciente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        inputSearchPaciente.setLabelText("Buscar");
+        inputSearchEmpleado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        inputSearchEmpleado.setLabelText("Buscar");
 
         btnNuevoEmpleado.setBackground(new java.awt.Color(0, 105, 255));
         btnNuevoEmpleado.setForeground(new java.awt.Color(255, 255, 255));
@@ -84,46 +85,46 @@ public class ViewEmpleado extends javax.swing.JPanel {
             }
         });
 
-        btnBorrarPaciente.setForeground(new java.awt.Color(255, 255, 255));
-        btnBorrarPaciente.setText("Borrar");
-        btnBorrarPaciente.setBorderColor(new java.awt.Color(255, 255, 255));
-        btnBorrarPaciente.setColor(new java.awt.Color(231, 76, 60));
-        btnBorrarPaciente.setColorClick(new java.awt.Color(208, 68, 54));
-        btnBorrarPaciente.setColorOver(new java.awt.Color(185, 61, 48));
-        btnBorrarPaciente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btnBorrarPaciente.setPreferredSize(new java.awt.Dimension(230, 50));
-        btnBorrarPaciente.setRadius(15);
-        btnBorrarPaciente.addActionListener(new java.awt.event.ActionListener() {
+        btnBorrarEmpleado.setForeground(new java.awt.Color(255, 255, 255));
+        btnBorrarEmpleado.setText("Borrar");
+        btnBorrarEmpleado.setBorderColor(new java.awt.Color(255, 255, 255));
+        btnBorrarEmpleado.setColor(new java.awt.Color(231, 76, 60));
+        btnBorrarEmpleado.setColorClick(new java.awt.Color(208, 68, 54));
+        btnBorrarEmpleado.setColorOver(new java.awt.Color(185, 61, 48));
+        btnBorrarEmpleado.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnBorrarEmpleado.setPreferredSize(new java.awt.Dimension(230, 50));
+        btnBorrarEmpleado.setRadius(15);
+        btnBorrarEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBorrarPacienteActionPerformed(evt);
+                btnBorrarEmpleadoActionPerformed(evt);
             }
         });
 
-        btnEditarPaciente.setForeground(new java.awt.Color(255, 255, 255));
-        btnEditarPaciente.setText("Editar");
-        btnEditarPaciente.setBorderColor(new java.awt.Color(255, 255, 255));
-        btnEditarPaciente.setColor(new java.awt.Color(244, 208, 63));
-        btnEditarPaciente.setColorClick(new java.awt.Color(220, 187, 57));
-        btnEditarPaciente.setColorOver(new java.awt.Color(195, 166, 50));
-        btnEditarPaciente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btnEditarPaciente.setHideActionText(true);
-        btnEditarPaciente.setPreferredSize(new java.awt.Dimension(230, 50));
-        btnEditarPaciente.setRadius(15);
-        btnEditarPaciente.addActionListener(new java.awt.event.ActionListener() {
+        btnEditarEmpleado.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditarEmpleado.setText("Editar");
+        btnEditarEmpleado.setBorderColor(new java.awt.Color(255, 255, 255));
+        btnEditarEmpleado.setColor(new java.awt.Color(244, 208, 63));
+        btnEditarEmpleado.setColorClick(new java.awt.Color(220, 187, 57));
+        btnEditarEmpleado.setColorOver(new java.awt.Color(195, 166, 50));
+        btnEditarEmpleado.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnEditarEmpleado.setHideActionText(true);
+        btnEditarEmpleado.setPreferredSize(new java.awt.Dimension(230, 50));
+        btnEditarEmpleado.setRadius(15);
+        btnEditarEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarPacienteActionPerformed(evt);
+                btnEditarEmpleadoActionPerformed(evt);
             }
         });
 
-        btnBuscarPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search_black.png"))); // NOI18N
-        btnBuscarPaciente.setBorderColor(new java.awt.Color(255, 255, 255));
-        btnBuscarPaciente.setColorClick(new java.awt.Color(230, 230, 230));
-        btnBuscarPaciente.setColorOver(new java.awt.Color(240, 240, 240));
-        btnBuscarPaciente.setPreferredSize(new java.awt.Dimension(30, 30));
-        btnBuscarPaciente.setRadius(15);
-        btnBuscarPaciente.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscarEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search_black.png"))); // NOI18N
+        btnBuscarEmpleado.setBorderColor(new java.awt.Color(255, 255, 255));
+        btnBuscarEmpleado.setColorClick(new java.awt.Color(230, 230, 230));
+        btnBuscarEmpleado.setColorOver(new java.awt.Color(240, 240, 240));
+        btnBuscarEmpleado.setPreferredSize(new java.awt.Dimension(30, 30));
+        btnBuscarEmpleado.setRadius(15);
+        btnBuscarEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarPacienteActionPerformed(evt);
+                btnBuscarEmpleadoActionPerformed(evt);
             }
         });
 
@@ -135,16 +136,16 @@ public class ViewEmpleado extends javax.swing.JPanel {
                 .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnBorrarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBorrarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnEditarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnEditarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel1)
                             .addGap(18, 18, 18)
-                            .addComponent(inputSearchPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputSearchEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBuscarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnNuevoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1073, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -158,15 +159,15 @@ public class ViewEmpleado extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(btnNuevoEmpleado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(inputSearchPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputSearchEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)))
-                    .addComponent(btnBuscarPaciente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnBuscarEmpleado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnBorrarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEditarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnBorrarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -174,24 +175,60 @@ public class ViewEmpleado extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoEmpleadoActionPerformed
-        this.viewGestionEmpleado = new GestionEmpleado(dashboard, this);
+        this.viewGestionEmpleado = new GestionEmpleado(dashboard, this, "Nuevo");
         dashboard.initView(viewGestionEmpleado);
+        cargarTabla();
 
     }//GEN-LAST:event_btnNuevoEmpleadoActionPerformed
 
-    private void btnBorrarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarPacienteActionPerformed
+    private void btnBorrarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarEmpleadoActionPerformed
+        int filaSeleccionada = tablaEmpleados.getSelectedRow();
 
-    }//GEN-LAST:event_btnBorrarPacienteActionPerformed
+        if (filaSeleccionada != -1) { // Verifica si se ha seleccionado una fila
+            System.out.println(filaSeleccionada);
+            String usuario = tablaEmpleados.getValueAt(filaSeleccionada, 3).toString();
+            dialog.DialogEliminarEmpleado dialog = new dialog.DialogEliminarEmpleado(usuario, this);
+            dialog.setVisible(true);
+            this.repaint();
+        }
+    }//GEN-LAST:event_btnBorrarEmpleadoActionPerformed
 
     // fumada extrema que ni entiendo que hice alksdjklajdklajd
-    private void btnBuscarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPacienteActionPerformed
+    private void btnBuscarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarEmpleadoActionPerformed
+        if (validacionesEmpleado.validarInput(inputSearchEmpleado, "Burcar")) {
+            int filaSeleccionada = -1;
+            String nombreEmpleado = empleado.buscarEmpleado(inputSearchEmpleado.getText().trim());
+            DefaultTableModel modeloTabla = (DefaultTableModel) tablaEmpleados.getModel();
+            for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+                String nombreEnFila = (String) modeloTabla.getValueAt(i, 0); // Ajusta la columna según tu modelo
+                if (nombreEnFila.equals(nombreEmpleado)) {
+                    // Encontramos la fila, ahora enfocamos
+                    tablaEmpleados.setRowSelectionInterval(i, i);
+                    tablaEmpleados.scrollRectToVisible(tablaEmpleados.getCellRect(i, 0, true));
+                    break;
+                }
+            }
+            if (filaSeleccionada != -1) {
+                // La fila está seleccionada, puedes enfocarla en el JTable
+                tablaEmpleados.setRowSelectionInterval(filaSeleccionada, filaSeleccionada);
+                tablaEmpleados.scrollRectToVisible(tablaEmpleados.getCellRect(filaSeleccionada, 0, true));
 
-    }//GEN-LAST:event_btnBuscarPacienteActionPerformed
+            }
+            inputSearchEmpleado.setText("");
+        }
+        this.repaint();
+    }//GEN-LAST:event_btnBuscarEmpleadoActionPerformed
 
-    private void btnEditarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarPacienteActionPerformed
-
-
-    }//GEN-LAST:event_btnEditarPacienteActionPerformed
+    private void btnEditarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarEmpleadoActionPerformed
+        int filaSeleccionada = tablaEmpleados.getSelectedRow();
+        if(filaSeleccionada != -1){
+            String usuario = tablaEmpleados.getValueAt(filaSeleccionada, 3).toString();
+            this.viewGestionEmpleado = new GestionEmpleado(dashboard, this, usuario);
+            dashboard.initView(viewGestionEmpleado);
+        }
+        
+        
+    }//GEN-LAST:event_btnEditarEmpleadoActionPerformed
 
     public void cargarTabla() {
         empleado.mostrarEmpleado(tablaEmpleados);
@@ -199,6 +236,7 @@ public class ViewEmpleado extends javax.swing.JPanel {
     }
 
     private void configuracionesTabla() {
+
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
         tablaEmpleados.getColumnModel().getColumn(0).setPreferredWidth(250);
@@ -225,11 +263,11 @@ public class ViewEmpleado extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private components.ButtonCustom btnBorrarPaciente;
-    private components.ButtonCustom btnBuscarPaciente;
-    private components.ButtonCustom btnEditarPaciente;
+    private components.ButtonCustom btnBorrarEmpleado;
+    private components.ButtonCustom btnBuscarEmpleado;
+    private components.ButtonCustom btnEditarEmpleado;
     private components.ButtonCustom btnNuevoEmpleado;
-    private components.TextField inputSearchPaciente;
+    private components.TextField inputSearchEmpleado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
