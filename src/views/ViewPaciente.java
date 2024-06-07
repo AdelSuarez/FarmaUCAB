@@ -237,7 +237,6 @@ public class ViewPaciente extends javax.swing.JPanel {
             }
         }
         
-
     }
 
     private void configuracionesTabla() {

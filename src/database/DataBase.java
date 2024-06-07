@@ -26,13 +26,23 @@ public class DataBase {
             + " DE               TEXT    NOT NULL, "
             + " GENERO           TEXT    NOT NULL, "
             + " EDAD             INT     NOT NULL, "
-            + " DESCRIPCION      TEXT  NOT NULL) ";
+            + " DESCRIPCION      TEXT  ) ";
+    private final String sqlCreateTablaInsumo = "CREATE TABLE IF NOT EXISTS Insumos "
+            + "(ID INTEGER PRIMARY KEY   NOT NULL,"
+            + " NOMBRE           TEXT    NOT NULL, "
+            + " FECHA            TEXT    NOT NULL, "
+            + " STOCK            INT     NOT NULL, "
+            + " DESCRIPCION      TEXT ) ";
     protected final String ORG = "org.sqlite.JDBC";
     protected final String DIRECCIONDB = "jdbc:sqlite:./DataBase.db";
 
     // Funciones
     public String getSqlCreateTablaEmpleados() {
         return sqlCreateTablaEmpleados;
+    }
+
+    public String getSqlCreateTablaInsumo() {
+        return sqlCreateTablaInsumo;
     }
 
     public String getSqlCreateTablaPacientes() {

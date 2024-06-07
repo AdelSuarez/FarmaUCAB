@@ -9,7 +9,7 @@ public class Dashboard extends javax.swing.JPanel {
 
     private ViewPaciente viewPaciente = new ViewPaciente(this);
     private ViewConsulta viewConsulta = new ViewConsulta();
-    private ViewInsumo viewInsumo = new ViewInsumo();
+    private ViewInsumo viewInsumo = new ViewInsumo(this);
     private ViewEmpleado viewEmpleado = new ViewEmpleado(this);
     private main.Main main;
     private boolean admin = false;
@@ -42,6 +42,10 @@ public class Dashboard extends javax.swing.JPanel {
 
     public ViewEmpleado getViewEmpleado() {
         return viewEmpleado;
+    }
+    
+    public ViewInsumo getViewInsumo(){
+        return viewInsumo;
     }
 
     @SuppressWarnings("unchecked")

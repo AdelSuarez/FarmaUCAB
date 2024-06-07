@@ -26,8 +26,8 @@ public class Main extends javax.swing.JFrame {
         iniciadorDB();
 
         // Interfaz
-//        initView(viewAdmin(true));
-        initView(login);
+        initView(viewAdmin(true));
+//        initView(login);
 
     }
 
@@ -50,6 +50,8 @@ public class Main extends javax.swing.JFrame {
         DB.createDB();
         DB.createTabla(DB.getSqlCreateTablaEmpleados());
         DB.createTabla(DB.getSqlCreateTablaPacientes());
+        DB.createTabla(DB.getSqlCreateTablaInsumo());
+
     }
 
     @SuppressWarnings("unchecked")

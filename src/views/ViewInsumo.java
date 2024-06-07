@@ -1,20 +1,25 @@
-
 package views;
 
-
+import views.viewsGestion.GestionInsumo;
+import java.awt.Color;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 public class ViewInsumo extends javax.swing.JPanel {
 
-    public ViewInsumo() {
+    private GestionInsumo nuevoInsumo;
+    private views.Dashboard dashboard;
+
+    public ViewInsumo(views.Dashboard dashboard) {
+        this.dashboard = dashboard;
         initComponents();
-        this.setSize(1350,920);
-//        jTable2.getTableHeader().setOpaque(false);
-//        jTable2.getTableHeader().setBackground(Color.cyan);
+        this.setSize(1180, 720);
+        mensajeSeleccion.setVisible(false);
+
         this.repaint();
 
     }
 
- 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -22,122 +27,226 @@ public class ViewInsumo extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        textField1 = new components.TextField();
-        buttonCustom1 = new components.ButtonCustom();
-        buttonCustom2 = new components.ButtonCustom();
-        buttonCustom3 = new components.ButtonCustom();
-        buttonCustom4 = new components.ButtonCustom();
+        tablaPacientes = new javax.swing.JTable();
+        inputSearchPaciente = new components.TextField();
+        btnNuevoPaciente = new components.ButtonCustom();
+        btnBorrarPaciente = new components.ButtonCustom();
+        btnEditarPaciente = new components.ButtonCustom();
+        btnBuscarPaciente = new components.ButtonCustom();
+        mensajeSeleccion = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(1350, 920));
-        jPanel1.setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("Insumos");
-        jPanel1.add(jLabel1);
-        jLabel1.setBounds(64, 23, 104, 29);
+        jLabel1.setText("Pacientes");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tablaPacientes.setBackground(new java.awt.Color(255, 255, 255));
+        tablaPacientes.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tablaPacientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
-        jTable2.setFocusable(false);
-        jTable2.setGridColor(new java.awt.Color(153, 153, 153));
-        jTable2.setIntercellSpacing(new java.awt.Dimension(0, 0));
-        jTable2.setOpaque(false);
-        jTable2.setRowHeight(26);
-        jTable2.setShowGrid(true);
-        jTable2.setShowVerticalLines(false);
-        jTable2.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(jTable2);
+        tablaPacientes.setFocusable(false);
+        tablaPacientes.setGridColor(new java.awt.Color(153, 153, 153));
+        tablaPacientes.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        tablaPacientes.setOpaque(false);
+        tablaPacientes.setRowHeight(26);
+        tablaPacientes.setShowGrid(true);
+        tablaPacientes.setShowVerticalLines(false);
+        tablaPacientes.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(tablaPacientes);
 
-        jPanel1.add(jScrollPane2);
-        jScrollPane2.setBounds(64, 90, 1213, 696);
+        inputSearchPaciente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        inputSearchPaciente.setLabelText("Buscar");
 
-        textField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        textField1.setLabelText("Buscar");
-        jPanel1.add(textField1);
-        textField1.setBounds(231, 13, 262, 47);
-
-        buttonCustom1.setBackground(new java.awt.Color(0, 105, 255));
-        buttonCustom1.setForeground(new java.awt.Color(255, 255, 255));
-        buttonCustom1.setText("Añadir insumo");
-        buttonCustom1.setBorderColor(new java.awt.Color(255, 255, 255));
-        buttonCustom1.setColor(new java.awt.Color(0, 105, 255));
-        buttonCustom1.setColorClick(new java.awt.Color(0, 95, 230));
-        buttonCustom1.setColorOver(new java.awt.Color(0, 84, 204));
-        buttonCustom1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        buttonCustom1.setPreferredSize(new java.awt.Dimension(230, 50));
-        buttonCustom1.setRadius(15);
-        buttonCustom1.addActionListener(new java.awt.event.ActionListener() {
+        btnNuevoPaciente.setBackground(new java.awt.Color(0, 105, 255));
+        btnNuevoPaciente.setForeground(new java.awt.Color(255, 255, 255));
+        btnNuevoPaciente.setText("Nuevo paciente");
+        btnNuevoPaciente.setBorderColor(new java.awt.Color(255, 255, 255));
+        btnNuevoPaciente.setColor(new java.awt.Color(0, 105, 255));
+        btnNuevoPaciente.setColorClick(new java.awt.Color(0, 95, 230));
+        btnNuevoPaciente.setColorOver(new java.awt.Color(0, 84, 204));
+        btnNuevoPaciente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnNuevoPaciente.setPreferredSize(new java.awt.Dimension(230, 50));
+        btnNuevoPaciente.setRadius(15);
+        btnNuevoPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCustom1ActionPerformed(evt);
+                btnNuevoPacienteActionPerformed(evt);
             }
         });
-        jPanel1.add(buttonCustom1);
-        buttonCustom1.setBounds(1089, 15, 188, 50);
 
-        buttonCustom2.setForeground(new java.awt.Color(255, 255, 255));
-        buttonCustom2.setText("Borrar");
-        buttonCustom2.setBorderColor(new java.awt.Color(255, 255, 255));
-        buttonCustom2.setColor(new java.awt.Color(231, 76, 60));
-        buttonCustom2.setColorClick(new java.awt.Color(208, 68, 54));
-        buttonCustom2.setColorOver(new java.awt.Color(185, 61, 48));
-        buttonCustom2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        buttonCustom2.setPreferredSize(new java.awt.Dimension(230, 50));
-        buttonCustom2.setRadius(15);
-        jPanel1.add(buttonCustom2);
-        buttonCustom2.setBounds(1035, 804, 111, 50);
+        btnBorrarPaciente.setForeground(new java.awt.Color(255, 255, 255));
+        btnBorrarPaciente.setText("Borrar");
+        btnBorrarPaciente.setBorderColor(new java.awt.Color(255, 255, 255));
+        btnBorrarPaciente.setColor(new java.awt.Color(231, 76, 60));
+        btnBorrarPaciente.setColorClick(new java.awt.Color(208, 68, 54));
+        btnBorrarPaciente.setColorOver(new java.awt.Color(185, 61, 48));
+        btnBorrarPaciente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnBorrarPaciente.setPreferredSize(new java.awt.Dimension(230, 50));
+        btnBorrarPaciente.setRadius(15);
+        btnBorrarPaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarPacienteActionPerformed(evt);
+            }
+        });
 
-        buttonCustom3.setForeground(new java.awt.Color(255, 255, 255));
-        buttonCustom3.setText("Editar");
-        buttonCustom3.setBorderColor(new java.awt.Color(255, 255, 255));
-        buttonCustom3.setColor(new java.awt.Color(244, 208, 63));
-        buttonCustom3.setColorClick(new java.awt.Color(220, 187, 57));
-        buttonCustom3.setColorOver(new java.awt.Color(195, 166, 50));
-        buttonCustom3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        buttonCustom3.setHideActionText(true);
-        buttonCustom3.setPreferredSize(new java.awt.Dimension(230, 50));
-        buttonCustom3.setRadius(15);
-        jPanel1.add(buttonCustom3);
-        buttonCustom3.setBounds(1164, 804, 113, 50);
+        btnEditarPaciente.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditarPaciente.setText("Editar");
+        btnEditarPaciente.setBorderColor(new java.awt.Color(255, 255, 255));
+        btnEditarPaciente.setColor(new java.awt.Color(244, 208, 63));
+        btnEditarPaciente.setColorClick(new java.awt.Color(220, 187, 57));
+        btnEditarPaciente.setColorOver(new java.awt.Color(195, 166, 50));
+        btnEditarPaciente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnEditarPaciente.setHideActionText(true);
+        btnEditarPaciente.setPreferredSize(new java.awt.Dimension(230, 50));
+        btnEditarPaciente.setRadius(15);
+        btnEditarPaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarPacienteActionPerformed(evt);
+            }
+        });
 
-        buttonCustom4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search_black.png"))); // NOI18N
-        buttonCustom4.setBorderColor(new java.awt.Color(255, 255, 255));
-        buttonCustom4.setColorClick(new java.awt.Color(230, 230, 230));
-        buttonCustom4.setColorOver(new java.awt.Color(240, 240, 240));
-        buttonCustom4.setPreferredSize(new java.awt.Dimension(30, 30));
-        buttonCustom4.setRadius(15);
-        jPanel1.add(buttonCustom4);
-        buttonCustom4.setBounds(499, 17, 48, 48);
+        btnBuscarPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search_black.png"))); // NOI18N
+        btnBuscarPaciente.setBorderColor(new java.awt.Color(255, 255, 255));
+        btnBuscarPaciente.setColorClick(new java.awt.Color(230, 230, 230));
+        btnBuscarPaciente.setColorOver(new java.awt.Color(240, 240, 240));
+        btnBuscarPaciente.setPreferredSize(new java.awt.Dimension(30, 30));
+        btnBuscarPaciente.setRadius(15);
+        btnBuscarPaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarPacienteActionPerformed(evt);
+            }
+        });
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        mensajeSeleccion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        mensajeSeleccion.setForeground(new java.awt.Color(225, 0, 0));
+        mensajeSeleccion.setText("Seleccione un paciente");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(mensajeSeleccion)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBorrarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEditarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(18, 18, 18)
+                            .addComponent(inputSearchPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnNuevoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1073, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(345, 345, 345))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(13, 13, 13)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(mensajeSeleccion)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnNuevoPaciente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(inputSearchPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1)))
+                            .addComponent(btnBuscarPaciente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnBorrarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEditarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
+        );
+
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1180, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonCustom1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCustom1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buttonCustom1ActionPerformed
+    private void btnNuevoPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoPacienteActionPerformed
+        this.nuevoInsumo = new GestionInsumo(dashboard, this);
+        dashboard.initView(nuevoInsumo);
+    }//GEN-LAST:event_btnNuevoPacienteActionPerformed
 
+    private void btnBorrarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarPacienteActionPerformed
+
+    }//GEN-LAST:event_btnBorrarPacienteActionPerformed
+
+    // fumada extrema que ni entiendo que hice alksdjklajdklajd
+    private void btnBuscarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPacienteActionPerformed
+//   
+    }//GEN-LAST:event_btnBuscarPacienteActionPerformed
+
+    private void btnEditarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarPacienteActionPerformed
+       
+
+
+    }//GEN-LAST:event_btnEditarPacienteActionPerformed
+
+    public void cargarTabla() {
+//        if (!paciente.isEmptyTabla("Pacientes")){
+//            try {
+//                paciente.mostrarPacientes(tablaPacientes);
+//                configuracionesTabla();
+//            } catch (Exception e) {
+//            }
+//        }
+        
+    }
+
+    private void configuracionesTabla() {
+        // COnfiguraciones de la jtable
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        tablaPacientes.getColumnModel().getColumn(0).setPreferredWidth(100);
+        tablaPacientes.getColumnModel().getColumn(0).setResizable(false);
+        tablaPacientes.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        tablaPacientes.getColumnModel().getColumn(1).setPreferredWidth(250);
+        tablaPacientes.getColumnModel().getColumn(1).setResizable(false);
+        tablaPacientes.getColumnModel().getColumn(2).setPreferredWidth(40);
+        tablaPacientes.getColumnModel().getColumn(2).setResizable(false);
+        tablaPacientes.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+        tablaPacientes.getColumnModel().getColumn(3).setPreferredWidth(100);
+        tablaPacientes.getColumnModel().getColumn(3).setResizable(false);
+        tablaPacientes.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+        tablaPacientes.getColumnModel().getColumn(4).setPreferredWidth(100);
+        tablaPacientes.getColumnModel().getColumn(4).setResizable(false);
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+        headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        headerRenderer.setBackground(new Color(240, 240, 240)); // Cambia el color aquí
+
+        // Asigna el renderizador personalizado a la cabecera
+        tablaPacientes.getTableHeader().setDefaultRenderer(headerRenderer);
+        tablaPacientes.setDefaultEditor(Object.class, null);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private components.ButtonCustom buttonCustom1;
-    private components.ButtonCustom buttonCustom2;
-    private components.ButtonCustom buttonCustom3;
-    private components.ButtonCustom buttonCustom4;
+    private components.ButtonCustom btnBorrarPaciente;
+    private components.ButtonCustom btnBuscarPaciente;
+    private components.ButtonCustom btnEditarPaciente;
+    private components.ButtonCustom btnNuevoPaciente;
+    private components.TextField inputSearchPaciente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
-    private components.TextField textField1;
+    private javax.swing.JLabel mensajeSeleccion;
+    private javax.swing.JTable tablaPacientes;
     // End of variables declaration//GEN-END:variables
 }
