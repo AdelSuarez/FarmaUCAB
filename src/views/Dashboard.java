@@ -21,7 +21,7 @@ public class Dashboard extends javax.swing.JPanel {
 
         this.setSize(1400, 800);
         this.setLocation(0, 0);
-
+        adminActivo.setVisible(admin);
         btnPaciente.setColor(new MyColor().getBTNSELECTCOLOR());
         btnEmpleado.setVisible(admin);
         initView(viewPaciente);
@@ -57,6 +57,7 @@ public class Dashboard extends javax.swing.JPanel {
         btnConsulta = new components.ButtonCustom();
         btnEmpleado = new components.ButtonCustom();
         jLabel1 = new javax.swing.JLabel();
+        adminActivo = new components.ButtonCustom();
         jPanel3 = new javax.swing.JPanel();
         btnCerrarSesion = new components.ButtonCustom();
         Content = new javax.swing.JPanel();
@@ -143,6 +144,15 @@ public class Dashboard extends javax.swing.JPanel {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ecg_heart.png"))); // NOI18N
 
+        adminActivo.setForeground(new java.awt.Color(255, 255, 255));
+        adminActivo.setText("Admin");
+        adminActivo.setBorderColor(new java.awt.Color(240, 240, 240));
+        adminActivo.setColor(new java.awt.Color(46, 204, 113));
+        adminActivo.setColorClick(new java.awt.Color(46, 204, 113));
+        adminActivo.setColorOver(new java.awt.Color(46, 204, 113));
+        adminActivo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        adminActivo.setRadius(15);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -166,6 +176,9 @@ public class Dashboard extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(btnEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(adminActivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,7 +199,9 @@ public class Dashboard extends javax.swing.JPanel {
                 .addComponent(btnConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 384, Short.MAX_VALUE)
+                .addComponent(adminActivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42))
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, -1));
@@ -297,6 +312,7 @@ public class Dashboard extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Content;
+    private components.ButtonCustom adminActivo;
     private components.ButtonCustom btnCerrarSesion;
     private components.ButtonCustom btnConsulta;
     private components.ButtonCustom btnEmpleado;

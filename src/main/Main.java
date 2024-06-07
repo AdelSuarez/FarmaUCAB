@@ -26,8 +26,8 @@ public class Main extends javax.swing.JFrame {
         iniciadorDB();
 
         // Interfaz
-        initView(viewAdmin(true));
-//        initView(login);
+//        initView(viewAdmin(true));
+        initView(login);
 
     }
 

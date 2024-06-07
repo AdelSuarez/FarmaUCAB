@@ -1,6 +1,7 @@
 package validaciones;
 
 import javax.swing.JLabel;
+import style.MyColor;
 
 public class ValidacionPaciente extends Validacion {
 
@@ -25,7 +26,10 @@ public class ValidacionPaciente extends Validacion {
             validarCaracteresInput(inputCedula, "Cedula", getREGEXNUMERO(), contadorInput);
         }
         if (validarInput(inputEdad, "Edad")) {
-            validarCaracteresInput(inputEdad, "Edad", getREGEXNUMERO(), contadorInput);
+            if (validarEdad(inputEdad)){
+                validarCaracteresInput(inputEdad, "Edad", getREGEXNUMERO(), contadorInput);
+
+            }
         }
 
         validarCaracteresInput(inputDE, "Dependencia/Escuela", getREGEXNOMBRE(), contadorInput);
@@ -55,6 +59,18 @@ public class ValidacionPaciente extends Validacion {
             combobox.setLabeText("Genero (No seleccionado)");
         }
         return "";
+    }
+    
+    private boolean validarEdad(components.TextField inputEdad){
+        int edad = Integer.parseInt(inputEdad.getText().trim());
+        if ( edad >= 1 && edad < 100 ){
+            inputEdad.setLabelText("Edad");
+            inputEdad.setLineColor(new MyColor().getAZUL());
+            return true;
+        }
+        inputEdad.setLabelText("Edad (Fuera de rango)");
+        inputEdad.setLineColor(new MyColor().getRED());
+        return false;
     }
 
     @Override

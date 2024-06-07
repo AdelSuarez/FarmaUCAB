@@ -270,7 +270,7 @@ public class GestionPaciente extends javax.swing.JPanel {
 
         }
     }
-
+    
     private void limpiarInput() {
         nombrePaciente.setText("");
         apellidoPaciente.setText("");
