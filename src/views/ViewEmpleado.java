@@ -231,8 +231,11 @@ public class ViewEmpleado extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEditarEmpleadoActionPerformed
 
     public void cargarTabla() {
-        empleado.mostrarEmpleado(tablaEmpleados);
-        configuracionesTabla();
+        if(!empleado.isEmptyTabla("Empleados")){
+            empleado.mostrarEmpleado(tablaEmpleados);
+            configuracionesTabla();
+        }
+
     }
 
     private void configuracionesTabla() {

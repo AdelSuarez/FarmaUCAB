@@ -17,9 +17,10 @@ public class ViewPaciente extends javax.swing.JPanel {
     public ViewPaciente(views.Dashboard dashboard) {
         this.dashboard = dashboard;
         initComponents();
-        cargarTabla();
         this.setSize(1180, 720);
         mensajeSeleccion.setVisible(false);
+        cargarTabla();
+
         this.repaint();
 
     }
@@ -228,11 +229,15 @@ public class ViewPaciente extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEditarPacienteActionPerformed
 
     public void cargarTabla() {
-        try {
-            paciente.mostrarPacientes(tablaPacientes);
-            configuracionesTabla();
-        } catch (Exception e) {
+        if (!paciente.isEmptyTabla("Pacientes")){
+            try {
+                paciente.mostrarPacientes(tablaPacientes);
+                configuracionesTabla();
+            } catch (Exception e) {
+            }
         }
+        
+
     }
 
     private void configuracionesTabla() {
