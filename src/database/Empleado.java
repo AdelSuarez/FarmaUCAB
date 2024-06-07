@@ -222,7 +222,7 @@ public class Empleado extends DataBase {
             } else {
                 // No se encontró ningún empleado con ese nombre
                 preparedStatement.close();
-                return "No se encontró ningún empleado con ese nombre.";
+                return "";
             }
 
         } catch (ClassNotFoundException | SQLException e) {

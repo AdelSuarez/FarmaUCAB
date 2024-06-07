@@ -1,6 +1,7 @@
 package validaciones;
 
 import javax.swing.JLabel;
+import javax.swing.table.DefaultTableModel;
 import style.MyColor;
 
 public abstract class Validacion {
@@ -69,4 +70,43 @@ public abstract class Validacion {
         }
 
     }
+
+    public void buscador(
+            components.TextField inputBuscar,
+            String nombre,
+            javax.swing.JTable tabla,
+            int indez
+    ) {
+        
+        
+        if (validarInput(inputBuscar, "Burcar")) {
+            int filaSeleccionada = -1;
+            String nombreEmpleado = nombre;
+            if (!nombreEmpleado.equals("")) {
+                inputBuscar.setLabelText("Buscar");
+
+                DefaultTableModel modeloTabla = (DefaultTableModel) tabla.getModel();
+                for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+                    String nombreEnFila = (String) modeloTabla.getValueAt(i, indez); // Ajusta la columna según tu modelo
+                    if (nombreEnFila.equals(nombreEmpleado)) {
+                        // Encontramos la fila, ahora enfocamos
+                        tabla.setRowSelectionInterval(i, i);
+                        tabla.scrollRectToVisible(tabla.getCellRect(i, 0, true));
+                        break;
+                    }
+                }
+                if (filaSeleccionada != -1) {
+                    // La fila está seleccionada, puedes enfocarla en el JTable
+                    tabla.setRowSelectionInterval(filaSeleccionada, filaSeleccionada);
+                    tabla.scrollRectToVisible(tabla.getCellRect(filaSeleccionada, 0, true));
+
+                }
+                inputBuscar.setText("");
+            } else {
+                inputBuscar.setLabelText("Buscar (0 resultados)");
+            }
+
+        }
+    }
+
 }

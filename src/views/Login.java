@@ -18,6 +18,7 @@ public class Login extends javax.swing.JPanel {
         textoMensaje.setVisible(false);
         this.setSize(1400, 800);
         this.setLocation(0, 0);
+        mesajeInicioSesion.setVisible(false);
 
         // Muestra el panel de inicio de sesion dependiendo si hay usuarios o no en la tabla empleados
         if (new DataBase().isEmptyTabla("Empleados")) {
@@ -35,6 +36,12 @@ public class Login extends javax.swing.JPanel {
     private void initComponents() {
 
         FarmaUCAB = new javax.swing.JLabel();
+        PanelInicioSesion = new components.PanelRound();
+        btnInicioSesion = new components.ButtonCustom();
+        inputPasswordUsuario = new components.PasswordField();
+        jLabel3 = new javax.swing.JLabel();
+        inputUsuarioSesion = new components.TextField();
+        mesajeInicioSesion = new javax.swing.JLabel();
         PanelAdmin = new components.PanelRound();
         btnRegistrar = new components.ButtonCustom();
         inputRepetirPassword = new components.PasswordField();
@@ -47,11 +54,6 @@ public class Login extends javax.swing.JPanel {
         inputUsuarioRegistro = new components.TextField();
         inputCorreo = new components.TextField();
         textoMensaje = new javax.swing.JLabel();
-        PanelInicioSesion = new components.PanelRound();
-        btnInicioSesion = new components.ButtonCustom();
-        inputPasswordUsuario = new components.PasswordField();
-        jLabel3 = new javax.swing.JLabel();
-        inputUsuarioSesion = new components.TextField();
 
         setBackground(new java.awt.Color(231, 231, 239));
         setLayout(null);
@@ -59,7 +61,58 @@ public class Login extends javax.swing.JPanel {
         FarmaUCAB.setFont(new java.awt.Font("Tahoma", 1, 56)); // NOI18N
         FarmaUCAB.setText("Enfermeria UCAB");
         add(FarmaUCAB);
-        FarmaUCAB.setBounds(460, 0, 540, 77);
+        FarmaUCAB.setBounds(460, 0, 540, 68);
+
+        PanelInicioSesion.setBackground(new java.awt.Color(255, 255, 255));
+        PanelInicioSesion.setRoundBottomLeft(30);
+        PanelInicioSesion.setRoundBottomRight(30);
+        PanelInicioSesion.setRoundTopLeft(30);
+        PanelInicioSesion.setRoundTopRight(30);
+        PanelInicioSesion.setLayout(null);
+
+        btnInicioSesion.setForeground(new java.awt.Color(255, 255, 255));
+        btnInicioSesion.setText("Iniciar");
+        btnInicioSesion.setBorderColor(new java.awt.Color(255, 255, 255));
+        btnInicioSesion.setColor(new java.awt.Color(0, 102, 255));
+        btnInicioSesion.setColorClick(new java.awt.Color(0, 102, 255));
+        btnInicioSesion.setColorOver(new java.awt.Color(0, 102, 204));
+        btnInicioSesion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnInicioSesion.setRadius(15);
+        btnInicioSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInicioSesionActionPerformed(evt);
+            }
+        });
+        PanelInicioSesion.add(btnInicioSesion);
+        btnInicioSesion.setBounds(124, 455, 100, 36);
+
+        inputPasswordUsuario.setToolTipText("");
+        inputPasswordUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        inputPasswordUsuario.setLabelText("Contraseña");
+        inputPasswordUsuario.setShowAndHide(true);
+        PanelInicioSesion.add(inputPasswordUsuario);
+        inputPasswordUsuario.setBounds(39, 240, 270, 47);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel3.setText("Iniciar sesion");
+        PanelInicioSesion.add(jLabel3);
+        jLabel3.setBounds(91, 38, 160, 29);
+
+        inputUsuarioSesion.setForeground(new java.awt.Color(80, 80, 80));
+        inputUsuarioSesion.setToolTipText("");
+        inputUsuarioSesion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        inputUsuarioSesion.setLabelText("Usuario");
+        PanelInicioSesion.add(inputUsuarioSesion);
+        inputUsuarioSesion.setBounds(39, 175, 270, 47);
+
+        mesajeInicioSesion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        mesajeInicioSesion.setForeground(new java.awt.Color(225, 0, 0));
+        mesajeInicioSesion.setText("Usuario o contraseña incorrecto");
+        PanelInicioSesion.add(mesajeInicioSesion);
+        mesajeInicioSesion.setBounds(90, 420, 180, 15);
+
+        add(PanelInicioSesion);
+        PanelInicioSesion.setBounds(525, 115, 350, 530);
 
         PanelAdmin.setBackground(new java.awt.Color(255, 255, 255));
         PanelAdmin.setPreferredSize(new java.awt.Dimension(350, 600));
@@ -179,103 +232,37 @@ public class Login extends javax.swing.JPanel {
                 .addComponent(inputRepetirPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textoMensaje)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12))
         );
 
         add(PanelAdmin);
         PanelAdmin.setBounds(525, 115, 350, 600);
-
-        PanelInicioSesion.setBackground(new java.awt.Color(255, 255, 255));
-        PanelInicioSesion.setRoundBottomLeft(30);
-        PanelInicioSesion.setRoundBottomRight(30);
-        PanelInicioSesion.setRoundTopLeft(30);
-        PanelInicioSesion.setRoundTopRight(30);
-
-        btnInicioSesion.setForeground(new java.awt.Color(255, 255, 255));
-        btnInicioSesion.setText("Iniciar");
-        btnInicioSesion.setBorderColor(new java.awt.Color(255, 255, 255));
-        btnInicioSesion.setColor(new java.awt.Color(0, 102, 255));
-        btnInicioSesion.setColorClick(new java.awt.Color(0, 102, 255));
-        btnInicioSesion.setColorOver(new java.awt.Color(0, 102, 204));
-        btnInicioSesion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnInicioSesion.setRadius(15);
-        btnInicioSesion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInicioSesionActionPerformed(evt);
-            }
-        });
-
-        inputPasswordUsuario.setToolTipText("");
-        inputPasswordUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        inputPasswordUsuario.setLabelText("Contraseña");
-        inputPasswordUsuario.setShowAndHide(true);
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel3.setText("Iniciar sesion");
-
-        inputUsuarioSesion.setForeground(new java.awt.Color(80, 80, 80));
-        inputUsuarioSesion.setToolTipText("");
-        inputUsuarioSesion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        inputUsuarioSesion.setLabelText("Usuario");
-
-        javax.swing.GroupLayout PanelInicioSesionLayout = new javax.swing.GroupLayout(PanelInicioSesion);
-        PanelInicioSesion.setLayout(PanelInicioSesionLayout);
-        PanelInicioSesionLayout.setHorizontalGroup(
-            PanelInicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelInicioSesionLayout.createSequentialGroup()
-                .addGroup(PanelInicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelInicioSesionLayout.createSequentialGroup()
-                        .addGap(91, 91, 91)
-                        .addComponent(jLabel3))
-                    .addGroup(PanelInicioSesionLayout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addGroup(PanelInicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(inputPasswordUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputUsuarioSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(41, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInicioSesionLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnInicioSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(126, 126, 126))
-        );
-        PanelInicioSesionLayout.setVerticalGroup(
-            PanelInicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInicioSesionLayout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(jLabel3)
-                .addGap(108, 108, 108)
-                .addComponent(inputUsuarioSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(inputPasswordUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
-                .addComponent(btnInicioSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39))
-        );
-
-        add(PanelInicioSesion);
-        PanelInicioSesion.setBounds(525, 115, 350, 530);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioSesionActionPerformed
+        mesajeInicioSesion.setVisible(false);
 
         if (validacion.ceroCamposVaciosInicioSesion(inputUsuarioSesion, inputPasswordUsuario) == 2) {
             if (empleado.inicioEmpleado(inputUsuarioSesion.getText().trim(), inputPasswordUsuario.getText().trim())) {
                 if (empleado.validarEmpleadoAdmin(inputUsuarioSesion.getText().trim())) {
                     inputUsuarioSesion.setText("");
                     inputPasswordUsuario.setText("");
-//                    System.out.println("es admin");
                     main.initView(main.viewAdmin(true));
+                    mesajeInicioSesion.setVisible(false);
+
                 } else {
                     inputUsuarioSesion.setText("");
                     inputPasswordUsuario.setText("");
-                    main.initView(main.getDashboard());
+                    main.initView(main.viewAdmin(false));
+                    mesajeInicioSesion.setVisible(false);
                 }
 
             } else {
                 inputUsuarioSesion.setLineColor(new MyColor().getRED());
                 inputPasswordUsuario.setLineColor(new MyColor().getRED());
+                mesajeInicioSesion.setVisible(true);
             }
         }
         this.repaint();
@@ -283,7 +270,6 @@ public class Login extends javax.swing.JPanel {
     }//GEN-LAST:event_btnInicioSesionActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        //        validacion.validarInputPassword(inputPassword, "aaaaa");
         if (validacion.ceroCamposVaciosRegistro(inputNombre, inputApellido, inputTelefono, inputCorreo, inputUsuarioRegistro, inputPassword, inputRepetirPassword)
                 && validacion.verificacionPassword(textoMensaje, inputPassword, inputRepetirPassword)) {
             empleado.nuevoEmpleado(
@@ -322,6 +308,7 @@ public class Login extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel mesajeInicioSesion;
     private javax.swing.JLabel textoMensaje;
     // End of variables declaration//GEN-END:variables
 

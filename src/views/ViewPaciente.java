@@ -3,10 +3,8 @@ package views;
 import views.viewsGestion.GestionPaciente;
 import database.Paciente;
 import java.awt.Color;
-import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
 import validaciones.ValidacionPaciente;
 
 public class ViewPaciente extends javax.swing.JPanel {
@@ -21,6 +19,7 @@ public class ViewPaciente extends javax.swing.JPanel {
         initComponents();
         cargarTabla();
         this.setSize(1180, 720);
+        mensajeSeleccion.setVisible(false);
         this.repaint();
 
     }
@@ -38,6 +37,7 @@ public class ViewPaciente extends javax.swing.JPanel {
         btnBorrarPaciente = new components.ButtonCustom();
         btnEditarPaciente = new components.ButtonCustom();
         btnBuscarPaciente = new components.ButtonCustom();
+        mensajeSeleccion = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -129,6 +129,10 @@ public class ViewPaciente extends javax.swing.JPanel {
             }
         });
 
+        mensajeSeleccion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        mensajeSeleccion.setForeground(new java.awt.Color(225, 0, 0));
+        mensajeSeleccion.setText("Seleccione un paciente");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -137,6 +141,8 @@ public class ViewPaciente extends javax.swing.JPanel {
                 .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(mensajeSeleccion)
+                        .addGap(18, 18, 18)
                         .addComponent(btnBorrarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnEditarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -156,19 +162,22 @@ public class ViewPaciente extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(13, 13, 13)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btnNuevoPaciente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(inputSearchPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)))
-                    .addComponent(btnBuscarPaciente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnBorrarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEditarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(mensajeSeleccion)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnNuevoPaciente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(inputSearchPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1)))
+                            .addComponent(btnBuscarPaciente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnBorrarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEditarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
 
@@ -182,47 +191,37 @@ public class ViewPaciente extends javax.swing.JPanel {
 
     private void btnBorrarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarPacienteActionPerformed
         int filaSeleccionada = tablaPacientes.getSelectedRow();
+        mensajeSeleccion.setVisible(false);
 
         if (filaSeleccionada != -1) { // Verifica si se ha seleccionado una fila
             String cedula = tablaPacientes.getValueAt(filaSeleccionada, 0).toString();
             dialog.DialogEliminarPaciente dialog = new dialog.DialogEliminarPaciente(cedula, this);
             dialog.setVisible(true);
             this.repaint();
+        } else {
+            mensajeSeleccion.setVisible(true);
         }
+        this.repaint();
     }//GEN-LAST:event_btnBorrarPacienteActionPerformed
 
     // fumada extrema que ni entiendo que hice alksdjklajdklajd
     private void btnBuscarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPacienteActionPerformed
-        if (validacionPaciente.validarInput(inputSearchPaciente, "Burcar")) {
-            int filaSeleccionada = -1;
-            String nombrePaciente = paciente.buscarPaciente(inputSearchPaciente.getText().trim());
-            DefaultTableModel modeloTabla = (DefaultTableModel) tablaPacientes.getModel();
-            for (int i = 0; i < modeloTabla.getRowCount(); i++) {
-                String nombreEnFila = (String) modeloTabla.getValueAt(i, 1); // Ajusta la columna según tu modelo
-                if (nombreEnFila.equals(nombrePaciente)) {
-                    // Encontramos la fila, ahora enfocamos
-                    tablaPacientes.setRowSelectionInterval(i, i);
-                    tablaPacientes.scrollRectToVisible(tablaPacientes.getCellRect(i, 0, true));
-                    break;
-                }
-            }
-            if (filaSeleccionada != -1) {
-                // La fila está seleccionada, puedes enfocarla en el JTable
-                tablaPacientes.setRowSelectionInterval(filaSeleccionada, filaSeleccionada);
-                tablaPacientes.scrollRectToVisible(tablaPacientes.getCellRect(filaSeleccionada, 0, true));
-
-            }
-            inputSearchPaciente.setText("");
-        }
+        validacionPaciente.buscador(inputSearchPaciente,
+                paciente.buscarPaciente(inputSearchPaciente.getText().trim()),
+                tablaPacientes,
+                1);
         this.repaint();
     }//GEN-LAST:event_btnBuscarPacienteActionPerformed
 
     private void btnEditarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarPacienteActionPerformed
         int filaSeleccionada = tablaPacientes.getSelectedRow();
+        mensajeSeleccion.setVisible(false);
         if (filaSeleccionada != -1) { // Verifica si se ha seleccionado una fila
             String cedula = tablaPacientes.getValueAt(filaSeleccionada, 0).toString();
             this.nuevoPaciente = new GestionPaciente(dashboard, this, cedula);
             dashboard.initView(nuevoPaciente);
+        } else {
+            mensajeSeleccion.setVisible(true);
         }
 
 
@@ -237,6 +236,7 @@ public class ViewPaciente extends javax.swing.JPanel {
     }
 
     private void configuracionesTabla() {
+        // COnfiguraciones de la jtable
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
         tablaPacientes.getColumnModel().getColumn(0).setPreferredWidth(100);
@@ -270,6 +270,7 @@ public class ViewPaciente extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel mensajeSeleccion;
     private javax.swing.JTable tablaPacientes;
     // End of variables declaration//GEN-END:variables
 }

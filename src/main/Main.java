@@ -35,10 +35,6 @@ public class Main extends javax.swing.JFrame {
         return dashboard = new views.Dashboard(this, admin);
     }
 
-    public views.Dashboard getDashboard() {
-        return dashboard;
-    }
-
     public views.Login getLogin() {
         return login;
     }
@@ -54,7 +50,6 @@ public class Main extends javax.swing.JFrame {
         DB.createDB();
         DB.createTabla(DB.getSqlCreateTablaEmpleados());
         DB.createTabla(DB.getSqlCreateTablaPacientes());
-//        DB.viewTabla("Pacientes");
     }
 
     @SuppressWarnings("unchecked")

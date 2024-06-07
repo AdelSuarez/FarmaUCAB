@@ -15,12 +15,14 @@ public class Dashboard extends javax.swing.JPanel {
     private boolean admin = false;
 
     public Dashboard(main.Main main, boolean admin) {
+        initComponents();
         this.main = main;
         this.admin = admin;
-        initComponents();
+
         this.setSize(1400, 800);
-        btnPaciente.setColor(new MyColor().getBTNSELECTCOLOR());
         this.setLocation(0, 0);
+
+        btnPaciente.setColor(new MyColor().getBTNSELECTCOLOR());
         btnEmpleado.setVisible(admin);
         initView(viewPaciente);
         this.repaint();
@@ -271,7 +273,6 @@ public class Dashboard extends javax.swing.JPanel {
     }//GEN-LAST:event_btnPacienteActionPerformed
 
     private void btnEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadoActionPerformed
-        // TODO add your handling code here:
         btnPaciente.setColor(new MyColor().getBTNBGDASHBOAR());
         btnInsumo.setColor(new MyColor().getBTNBGDASHBOAR());
         btnConsulta.setColor(new MyColor().getBTNBGDASHBOAR());
@@ -281,14 +282,11 @@ public class Dashboard extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEmpleadoActionPerformed
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
-        // TODO add your handling code here:
         dialog.DialogCerrarSesion dialog = new DialogCerrarSesion(main);
         dialog.setVisible(true);
-//        main.initView(main.getLogin());
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaActionPerformed
-        // TODO add your handling code here:
         btnPaciente.setColor(new MyColor().getBTNBGDASHBOAR());
         btnInsumo.setColor(new MyColor().getBTNBGDASHBOAR());
         btnConsulta.setColor(new MyColor().getBTNSELECTCOLOR());

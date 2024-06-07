@@ -5,10 +5,6 @@ import style.MyColor;
 
 public class ValidacionLogin extends Validacion {
 
-    private final String REGEXNOMBRE = getREGEXNOMBRE();
-    private final String REGEXCORREO = getREGEXCORREO();
-    private final String REGEXNUMERO = getREGEXNUMERO();
-
     public boolean verificacionPassword(JLabel jlabel, components.PasswordField inputPassword, components.PasswordField inputRepetirPassword) {
         // Activa el JLabel que muestra si las dos contraseñas son iguales
         if (inputPassword.getText().trim().equals(inputRepetirPassword.getText().trim()) && !inputPassword.getText().equals("") && !inputRepetirPassword.getText().equals("")) {
@@ -60,21 +56,21 @@ public class ValidacionLogin extends Validacion {
         int[] contadorInput = {0};
 
         if (validarInput(inputNombre, "Nombre")) {
-            validarCaracteresInput(inputNombre, "Nombre", REGEXNOMBRE, contadorInput);
+            validarCaracteresInput(inputNombre, "Nombre", getREGEXNOMBRE(), contadorInput);
 
         }
         if (validarInput(inputApellido, "Apellido")) {
-            validarCaracteresInput(inputApellido, "Apellido", REGEXNOMBRE, contadorInput);
+            validarCaracteresInput(inputApellido, "Apellido", getREGEXNOMBRE(), contadorInput);
 
         }
 
         if (validarInput(inputTelefono, "Telefono")) {
-            validarCaracteresInput(inputTelefono, "Telefono", REGEXNUMERO, contadorInput);
+            validarCaracteresInput(inputTelefono, "Telefono", getREGEXNUMERO(), contadorInput);
 
         }
 
         if (validarInput(inputCorreo, "Correo")) {
-            validarCaracteresInput(inputCorreo, "Correo", REGEXCORREO, contadorInput);
+            validarCaracteresInput(inputCorreo, "Correo", getREGEXCORREO(), contadorInput);
 
         }
         if (validarInput(inputUsuarioRegistro, "Usuario")) {

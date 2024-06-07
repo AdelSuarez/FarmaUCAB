@@ -148,7 +148,7 @@ public class Paciente extends DataBase {
             } else {
                 // No se encontró ningún paciente con ese nombre
                 preparedStatement.close();
-                return "No se encontró ningún paciente con ese nombre.";
+                return "";
             }
 
         } catch (ClassNotFoundException | SQLException e) {

@@ -4,9 +4,6 @@ import javax.swing.JLabel;
 
 public class ValidacionPaciente extends Validacion {
 
-    private final String REGEXNOMBRE = getREGEXNOMBRE();
-    private final String REGEXNUMERO = getREGEXNUMERO();
-
     public boolean datosValidados(
             components.TextField inputNombre,
             components.TextField inputApellido,
@@ -19,20 +16,25 @@ public class ValidacionPaciente extends Validacion {
         int[] contadorInput = {0};
 
         if (validarInput(inputNombre, "Nombre")) {
-            validarCaracteresInput(inputNombre, "Nombre", REGEXNOMBRE, contadorInput);
+            validarCaracteresInput(inputNombre, "Nombre", getREGEXNOMBRE(), contadorInput);
         }
         if (validarInput(inputApellido, "Apellido")) {
-            validarCaracteresInput(inputApellido, "Apellido", REGEXNOMBRE, contadorInput);
+            validarCaracteresInput(inputApellido, "Apellido", getREGEXNOMBRE(), contadorInput);
         }
         if (validarInput(inputCedula, "Cedula")) {
-            validarCaracteresInput(inputCedula, "Cedula", REGEXNUMERO, contadorInput);
+            validarCaracteresInput(inputCedula, "Cedula", getREGEXNUMERO(), contadorInput);
         }
         if (validarInput(inputEdad, "Edad")) {
-            validarCaracteresInput(inputEdad, "Edad", REGEXNUMERO, contadorInput);
+            validarCaracteresInput(inputEdad, "Edad", getREGEXNUMERO(), contadorInput);
         }
 
-        validarCaracteresInput(inputDE, "Dependencia/Escuela", REGEXNOMBRE, contadorInput);
-        validarCaracteresInput(inputTelefono, "Telefono", REGEXNUMERO, contadorInput);
+        validarCaracteresInput(inputDE, "Dependencia/Escuela", getREGEXNOMBRE(), contadorInput);
+        if (inputTelefono.getText().equals("")){
+            contadorInput[0]++;
+        } else {
+            validarCaracteresInput(inputTelefono, "Telefono", getREGEXNUMERO(), contadorInput);
+
+        }
 
         if (!validarComboBox(combobox).equals("")) {
             contadorInput[0]++;
