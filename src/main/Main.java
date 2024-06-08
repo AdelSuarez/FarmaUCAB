@@ -1,6 +1,6 @@
 package main;
 
-import database.DataBase;
+import model.dataBase.DataBase;
 import java.awt.BorderLayout;
 import style.styleWindow;
 
@@ -8,7 +8,7 @@ import style.styleWindow;
 // optimizar codigo, testear las ventanas para conseguir errores, y si se puede implementar test unitarios, no mostrar los test en la entrega
 public class Main extends javax.swing.JFrame {
 
-    private database.DataBase DB = new DataBase();
+    private model.dataBase.DataBase DB = new DataBase();
     private views.Login login;
     private views.Dashboard dashboard;
     private boolean admin = false;

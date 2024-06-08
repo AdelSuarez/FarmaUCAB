@@ -1,28 +1,22 @@
 package views;
 
-import views.viewsGestion.GestionPaciente;
-import database.Paciente;
-import java.awt.Color;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
+import model.dataBase.PacienteDB;
 import validaciones.ValidacionPaciente;
+import controllers.ControllerPaciente;
 
 public class ViewPaciente extends javax.swing.JPanel {
 
-    private GestionPaciente nuevoPaciente;
-    private views.Dashboard dashboard;
-    private Paciente paciente = new Paciente();
+    private ControllerPaciente controller;
+    private PacienteDB paciente = new PacienteDB();
     private ValidacionPaciente validacionPaciente = new ValidacionPaciente();
 
     public ViewPaciente(views.Dashboard dashboard) {
-        this.dashboard = dashboard;
         initComponents();
         this.setSize(1180, 720);
         mensajeSeleccion.setVisible(false);
-        cargarTabla();
-
+        this.controller = new ControllerPaciente(this, dashboard);
+        controller.cargarTabla();
         this.repaint();
-
     }
 
     @SuppressWarnings("unchecked")
@@ -81,11 +75,6 @@ public class ViewPaciente extends javax.swing.JPanel {
         btnNuevoPaciente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnNuevoPaciente.setPreferredSize(new java.awt.Dimension(230, 50));
         btnNuevoPaciente.setRadius(15);
-        btnNuevoPaciente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoPacienteActionPerformed(evt);
-            }
-        });
 
         btnBorrarPaciente.setForeground(new java.awt.Color(255, 255, 255));
         btnBorrarPaciente.setText("Borrar");
@@ -96,11 +85,6 @@ public class ViewPaciente extends javax.swing.JPanel {
         btnBorrarPaciente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnBorrarPaciente.setPreferredSize(new java.awt.Dimension(230, 50));
         btnBorrarPaciente.setRadius(15);
-        btnBorrarPaciente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBorrarPacienteActionPerformed(evt);
-            }
-        });
 
         btnEditarPaciente.setForeground(new java.awt.Color(255, 255, 255));
         btnEditarPaciente.setText("Editar");
@@ -112,11 +96,6 @@ public class ViewPaciente extends javax.swing.JPanel {
         btnEditarPaciente.setHideActionText(true);
         btnEditarPaciente.setPreferredSize(new java.awt.Dimension(230, 50));
         btnEditarPaciente.setRadius(15);
-        btnEditarPaciente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarPacienteActionPerformed(evt);
-            }
-        });
 
         btnBuscarPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search_black.png"))); // NOI18N
         btnBuscarPaciente.setBorderColor(new java.awt.Color(255, 255, 255));
@@ -185,26 +164,6 @@ public class ViewPaciente extends javax.swing.JPanel {
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1180, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnNuevoPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoPacienteActionPerformed
-        this.nuevoPaciente = new GestionPaciente(dashboard, this, "Nuevo");
-        dashboard.initView(nuevoPaciente);
-    }//GEN-LAST:event_btnNuevoPacienteActionPerformed
-
-    private void btnBorrarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarPacienteActionPerformed
-        int filaSeleccionada = tablaPacientes.getSelectedRow();
-        mensajeSeleccion.setVisible(false);
-
-        if (filaSeleccionada != -1) { // Verifica si se ha seleccionado una fila
-            String cedula = tablaPacientes.getValueAt(filaSeleccionada, 0).toString();
-            dialog.DialogEliminarPaciente dialog = new dialog.DialogEliminarPaciente(cedula, this);
-            dialog.setVisible(true);
-            this.repaint();
-        } else {
-            mensajeSeleccion.setVisible(true);
-        }
-        this.repaint();
-    }//GEN-LAST:event_btnBorrarPacienteActionPerformed
-
     // fumada extrema que ni entiendo que hice alksdjklajdklajd
     private void btnBuscarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPacienteActionPerformed
         validacionPaciente.buscador(inputSearchPaciente,
@@ -214,67 +173,17 @@ public class ViewPaciente extends javax.swing.JPanel {
         this.repaint();
     }//GEN-LAST:event_btnBuscarPacienteActionPerformed
 
-    private void btnEditarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarPacienteActionPerformed
-        int filaSeleccionada = tablaPacientes.getSelectedRow();
-        mensajeSeleccion.setVisible(false);
-        if (filaSeleccionada != -1) { // Verifica si se ha seleccionado una fila
-            String cedula = tablaPacientes.getValueAt(filaSeleccionada, 0).toString();
-            this.nuevoPaciente = new GestionPaciente(dashboard, this, cedula);
-            dashboard.initView(nuevoPaciente);
-        } else {
-            mensajeSeleccion.setVisible(true);
-        }
-
-
-    }//GEN-LAST:event_btnEditarPacienteActionPerformed
-
-    public void cargarTabla() {
-        if (!paciente.isEmptyTabla("Pacientes")){
-            try {
-                paciente.mostrarPacientes(tablaPacientes);
-                configuracionesTabla();
-            } catch (Exception e) {
-            }
-        }
-        
-    }
-
-    private void configuracionesTabla() {
-        // COnfiguraciones de la jtable
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        tablaPacientes.getColumnModel().getColumn(0).setPreferredWidth(100);
-        tablaPacientes.getColumnModel().getColumn(0).setResizable(false);
-        tablaPacientes.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-        tablaPacientes.getColumnModel().getColumn(1).setPreferredWidth(250);
-        tablaPacientes.getColumnModel().getColumn(1).setResizable(false);
-        tablaPacientes.getColumnModel().getColumn(2).setPreferredWidth(40);
-        tablaPacientes.getColumnModel().getColumn(2).setResizable(false);
-        tablaPacientes.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
-        tablaPacientes.getColumnModel().getColumn(3).setPreferredWidth(100);
-        tablaPacientes.getColumnModel().getColumn(3).setResizable(false);
-        tablaPacientes.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
-        tablaPacientes.getColumnModel().getColumn(4).setPreferredWidth(100);
-        tablaPacientes.getColumnModel().getColumn(4).setResizable(false);
-        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
-        headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        headerRenderer.setBackground(new Color(240, 240, 240)); // Cambia el color aquí
-
-        // Asigna el renderizador personalizado a la cabecera
-        tablaPacientes.getTableHeader().setDefaultRenderer(headerRenderer);
-        tablaPacientes.setDefaultEditor(Object.class, null);
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private components.ButtonCustom btnBorrarPaciente;
+    public components.ButtonCustom btnBorrarPaciente;
     private components.ButtonCustom btnBuscarPaciente;
-    private components.ButtonCustom btnEditarPaciente;
-    private components.ButtonCustom btnNuevoPaciente;
+    public components.ButtonCustom btnEditarPaciente;
+    public components.ButtonCustom btnNuevoPaciente;
     private components.TextField inputSearchPaciente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel mensajeSeleccion;
-    private javax.swing.JTable tablaPacientes;
+    public javax.swing.JLabel mensajeSeleccion;
+    public javax.swing.JTable tablaPacientes;
     // End of variables declaration//GEN-END:variables
 }

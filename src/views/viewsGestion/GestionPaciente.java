@@ -1,11 +1,12 @@
 package views.viewsGestion;
 
 import validaciones.ValidacionPaciente;
-import database.Paciente;
+import model.dataBase.PacienteDB;
+import controllers.ControllerPaciente;
 
 public class GestionPaciente extends javax.swing.JPanel {
 
-    private Paciente paciente = new Paciente();
+    private PacienteDB paciente = new PacienteDB();
     private views.Dashboard dashboard;
     private views.ViewPaciente viewPaciente;
     private ValidacionPaciente validacionPaciente = new ValidacionPaciente();
@@ -219,7 +220,7 @@ public class GestionPaciente extends javax.swing.JPanel {
         // TODO add your handling code here:
         dashboard.initView(dashboard.getViewPaciente());
         this.mensajeGuardado.setVisible(false);
-        viewPaciente.cargarTabla();
+        new ControllerPaciente(viewPaciente, dashboard).cargarTabla();
         this.repaint();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
@@ -236,7 +237,7 @@ public class GestionPaciente extends javax.swing.JPanel {
 
     private void guardarPaciete() {
         if (validacionPaciente.datosValidados(nombrePaciente, apellidoPaciente, cedulaPaciente, edadPaciente, telefonoPaciente, DEPaciente, generoPaciente)) {
-            if (paciente.nuevoPaciente(nombrePaciente.getText().trim(),
+            if (paciente.nuevo(nombrePaciente.getText().trim(),
                     apellidoPaciente.getText().trim(),
                     cedulaPaciente.getText().trim(),
                     telefonoPaciente.getText().trim(),

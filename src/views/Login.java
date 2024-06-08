@@ -1,7 +1,7 @@
 package views;
 
-import database.DataBase;
-import database.Empleado;
+import model.dataBase.DataBase;
+import model.dataBase.EmpleadoDB;
 import validaciones.ValidacionLogin;
 import style.MyColor;
 
@@ -9,7 +9,7 @@ import style.MyColor;
 public class Login extends javax.swing.JPanel {
 
     private ValidacionLogin validacion = new ValidacionLogin();
-    private database.Empleado empleado = new Empleado();
+    private model.dataBase.EmpleadoDB empleado = new EmpleadoDB();
     private main.Main main;
 
     public Login(main.Main main) {
@@ -272,7 +272,7 @@ public class Login extends javax.swing.JPanel {
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         if (validacion.ceroCamposVaciosRegistro(inputNombre, inputApellido, inputTelefono, inputCorreo, inputUsuarioRegistro, inputPassword, inputRepetirPassword)
                 && validacion.verificacionPassword(textoMensaje, inputPassword, inputRepetirPassword)) {
-            empleado.nuevoEmpleado(
+            empleado.nuevo(
                     inputNombre.getText().trim(),
                     inputApellido.getText().trim(),
                     inputTelefono.getText().trim(),

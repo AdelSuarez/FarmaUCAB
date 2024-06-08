@@ -1,18 +1,21 @@
 package dialog;
 
 import java.awt.Color;
+import controllers.ControllerPaciente;
 
 public class DialogEliminarPaciente extends javax.swing.JFrame {
 
-    private database.Paciente paciente = new database.Paciente();
+    private model.dataBase.PacienteDB paciente = new model.dataBase.PacienteDB();
     private String cedula = "";
     private views.ViewPaciente viewPaciente;
+    private views.Dashboard dashBoard;
 
-    public DialogEliminarPaciente(String cedula, views.ViewPaciente viewPaciente) {
+    public DialogEliminarPaciente(String cedula, views.ViewPaciente viewPaciente, views.Dashboard dashBoard) {
         this.setUndecorated(true);
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
         this.cedula = cedula;
+        this.dashBoard = dashBoard;
         this.viewPaciente = viewPaciente;
         this.repaint();
 
@@ -131,7 +134,8 @@ public class DialogEliminarPaciente extends javax.swing.JFrame {
     private void btnEliminarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPacienteActionPerformed
         // TODO add your handling code here:
         if (paciente.eliminarPaciente(cedula)) {
-            viewPaciente.cargarTabla();
+            new ControllerPaciente(viewPaciente, dashBoard).cargarTabla();
+//            viewPaciente.cargarTabla();
             this.dispose();
         }
 

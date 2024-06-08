@@ -4,7 +4,7 @@ import java.awt.Color;
 
 public class DialogEliminarEmpleado extends javax.swing.JFrame {
 
-    private database.Empleado Empleado = new database.Empleado();
+    private model.dataBase.EmpleadoDB Empleado = new model.dataBase.EmpleadoDB();
     private String usuario = "";
     private views.ViewEmpleado viewEmpleado;
 

@@ -4,7 +4,7 @@ import java.awt.Color;
 
 public class DialogEliminarInsumo extends javax.swing.JFrame {
 
-    private database.Insumo insumo = new database.Insumo();
+    private model.dataBase.InsumoDB insumo = new model.dataBase.InsumoDB();
     private String id = "";
     private views.ViewInsumo viewInsumo;
 

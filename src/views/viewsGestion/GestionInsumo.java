@@ -7,7 +7,7 @@ public class GestionInsumo extends javax.swing.JPanel {
 
     private views.Dashboard dashboard;
     private views.ViewInsumo viewInsumo;
-    private database.Insumo insumo = new database.Insumo();
+    private model.dataBase.InsumoDB insumo = new model.dataBase.InsumoDB();
     private String dato;
     private String[] datos;
     private validaciones.ValidacionInsumo validacionesInsumo = new validaciones.ValidacionInsumo();

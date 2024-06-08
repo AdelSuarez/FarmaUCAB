@@ -1,14 +1,14 @@
 package views.viewsGestion;
 
 import validaciones.ValidacionesEmpleado;
-import database.Empleado;
+import model.dataBase.EmpleadoDB;
 
 public class GestionEmpleado extends javax.swing.JPanel {
 
     private views.Dashboard dashboard;
     private ValidacionesEmpleado valicacionEmpleado = new ValidacionesEmpleado();
     private views.ViewEmpleado viewEmpleado;
-    private Empleado empleado = new Empleado();
+    private EmpleadoDB empleado = new EmpleadoDB();
     private String dato;
     private String id;
     private String[] datoEmpleado;
@@ -216,7 +216,7 @@ public class GestionEmpleado extends javax.swing.JPanel {
 
     private void guardarEmpleado() {
         if (valicacionEmpleado.datosValidados(nombreEmpleado, apellidoEmpleado, telefonoEmpleado, CorreoEmpleado, usuarioEmpleado, passwordField1)) {
-            empleado.nuevoEmpleado(
+            empleado.nuevo(
                     nombreEmpleado.getText().trim(),
                     apellidoEmpleado.getText().trim(),
                     telefonoEmpleado.getText().trim(),

@@ -1,7 +1,7 @@
 package views;
 
 import views.viewsGestion.GestionEmpleado;
-import database.Empleado;
+import model.dataBase.EmpleadoDB;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -10,7 +10,7 @@ import validaciones.ValidacionesEmpleado;
 public class ViewEmpleado extends javax.swing.JPanel {
 
     private views.Dashboard dashboard;
-    private Empleado empleado = new Empleado();
+    private EmpleadoDB empleado = new EmpleadoDB();
     private GestionEmpleado viewGestionEmpleado;
     private ValidacionesEmpleado validacionesEmpleado = new ValidacionesEmpleado();
 

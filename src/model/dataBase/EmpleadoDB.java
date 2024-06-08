@@ -1,4 +1,4 @@
-package database;
+package model.dataBase;
 
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -7,10 +7,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import model.dataBase.OperationsDataBase;
 
-public class Empleado extends DataBase {
-
-    public void nuevoEmpleado(String nombre, String apellido, String telefono, String correo, String usuario, boolean admin, String password) {
+public class EmpleadoDB extends DataBase implements OperationsDataBase{
+    @Override
+    public void nuevo() {
+    }
+    
+    public void nuevo(String nombre, String apellido, String telefono, String correo, String usuario, boolean admin, String password) {
         try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
@@ -322,4 +326,6 @@ public class Empleado extends DataBase {
             }
         }
     }
+
+
 }
