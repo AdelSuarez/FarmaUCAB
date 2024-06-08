@@ -63,7 +63,9 @@ public class Insumo extends DataBase {
             DefaultTableModel model = new DefaultTableModel();
             model.addColumn("ID");
             model.addColumn("Nombre");
-            model.addColumn("Cantidad");
+            model.addColumn("Stick");
+            model.addColumn("fecha");
+
             table.setModel(model);
 
             String[] datos = new String[4];
@@ -71,7 +73,8 @@ public class Insumo extends DataBase {
                 // No entiendo el orden, consegui la secuencia tanteando
                 datos[0] = resultado.getString(1);
                 datos[1] = resultado.getString(2);
-                datos[2] = resultado.getString(3);
+                datos[2] = resultado.getString(4);
+                datos[3] = resultado.getString(3);
                 model.addRow(datos);
             }
 
@@ -92,25 +95,29 @@ public class Insumo extends DataBase {
 
     }
 
-    public String buscarIdInsumo(String id) {
+    public String buscarInsumo(String nombre) {
         try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
-            String sqlSelect = "SELECT ID FROM Insumos WHERE ID LIKE ?";
+            String sqlSelect = "SELECT NOMBRE FROM Insumos WHERE UPPER(NOMBRE) LIKE UPPER(?)";
 
             PreparedStatement preparedStatement = conexion.prepareStatement(sqlSelect);
-            preparedStatement.setString(1, id);
+            preparedStatement.setString(1, "%" + nombre + "%"); // Agrega comodines para buscar por coincidencia de palabras
 
             ResultSet resultado = preparedStatement.executeQuery();
             if (resultado.next()) {
-                String identificador = resultado.getString("ID");
+                String nombreInsumo = resultado.getString("NOMBRE");
                 preparedStatement.close();
-                return identificador;
+                return nombreInsumo;
+            } else {
+                // No se encontró ningún insumo con ese nombre
+                preparedStatement.close();
+                return "";
             }
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace(); // Registra el error para depuración
-            return "Error al buscar el paciente.";
+            return "Error al buscar el insumo.";
         } finally {
             try {
                 if (conexion != null) {
@@ -120,10 +127,9 @@ public class Insumo extends DataBase {
                 System.out.println(e.getMessage());
             }
         }
-        return "-1";
     }
 
-    public String[] buscarInsumo(String id) {
+    public String[] buscar(String id) {
         try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
@@ -134,14 +140,15 @@ public class Insumo extends DataBase {
 
             ResultSet resultado = preparedStatement.executeQuery();
             if (resultado.next()) {
-                String identificacion = resultado.getString("ID");
                 String nombreInsumo = resultado.getString("NOMBRE");
-                int cantidad = resultado.getInt("CANTIDAD");
+                int cantidad = resultado.getInt("STOCK");
+                String descripcionInsumo = resultado.getString("DESCRIPCION");
+
 
                 preparedStatement.close();
 
                 // Crear un arreglo con los datos del paciente
-                String[] datosPaciente = {identificacion, nombreInsumo, String.valueOf(cantidad)};
+                String[] datosPaciente = { nombreInsumo, String.valueOf(cantidad), descripcionInsumo};
                 return datosPaciente;
             } else {
                 // No se encontró ningún paciente con esa cédula
@@ -162,17 +169,18 @@ public class Insumo extends DataBase {
         }
     }
 
-    public boolean editarInsumo(String id, String nuevoNombre, int nuevaCantidad) {
+    public boolean editarInsumo(String id, String nuevoNombre, int nuevoStock, String nuevaDescripcion) {
         try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
             conexion.setAutoCommit(false);
 
-            String sqlUpdate = "UPDATE Insumos SET NOMBRE = ?, CANTIDAD = ? WHERE ID = ?";
+            String sqlUpdate = "UPDATE Insumos SET NOMBRE = ?, STOCK = ?, DESCRIPCION = ? WHERE ID = ?";
             PreparedStatement preparedStatement = conexion.prepareStatement(sqlUpdate);
             preparedStatement.setString(1, nuevoNombre);
-            preparedStatement.setInt(2, nuevaCantidad);
-            preparedStatement.setString(3, id);
+            preparedStatement.setInt(2, nuevoStock);
+            preparedStatement.setString(3, nuevaDescripcion);
+            preparedStatement.setString(4, id);
 
             int filasActualizadas = preparedStatement.executeUpdate();
             if (filasActualizadas > 0) {

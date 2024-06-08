@@ -5,7 +5,6 @@ import database.Empleado;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
 import validaciones.ValidacionesEmpleado;
 
 public class ViewEmpleado extends javax.swing.JPanel {

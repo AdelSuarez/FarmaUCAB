@@ -42,19 +42,19 @@
                       <Group type="102" attributes="0">
                           <Component id="mensajeSeleccion" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="btnBorrarPaciente" min="-2" pref="111" max="-2" attributes="0"/>
+                          <Component id="btnBorrarInsumo" min="-2" pref="111" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="btnEditarPaciente" min="-2" pref="113" max="-2" attributes="0"/>
+                          <Component id="btnEditarInsumo" min="-2" pref="113" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="inputSearchPaciente" min="-2" pref="262" max="-2" attributes="0"/>
+                              <Component id="inputSearchInsumo" min="-2" pref="262" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnBuscarPaciente" min="-2" pref="48" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="btnNuevoPaciente" min="-2" pref="188" max="-2" attributes="0"/>
+                              <Component id="btnNuevoInsumo" min="-2" pref="188" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane2" min="-2" pref="1073" max="-2" attributes="0"/>
                       </Group>
@@ -72,9 +72,9 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="btnNuevoPaciente" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnNuevoInsumo" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="inputSearchPaciente" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="inputSearchInsumo" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -84,8 +84,8 @@
                           <Component id="jScrollPane2" min="-2" pref="507" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="btnBorrarPaciente" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnEditarPaciente" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnBorrarInsumo" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnEditarInsumo" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -100,7 +100,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="24" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Pacientes"/>
+            <Property name="text" type="java.lang.String" value="Insumos"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane2">
@@ -110,7 +110,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="tablaPacientes">
+            <Component class="javax.swing.JTable" name="tablaInsumos">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -142,7 +142,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="components.TextField" name="inputSearchPaciente">
+        <Component class="components.TextField" name="inputSearchInsumo">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="0"/>
@@ -150,7 +150,7 @@
             <Property name="labelText" type="java.lang.String" value="Buscar"/>
           </Properties>
         </Component>
-        <Component class="components.ButtonCustom" name="btnNuevoPaciente">
+        <Component class="components.ButtonCustom" name="btnNuevoInsumo">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="69" red="0" type="rgb"/>
@@ -158,7 +158,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Nuevo paciente"/>
+            <Property name="text" type="java.lang.String" value="Nuevo Insumo"/>
             <Property name="borderColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
@@ -180,10 +180,10 @@
             <Property name="radius" type="int" value="15"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNuevoPacienteActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNuevoInsumoActionPerformed"/>
           </Events>
         </Component>
-        <Component class="components.ButtonCustom" name="btnBorrarPaciente">
+        <Component class="components.ButtonCustom" name="btnBorrarInsumo">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -210,10 +210,10 @@
             <Property name="radius" type="int" value="15"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBorrarPacienteActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBorrarInsumoActionPerformed"/>
           </Events>
         </Component>
-        <Component class="components.ButtonCustom" name="btnEditarPaciente">
+        <Component class="components.ButtonCustom" name="btnEditarInsumo">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -241,7 +241,7 @@
             <Property name="radius" type="int" value="15"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditarPacienteActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditarInsumoActionPerformed"/>
           </Events>
         </Component>
         <Component class="components.ButtonCustom" name="btnBuscarPaciente">
@@ -275,7 +275,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="e1" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Seleccione un paciente"/>
+            <Property name="text" type="java.lang.String" value="Seleccione un insumo"/>
           </Properties>
         </Component>
       </SubComponents>

@@ -31,7 +31,7 @@ public class ViewConsulta extends javax.swing.JPanel {
         jPanel1.setPreferredSize(new java.awt.Dimension(1350, 920));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("Pacientes");
+        jLabel1.setText("Conulta");
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

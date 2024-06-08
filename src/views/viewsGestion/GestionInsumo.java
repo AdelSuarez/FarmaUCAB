@@ -9,9 +9,10 @@ public class GestionInsumo extends javax.swing.JPanel {
     private views.ViewInsumo viewInsumo;
     private database.Insumo insumo = new database.Insumo();
     private String dato;
-    private String id;
+    private String[] datos;
+    private validaciones.ValidacionInsumo validacionesInsumo = new validaciones.ValidacionInsumo();
 
-    public GestionInsumo(views.Dashboard dashboard, views.ViewInsumo viewInsumo) {
+    public GestionInsumo(views.Dashboard dashboard, views.ViewInsumo viewInsumo,String dato) {
         this.dashboard = dashboard;
         this.viewInsumo = viewInsumo;
         this.dato = dato;
@@ -20,7 +21,7 @@ public class GestionInsumo extends javax.swing.JPanel {
         this.mensajeGuardado.setVisible(false);
         obtenerFecha();
         this.repaint();
-//        seleccionVentana();
+        seleccionVentana();
     }
 
     @SuppressWarnings("unchecked")
@@ -96,7 +97,7 @@ public class GestionInsumo extends javax.swing.JPanel {
         StockInsumo.setToolTipText("");
         StockInsumo.setFocusable(false);
         StockInsumo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        StockInsumo.setLabelText("Cantidad");
+        StockInsumo.setLabelText("Stock");
 
         textAreaScroll2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         textAreaScroll2.setLabelText("Descripcion");
@@ -171,46 +172,63 @@ public class GestionInsumo extends javax.swing.JPanel {
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         dashboard.initView(dashboard.getViewInsumo());
         this.mensajeGuardado.setVisible(false);
+        viewInsumo.cargarTabla();
         this.repaint();
         
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnGuardarInsumoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarInsumoActionPerformed
-//        System.out.println(StockInsumo.getValue());
-        insumo.nuevoInsumo(
-            nombreInsumo.getText().trim(),
-            (int) StockInsumo.getValue(), // Realiza un casting a int
-            descripcionInsumo.getText().trim(),
-            obtenerFecha());
-//        if (dato.equals("Nuevo")) {
-//            guardarEmpleado();
-//        }else {
-//            editarEmpleado();
-//        }
-//
-//        this.repaint();
+        if (dato.equals("Nuevo")) {
+            guardarInsumo();
+        }else {
+            editarInsumo();
+        }
+        this.repaint();
     }//GEN-LAST:event_btnGuardarInsumoActionPerformed
 
-    private void guardarEmpleado() {
-        
+    private void guardarInsumo() {
+        if(validacionesInsumo.datosValidados(nombreInsumo, StockInsumo)){
+              if(insumo.nuevoInsumo(
+                      nombreInsumo.getText().trim(),
+                      (int) StockInsumo.getValue(), // Realiza un casting a int
+                      descripcionInsumo.getText().trim(),
+                      obtenerFecha())){
+                  mensajeGuardado.setVisible(true);
+                  limpiarInput();
+              }
+              
+          }  
 
     }
 
-    private void editarEmpleado() {
- 
+    private void editarInsumo() {
+        if(validacionesInsumo.datosValidados(nombreInsumo, StockInsumo)){
+            if(insumo.editarInsumo(dato, 
+                    nombreInsumo.getText().trim(), 
+                    (int) StockInsumo.getValue(), 
+                    descripcionInsumo.getText().trim())){
+                mensajeGuardado.setVisible(true);
+                limpiarInput();
+            }
+        }  
 
     }
 
     private void limpiarInput() {
-
+        nombreInsumo.setText("");
+        descripcionInsumo.setText("");
+        StockInsumo.setValue(0);
     }
 
     private void seleccionVentana() {
         if (dato.equals("Nuevo")) {
-            tituloPrincipal.setText("Nuevo Empleado");
+            tituloPrincipal.setText("Nuevo Insumo");
         } else {
-            tituloPrincipal.setText("Editar Empleado");
-            
+            tituloPrincipal.setText("Editar Insumo");
+            this.datos = insumo.buscar(dato);
+            nombreInsumo.setText(datos[0]);
+            StockInsumo.setValue(Integer.valueOf(datos[1]));
+            descripcionInsumo.setText(datos[2]);
         }
 
     }
