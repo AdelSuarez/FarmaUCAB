@@ -1,26 +1,15 @@
 package views.viewsGestion;
 
-import validaciones.ValidacionesEmpleado;
-import model.dataBase.EmpleadoDB;
+import controller.ControllerGestionEmpleado;
 
 public class GestionEmpleado extends javax.swing.JPanel {
 
-    private views.Dashboard dashboard;
-    private ValidacionesEmpleado valicacionEmpleado = new ValidacionesEmpleado();
-    private views.ViewEmpleado viewEmpleado;
-    private EmpleadoDB empleado = new EmpleadoDB();
-    private String dato;
-    private String id;
-    private String[] datoEmpleado;
+    private ControllerGestionEmpleado controller;
 
     public GestionEmpleado(views.Dashboard dashboard, views.ViewEmpleado viewEmpleado, String dato) {
-        this.dashboard = dashboard;
-        this.viewEmpleado = viewEmpleado;
-        this.dato = dato;
         initComponents();
+        this.controller = new ControllerGestionEmpleado(dashboard, viewEmpleado, this, dato);
         this.setSize(1180, 720);
-        this.mensajeGuardado.setVisible(false);
-        seleccionVentana();
     }
 
     @SuppressWarnings("unchecked")
@@ -52,11 +41,6 @@ public class GestionEmpleado extends javax.swing.JPanel {
         btnRegresar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnRegresar.setPreferredSize(new java.awt.Dimension(40, 40));
         btnRegresar.setRadius(15);
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarActionPerformed(evt);
-            }
-        });
         jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 50, -1));
 
         panelRound1.setBackground(new java.awt.Color(240, 240, 240));
@@ -93,11 +77,6 @@ public class GestionEmpleado extends javax.swing.JPanel {
         btnGuardarEmpleado.setPreferredSize(new java.awt.Dimension(86, 40));
         btnGuardarEmpleado.setRadius(15);
         btnGuardarEmpleado.setRolloverEnabled(true);
-        btnGuardarEmpleado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarEmpleadoActionPerformed(evt);
-            }
-        });
 
         CorreoEmpleado.setBackground(new java.awt.Color(240, 240, 240));
         CorreoEmpleado.setForeground(new java.awt.Color(80, 80, 80));
@@ -196,100 +175,20 @@ public class GestionEmpleado extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        dashboard.initView(dashboard.getViewEmpleado());
-        this.mensajeGuardado.setVisible(false);
-        viewEmpleado.cargarTabla();
-        this.repaint();
-        
-    }//GEN-LAST:event_btnRegresarActionPerformed
-
-    private void btnGuardarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarEmpleadoActionPerformed
-        if (dato.equals("Nuevo")) {
-            guardarEmpleado();
-        }else {
-            editarEmpleado();
-        }
-
-        this.repaint();
-    }//GEN-LAST:event_btnGuardarEmpleadoActionPerformed
-
-    private void guardarEmpleado() {
-        if (valicacionEmpleado.datosValidados(nombreEmpleado, apellidoEmpleado, telefonoEmpleado, CorreoEmpleado, usuarioEmpleado, passwordField1)) {
-            empleado.nuevo(
-                    nombreEmpleado.getText().trim(),
-                    apellidoEmpleado.getText().trim(),
-                    telefonoEmpleado.getText().trim(),
-                    CorreoEmpleado.getText().trim(),
-                    usuarioEmpleado.getText().trim(),
-                    esAdmin.isSelected(),
-                    passwordField1.getText().trim());
-            valicacionEmpleado.mensaje(mensajeGuardado, "Empleado Guardado");
-            limpiarInput();
-        } 
-
-    }
-
-    private void editarEmpleado() {
-        if (valicacionEmpleado.datosValidados(nombreEmpleado, apellidoEmpleado, telefonoEmpleado, CorreoEmpleado, usuarioEmpleado, passwordField1)) {
-            empleado.editarEmpleado(id, 
-                    nombreEmpleado.getText().trim(), 
-                    apellidoEmpleado.getText().trim(),
-                    telefonoEmpleado.getText().trim(),
-                    CorreoEmpleado.getText().trim(),
-                    usuarioEmpleado.getText().trim(),
-                    esAdmin.isSelected(), 
-                    passwordField1.getText().trim());
-            valicacionEmpleado.mensaje(mensajeGuardado,"Editado con exito");
-            limpiarInput();
-            
-        }
-
-    }
-
-    private void limpiarInput() {
-        nombreEmpleado.setText("");
-        apellidoEmpleado.setText("");
-        telefonoEmpleado.setText("");
-        CorreoEmpleado.setText("");
-        usuarioEmpleado.setText("");
-        passwordField1.setText("");
-        esAdmin.setSelected(false);
-    }
-
-    private void seleccionVentana() {
-        if (dato.equals("Nuevo")) {
-            tituloPrincipal.setText("Nuevo Empleado");
-        } else {
-            tituloPrincipal.setText("Editar Empleado");
-            this.datoEmpleado = empleado.buscar(dato);
-            this.id = datoEmpleado[0];
-            nombreEmpleado.setText(datoEmpleado[1]);
-            apellidoEmpleado.setText(datoEmpleado[2]);
-            telefonoEmpleado.setText(datoEmpleado[3]);
-            CorreoEmpleado.setText(datoEmpleado[4]);
-            usuarioEmpleado.setText(datoEmpleado[5]);
-            passwordField1.setText(datoEmpleado[6]);
-            esAdmin.setSelected(Boolean.valueOf(datoEmpleado[7]));
-        }
-
-    }
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private components.TextField CorreoEmpleado;
-    private components.TextField apellidoEmpleado;
-    private components.ButtonCustom btnGuardarEmpleado;
-    private components.ButtonCustom btnRegresar;
-    private components.JCheckBoxCustom esAdmin;
+    public components.TextField CorreoEmpleado;
+    public components.TextField apellidoEmpleado;
+    public components.ButtonCustom btnGuardarEmpleado;
+    public components.ButtonCustom btnRegresar;
+    public components.JCheckBoxCustom esAdmin;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel mensajeGuardado;
-    private components.TextField nombreEmpleado;
+    public javax.swing.JLabel mensajeGuardado;
+    public components.TextField nombreEmpleado;
     private components.PanelRound panelRound1;
-    private components.PasswordField passwordField1;
-    private components.TextField telefonoEmpleado;
+    public components.PasswordField passwordField1;
+    public components.TextField telefonoEmpleado;
     private javax.swing.JLabel tittuloSecundario;
-    private javax.swing.JLabel tituloPrincipal;
-    private components.TextField usuarioEmpleado;
+    public javax.swing.JLabel tituloPrincipal;
+    public components.TextField usuarioEmpleado;
     // End of variables declaration//GEN-END:variables
 }

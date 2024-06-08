@@ -1,9 +1,8 @@
 package views;
 
-import dialog.DialogCerrarSesion;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
-import style.MyColor;
+import controller.ControllerDashBoard;
 
 public class Dashboard extends javax.swing.JPanel {
 
@@ -12,23 +11,19 @@ public class Dashboard extends javax.swing.JPanel {
     private ViewInsumo viewInsumo = new ViewInsumo(this);
     private ViewEmpleado viewEmpleado = new ViewEmpleado(this);
     private main.Main main;
-    private boolean admin = false;
+    private ControllerDashBoard controller;
 
     public Dashboard(main.Main main, boolean admin) {
         initComponents();
-        this.main = main;
-        this.admin = admin;
 
         this.setSize(1400, 800);
         this.setLocation(0, 0);
-        adminActivo.setVisible(admin);
-        btnPaciente.setColor(new MyColor().getBTNSELECTCOLOR());
-        btnEmpleado.setVisible(admin);
-        initView(viewPaciente);
+        
+        this.controller = new ControllerDashBoard(main, this, admin);
         this.repaint();
-
+        
     }
-
+    
     public void initView(JPanel view) {
         Content.removeAll();
         Content.add(view, BorderLayout.CENTER);
@@ -89,11 +84,6 @@ public class Dashboard extends javax.swing.JPanel {
         btnPaciente.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnPaciente.setPreferredSize(new java.awt.Dimension(230, 50));
         btnPaciente.setRadius(15);
-        btnPaciente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPacienteActionPerformed(evt);
-            }
-        });
 
         btnInsumo.setForeground(new java.awt.Color(0, 0, 0));
         btnInsumo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/vaccines_black.png"))); // NOI18N
@@ -106,11 +96,6 @@ public class Dashboard extends javax.swing.JPanel {
         btnInsumo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnInsumo.setPreferredSize(new java.awt.Dimension(230, 50));
         btnInsumo.setRadius(15);
-        btnInsumo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInsumoActionPerformed(evt);
-            }
-        });
 
         btnConsulta.setForeground(new java.awt.Color(0, 0, 0));
         btnConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/assignment_black.png"))); // NOI18N
@@ -123,11 +108,6 @@ public class Dashboard extends javax.swing.JPanel {
         btnConsulta.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnConsulta.setPreferredSize(new java.awt.Dimension(230, 50));
         btnConsulta.setRadius(15);
-        btnConsulta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConsultaActionPerformed(evt);
-            }
-        });
 
         btnEmpleado.setForeground(new java.awt.Color(0, 0, 0));
         btnEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/badge_black.png"))); // NOI18N
@@ -140,11 +120,6 @@ public class Dashboard extends javax.swing.JPanel {
         btnEmpleado.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnEmpleado.setPreferredSize(new java.awt.Dimension(230, 50));
         btnEmpleado.setRadius(15);
-        btnEmpleado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEmpleadoActionPerformed(evt);
-            }
-        });
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ecg_heart.png"))); // NOI18N
 
@@ -222,11 +197,6 @@ public class Dashboard extends javax.swing.JPanel {
         btnCerrarSesion.setColorOver(new java.awt.Color(240, 240, 240));
         btnCerrarSesion.setPreferredSize(new java.awt.Dimension(40, 40));
         btnCerrarSesion.setRadius(15);
-        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesionActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -275,53 +245,15 @@ public class Dashboard extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnInsumoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsumoActionPerformed
-        btnPaciente.setColor(new MyColor().getBTNBGDASHBOAR());
-        btnInsumo.setColor(new MyColor().getBTNSELECTCOLOR());
-        btnConsulta.setColor(new MyColor().getBTNBGDASHBOAR());
-        btnEmpleado.setColor(new MyColor().getBTNBGDASHBOAR());
-        initView(viewInsumo);
-    }//GEN-LAST:event_btnInsumoActionPerformed
-
-    private void btnPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPacienteActionPerformed
-        btnInsumo.setColor(new MyColor().getBTNBGDASHBOAR());
-        btnPaciente.setColor(new MyColor().getBTNSELECTCOLOR());
-        btnConsulta.setColor(new MyColor().getBTNBGDASHBOAR());
-        btnEmpleado.setColor(new MyColor().getBTNBGDASHBOAR());
-        initView(viewPaciente);
-    }//GEN-LAST:event_btnPacienteActionPerformed
-
-    private void btnEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadoActionPerformed
-        btnPaciente.setColor(new MyColor().getBTNBGDASHBOAR());
-        btnInsumo.setColor(new MyColor().getBTNBGDASHBOAR());
-        btnConsulta.setColor(new MyColor().getBTNBGDASHBOAR());
-        btnEmpleado.setColor(new MyColor().getBTNSELECTCOLOR());
-        initView(viewEmpleado);
-
-    }//GEN-LAST:event_btnEmpleadoActionPerformed
-
-    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
-        dialog.DialogCerrarSesion dialog = new DialogCerrarSesion(main);
-        dialog.setVisible(true);
-    }//GEN-LAST:event_btnCerrarSesionActionPerformed
-
-    private void btnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaActionPerformed
-        btnPaciente.setColor(new MyColor().getBTNBGDASHBOAR());
-        btnInsumo.setColor(new MyColor().getBTNBGDASHBOAR());
-        btnConsulta.setColor(new MyColor().getBTNSELECTCOLOR());
-        btnEmpleado.setColor(new MyColor().getBTNBGDASHBOAR());
-        initView(viewConsulta);
-    }//GEN-LAST:event_btnConsultaActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Content;
-    private components.ButtonCustom adminActivo;
-    private components.ButtonCustom btnCerrarSesion;
-    private components.ButtonCustom btnConsulta;
-    private components.ButtonCustom btnEmpleado;
-    private components.ButtonCustom btnInsumo;
-    private components.ButtonCustom btnPaciente;
+    public javax.swing.JPanel Content;
+    public components.ButtonCustom adminActivo;
+    public components.ButtonCustom btnCerrarSesion;
+    public components.ButtonCustom btnConsulta;
+    public components.ButtonCustom btnEmpleado;
+    public components.ButtonCustom btnInsumo;
+    public components.ButtonCustom btnPaciente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

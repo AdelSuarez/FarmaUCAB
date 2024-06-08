@@ -1,10 +1,13 @@
 package views.viewsGestion;
 
+import controller.ControllerInsumo;
 import java.util.Calendar;
 
 
 public class GestionInsumo extends javax.swing.JPanel {
+    
 
+    
     private views.Dashboard dashboard;
     private views.ViewInsumo viewInsumo;
     private model.dataBase.InsumoDB insumo = new model.dataBase.InsumoDB();
@@ -17,6 +20,7 @@ public class GestionInsumo extends javax.swing.JPanel {
         this.viewInsumo = viewInsumo;
         this.dato = dato;
         initComponents();
+        
         this.setSize(1180, 720);
         this.mensajeGuardado.setVisible(false);
         obtenerFecha();
@@ -172,7 +176,7 @@ public class GestionInsumo extends javax.swing.JPanel {
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         dashboard.initView(dashboard.getViewInsumo());
         this.mensajeGuardado.setVisible(false);
-        viewInsumo.cargarTabla();
+        new ControllerInsumo(dashboard, viewInsumo).cargarTabla();
         this.repaint();
         
     }//GEN-LAST:event_btnRegresarActionPerformed

@@ -1,18 +1,22 @@
 package dialog;
 
+import controller.ControllerInsumo;
 import java.awt.Color;
+import views.Dashboard;
 
 public class DialogEliminarInsumo extends javax.swing.JFrame {
 
     private model.dataBase.InsumoDB insumo = new model.dataBase.InsumoDB();
     private String id = "";
     private views.ViewInsumo viewInsumo;
+    private Dashboard dashboard;
 
-    public DialogEliminarInsumo(String cedula, views.ViewInsumo viewInsumo) {
+    public DialogEliminarInsumo(String cedula, views.ViewInsumo viewInsumo, Dashboard dashboard) {
         this.setUndecorated(true);
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
         this.id = cedula;
+        this.dashboard = dashboard;
         this.viewInsumo = viewInsumo;
         this.repaint();
 
@@ -131,7 +135,7 @@ public class DialogEliminarInsumo extends javax.swing.JFrame {
     private void btnEliminarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPacienteActionPerformed
         // TODO add your handling code here:
         if (insumo.eliminarInsumo(id)) {
-            viewInsumo.cargarTabla();
+            new ControllerInsumo(dashboard, viewInsumo).cargarTabla();
             this.dispose();
         }
 

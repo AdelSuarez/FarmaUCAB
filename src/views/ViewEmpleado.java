@@ -1,25 +1,16 @@
 package views;
 
-import views.viewsGestion.GestionEmpleado;
-import model.dataBase.EmpleadoDB;
-import java.awt.Color;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
-import validaciones.ValidacionesEmpleado;
+import controller.ControllerEmpleado;
 
 public class ViewEmpleado extends javax.swing.JPanel {
 
-    private views.Dashboard dashboard;
-    private EmpleadoDB empleado = new EmpleadoDB();
-    private GestionEmpleado viewGestionEmpleado;
-    private ValidacionesEmpleado validacionesEmpleado = new ValidacionesEmpleado();
+    private ControllerEmpleado controller;
 
     public ViewEmpleado(views.Dashboard dashboard) {
-        this.dashboard = dashboard;
         initComponents();
-        cargarTabla();
         this.setSize(1180, 720);
-        mensajeSeleccion.setVisible(false);
+        this.controller = new ControllerEmpleado(dashboard, this);
+        controller.cargarTabla();
         this.repaint();
 
     }
@@ -32,7 +23,7 @@ public class ViewEmpleado extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaEmpleados = new javax.swing.JTable();
-        inputSearchEmpleado = new components.TextField();
+        inputBuscarEmpleado = new components.TextField();
         btnNuevoEmpleado = new components.ButtonCustom();
         btnBorrarEmpleado = new components.ButtonCustom();
         btnEditarEmpleado = new components.ButtonCustom();
@@ -67,8 +58,8 @@ public class ViewEmpleado extends javax.swing.JPanel {
         tablaEmpleados.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tablaEmpleados);
 
-        inputSearchEmpleado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        inputSearchEmpleado.setLabelText("Buscar");
+        inputBuscarEmpleado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        inputBuscarEmpleado.setLabelText("Buscar");
 
         btnNuevoEmpleado.setBackground(new java.awt.Color(0, 105, 255));
         btnNuevoEmpleado.setForeground(new java.awt.Color(255, 255, 255));
@@ -80,11 +71,6 @@ public class ViewEmpleado extends javax.swing.JPanel {
         btnNuevoEmpleado.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnNuevoEmpleado.setPreferredSize(new java.awt.Dimension(230, 50));
         btnNuevoEmpleado.setRadius(15);
-        btnNuevoEmpleado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoEmpleadoActionPerformed(evt);
-            }
-        });
 
         btnBorrarEmpleado.setForeground(new java.awt.Color(255, 255, 255));
         btnBorrarEmpleado.setText("Borrar");
@@ -95,11 +81,6 @@ public class ViewEmpleado extends javax.swing.JPanel {
         btnBorrarEmpleado.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnBorrarEmpleado.setPreferredSize(new java.awt.Dimension(230, 50));
         btnBorrarEmpleado.setRadius(15);
-        btnBorrarEmpleado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBorrarEmpleadoActionPerformed(evt);
-            }
-        });
 
         btnEditarEmpleado.setForeground(new java.awt.Color(255, 255, 255));
         btnEditarEmpleado.setText("Editar");
@@ -111,11 +92,6 @@ public class ViewEmpleado extends javax.swing.JPanel {
         btnEditarEmpleado.setHideActionText(true);
         btnEditarEmpleado.setPreferredSize(new java.awt.Dimension(230, 50));
         btnEditarEmpleado.setRadius(15);
-        btnEditarEmpleado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarEmpleadoActionPerformed(evt);
-            }
-        });
 
         btnBuscarEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search_black.png"))); // NOI18N
         btnBuscarEmpleado.setBorderColor(new java.awt.Color(255, 255, 255));
@@ -123,11 +99,6 @@ public class ViewEmpleado extends javax.swing.JPanel {
         btnBuscarEmpleado.setColorOver(new java.awt.Color(240, 240, 240));
         btnBuscarEmpleado.setPreferredSize(new java.awt.Dimension(30, 30));
         btnBuscarEmpleado.setRadius(15);
-        btnBuscarEmpleado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarEmpleadoActionPerformed(evt);
-            }
-        });
 
         mensajeSeleccion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         mensajeSeleccion.setForeground(new java.awt.Color(225, 0, 0));
@@ -149,11 +120,11 @@ public class ViewEmpleado extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel1)
-                            .addGap(18, 18, 18)
-                            .addComponent(inputSearchEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(inputBuscarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(btnBuscarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGap(195, 195, 195)
                             .addComponent(btnNuevoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1073, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(366, 366, 366))
@@ -163,117 +134,37 @@ public class ViewEmpleado extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(13, 13, 13)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(mensajeSeleccion)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnNuevoEmpleado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(inputSearchEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1)))
-                            .addComponent(btnBuscarEmpleado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(25, 25, 25)
+                    .addComponent(btnNuevoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(inputBuscarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addComponent(btnBuscarEmpleado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(25, 25, 25)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnBorrarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEditarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnEditarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(mensajeSeleccion, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1190, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnNuevoEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoEmpleadoActionPerformed
-        this.viewGestionEmpleado = new GestionEmpleado(dashboard, this, "Nuevo");
-        dashboard.initView(viewGestionEmpleado);
-        cargarTabla();
-
-    }//GEN-LAST:event_btnNuevoEmpleadoActionPerformed
-
-    private void btnBorrarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarEmpleadoActionPerformed
-        int filaSeleccionada = tablaEmpleados.getSelectedRow();
-        mensajeSeleccion.setVisible(false);
-        if (filaSeleccionada != -1) { // Verifica si se ha seleccionado una fila
-            System.out.println(filaSeleccionada);
-            String usuario = tablaEmpleados.getValueAt(filaSeleccionada, 3).toString();
-            dialog.DialogEliminarEmpleado dialog = new dialog.DialogEliminarEmpleado(usuario, this);
-            dialog.setVisible(true);
-            this.repaint();
-        } else {
-            mensajeSeleccion.setVisible(true);
-        }
-        this.repaint();
-    }//GEN-LAST:event_btnBorrarEmpleadoActionPerformed
-
-    // fumada extrema que ni entiendo que hice alksdjklajdklajd
-    private void btnBuscarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarEmpleadoActionPerformed
-        validacionesEmpleado.buscador(inputSearchEmpleado,
-                empleado.buscarEmpleado(inputSearchEmpleado.getText().trim()),
-                tablaEmpleados, 0);
-        this.repaint();
-    }//GEN-LAST:event_btnBuscarEmpleadoActionPerformed
-
-    private void btnEditarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarEmpleadoActionPerformed
-        int filaSeleccionada = tablaEmpleados.getSelectedRow();
-
-        mensajeSeleccion.setVisible(false);
-        if (filaSeleccionada != -1) {
-            String usuario = tablaEmpleados.getValueAt(filaSeleccionada, 3).toString();
-            this.viewGestionEmpleado = new GestionEmpleado(dashboard, this, usuario);
-            dashboard.initView(viewGestionEmpleado);
-        } else {
-            mensajeSeleccion.setVisible(true);
-        }
-
-
-    }//GEN-LAST:event_btnEditarEmpleadoActionPerformed
-
-    public void cargarTabla() {
-        if(!empleado.isEmptyTabla("Empleados")){
-            empleado.mostrarEmpleado(tablaEmpleados);
-            configuracionesTabla();
-        }
-
-    }
-
-    private void configuracionesTabla() {
-
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        tablaEmpleados.getColumnModel().getColumn(0).setPreferredWidth(250);
-        tablaEmpleados.getColumnModel().getColumn(0).setResizable(false);
-        tablaEmpleados.getColumnModel().getColumn(1).setPreferredWidth(200);
-        tablaEmpleados.getColumnModel().getColumn(1).setResizable(false);
-        tablaEmpleados.getColumnModel().getColumn(2).setPreferredWidth(120);
-        tablaEmpleados.getColumnModel().getColumn(2).setResizable(false);
-        tablaEmpleados.getColumnModel().getColumn(3).setPreferredWidth(120);
-        tablaEmpleados.getColumnModel().getColumn(3).setResizable(false);
-        tablaEmpleados.getColumnModel().getColumn(4).setPreferredWidth(120);
-        tablaEmpleados.getColumnModel().getColumn(4).setResizable(false);
-        tablaEmpleados.getColumnModel().getColumn(5).setPreferredWidth(50);
-        tablaEmpleados.getColumnModel().getColumn(5).setResizable(false);
-        tablaEmpleados.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
-        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
-        headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        headerRenderer.setBackground(new Color(240, 240, 240)); // Cambia el color aquí
-
-        // Asigna el renderizador personalizado a la cabecera
-        tablaEmpleados.getTableHeader().setDefaultRenderer(headerRenderer);
-        tablaEmpleados.setDefaultEditor(Object.class, null);
-
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private components.ButtonCustom btnBorrarEmpleado;
-    private components.ButtonCustom btnBuscarEmpleado;
-    private components.ButtonCustom btnEditarEmpleado;
-    private components.ButtonCustom btnNuevoEmpleado;
-    private components.TextField inputSearchEmpleado;
+    public components.ButtonCustom btnBorrarEmpleado;
+    public components.ButtonCustom btnBuscarEmpleado;
+    public components.ButtonCustom btnEditarEmpleado;
+    public components.ButtonCustom btnNuevoEmpleado;
+    public components.TextField inputBuscarEmpleado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel mensajeSeleccion;
-    private javax.swing.JTable tablaEmpleados;
+    public javax.swing.JLabel mensajeSeleccion;
+    public javax.swing.JTable tablaEmpleados;
     // End of variables declaration//GEN-END:variables
 }

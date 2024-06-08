@@ -1,34 +1,21 @@
 package views;
 
-import model.dataBase.DataBase;
-import model.dataBase.EmpleadoDB;
-import validaciones.ValidacionLogin;
-import style.MyColor;
+import controller.ControllerLogin;
 
-// Mejorar diseño del login
 public class Login extends javax.swing.JPanel {
 
-    private ValidacionLogin validacion = new ValidacionLogin();
-    private model.dataBase.EmpleadoDB empleado = new EmpleadoDB();
+    private ControllerLogin controller;
     private main.Main main;
 
     public Login(main.Main main) {
-        this.main = main;
         initComponents();
-        textoMensaje.setVisible(false);
         this.setSize(1400, 800);
         this.setLocation(0, 0);
-        mesajeInicioSesion.setVisible(false);
 
-        // Muestra el panel de inicio de sesion dependiendo si hay usuarios o no en la tabla empleados
-        if (new DataBase().isEmptyTabla("Empleados")) {
-            PanelAdmin.setVisible(true);
-            PanelInicioSesion.setVisible(false);
-        } else {
-            PanelInicioSesion.setVisible(true);
-            PanelAdmin.setVisible(false);
+        this.main = main;
+        this.controller = new ControllerLogin(main, this);
+        controller.tipoLogin();
 
-        }
     }
 
     @SuppressWarnings("unchecked")
@@ -78,11 +65,6 @@ public class Login extends javax.swing.JPanel {
         btnInicioSesion.setColorOver(new java.awt.Color(0, 102, 204));
         btnInicioSesion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnInicioSesion.setRadius(15);
-        btnInicioSesion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInicioSesionActionPerformed(evt);
-            }
-        });
         PanelInicioSesion.add(btnInicioSesion);
         btnInicioSesion.setBounds(124, 455, 100, 36);
 
@@ -129,11 +111,6 @@ public class Login extends javax.swing.JPanel {
         btnRegistrar.setColorOver(new java.awt.Color(0, 102, 204));
         btnRegistrar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnRegistrar.setRadius(15);
-        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarActionPerformed(evt);
-            }
-        });
 
         inputRepetirPassword.setForeground(new java.awt.Color(80, 80, 80));
         inputRepetirPassword.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -241,75 +218,27 @@ public class Login extends javax.swing.JPanel {
         PanelAdmin.setBounds(525, 115, 350, 600);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioSesionActionPerformed
-        mesajeInicioSesion.setVisible(false);
-
-        if (validacion.ceroCamposVaciosInicioSesion(inputUsuarioSesion, inputPasswordUsuario) == 2) {
-            if (empleado.inicioEmpleado(inputUsuarioSesion.getText().trim(), inputPasswordUsuario.getText().trim())) {
-                if (empleado.validarEmpleadoAdmin(inputUsuarioSesion.getText().trim())) {
-                    inputUsuarioSesion.setText("");
-                    inputPasswordUsuario.setText("");
-                    main.initView(main.viewAdmin(true));
-                    mesajeInicioSesion.setVisible(false);
-
-                } else {
-                    inputUsuarioSesion.setText("");
-                    inputPasswordUsuario.setText("");
-                    main.initView(main.viewAdmin(false));
-                    mesajeInicioSesion.setVisible(false);
-                }
-
-            } else {
-                inputUsuarioSesion.setLineColor(new MyColor().getRED());
-                inputPasswordUsuario.setLineColor(new MyColor().getRED());
-                mesajeInicioSesion.setVisible(true);
-            }
-        }
-        this.repaint();
-
-    }//GEN-LAST:event_btnInicioSesionActionPerformed
-
-    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        if (validacion.ceroCamposVaciosRegistro(inputNombre, inputApellido, inputTelefono, inputCorreo, inputUsuarioRegistro, inputPassword, inputRepetirPassword)
-                && validacion.verificacionPassword(textoMensaje, inputPassword, inputRepetirPassword)) {
-            empleado.nuevo(
-                    inputNombre.getText().trim(),
-                    inputApellido.getText().trim(),
-                    inputTelefono.getText().trim(),
-                    inputCorreo.getText().trim(),
-                    inputUsuarioRegistro.getText().trim(),
-                    true,
-                    inputPassword.getText().trim());
-            main.initView(main.viewAdmin(true));
-
-        } else {
-            validacion.verificacionPassword(textoMensaje, inputPassword, inputRepetirPassword);
-        }
-        this.repaint();
-
-    }//GEN-LAST:event_btnRegistrarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FarmaUCAB;
-    private components.PanelRound PanelAdmin;
-    private components.PanelRound PanelInicioSesion;
-    private components.ButtonCustom btnInicioSesion;
-    private components.ButtonCustom btnRegistrar;
-    private components.TextField inputApellido;
-    private components.TextField inputCorreo;
-    private components.TextField inputNombre;
-    private components.PasswordField inputPassword;
-    private components.PasswordField inputPasswordUsuario;
-    private components.PasswordField inputRepetirPassword;
-    private components.TextField inputTelefono;
-    private components.TextField inputUsuarioRegistro;
-    private components.TextField inputUsuarioSesion;
+    public components.PanelRound PanelAdmin;
+    public components.PanelRound PanelInicioSesion;
+    public components.ButtonCustom btnInicioSesion;
+    public components.ButtonCustom btnRegistrar;
+    public components.TextField inputApellido;
+    public components.TextField inputCorreo;
+    public components.TextField inputNombre;
+    public components.PasswordField inputPassword;
+    public components.PasswordField inputPasswordUsuario;
+    public components.PasswordField inputRepetirPassword;
+    public components.TextField inputTelefono;
+    public components.TextField inputUsuarioRegistro;
+    public components.TextField inputUsuarioSesion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel mesajeInicioSesion;
-    private javax.swing.JLabel textoMensaje;
+    public javax.swing.JLabel mesajeInicioSesion;
+    public javax.swing.JLabel textoMensaje;
     // End of variables declaration//GEN-END:variables
 
 }

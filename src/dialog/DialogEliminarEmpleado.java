@@ -1,19 +1,25 @@
 package dialog;
 
+import controller.ControllerEmpleado;
 import java.awt.Color;
+import model.dataBase.EmpleadoDB;
+import views.Dashboard;
+import views.ViewEmpleado;
 
 public class DialogEliminarEmpleado extends javax.swing.JFrame {
 
-    private model.dataBase.EmpleadoDB Empleado = new model.dataBase.EmpleadoDB();
+    private EmpleadoDB Empleado = new EmpleadoDB();
     private String usuario = "";
     private views.ViewEmpleado viewEmpleado;
+    private Dashboard dashBoard;
 
-    public DialogEliminarEmpleado(String usuario, views.ViewEmpleado viewEmpleado) {
+    public DialogEliminarEmpleado(String usuario, ViewEmpleado viewEmpleado, Dashboard dashBoard) {
         this.setUndecorated(true);
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
         this.usuario = usuario;
         this.viewEmpleado = viewEmpleado;
+        this.dashBoard = dashBoard;
         this.repaint();
 
     }
@@ -130,7 +136,7 @@ public class DialogEliminarEmpleado extends javax.swing.JFrame {
 
     private void btnEliminarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEmpleadoActionPerformed
         if (Empleado.eliminarEmpleado(usuario)) {
-            viewEmpleado.cargarTabla();
+            new ControllerEmpleado(dashBoard, viewEmpleado).cargarTabla();
             this.dispose();
         }
 

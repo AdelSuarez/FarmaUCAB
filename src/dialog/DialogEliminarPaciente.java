@@ -1,7 +1,7 @@
 package dialog;
 
 import java.awt.Color;
-import controllers.ControllerPaciente;
+import controller.ControllerPaciente;
 
 public class DialogEliminarPaciente extends javax.swing.JFrame {
 

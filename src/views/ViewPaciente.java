@@ -1,18 +1,15 @@
 package views;
 
-import model.dataBase.PacienteDB;
-import validaciones.ValidacionPaciente;
-import controllers.ControllerPaciente;
+import controller.ControllerPaciente;
 
 public class ViewPaciente extends javax.swing.JPanel {
 
     private ControllerPaciente controller;
-    private PacienteDB paciente = new PacienteDB();
-    private ValidacionPaciente validacionPaciente = new ValidacionPaciente();
 
     public ViewPaciente(views.Dashboard dashboard) {
         initComponents();
         this.setSize(1180, 720);
+        
         mensajeSeleccion.setVisible(false);
         this.controller = new ControllerPaciente(this, dashboard);
         controller.cargarTabla();
@@ -27,7 +24,7 @@ public class ViewPaciente extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaPacientes = new javax.swing.JTable();
-        inputSearchPaciente = new components.TextField();
+        inputBuscarPaciente = new components.TextField();
         btnNuevoPaciente = new components.ButtonCustom();
         btnBorrarPaciente = new components.ButtonCustom();
         btnEditarPaciente = new components.ButtonCustom();
@@ -62,8 +59,8 @@ public class ViewPaciente extends javax.swing.JPanel {
         tablaPacientes.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tablaPacientes);
 
-        inputSearchPaciente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        inputSearchPaciente.setLabelText("Buscar");
+        inputBuscarPaciente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        inputBuscarPaciente.setLabelText("Buscar");
 
         btnNuevoPaciente.setBackground(new java.awt.Color(0, 105, 255));
         btnNuevoPaciente.setForeground(new java.awt.Color(255, 255, 255));
@@ -103,11 +100,6 @@ public class ViewPaciente extends javax.swing.JPanel {
         btnBuscarPaciente.setColorOver(new java.awt.Color(240, 240, 240));
         btnBuscarPaciente.setPreferredSize(new java.awt.Dimension(30, 30));
         btnBuscarPaciente.setRadius(15);
-        btnBuscarPaciente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarPacienteActionPerformed(evt);
-            }
-        });
 
         mensajeSeleccion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         mensajeSeleccion.setForeground(new java.awt.Color(225, 0, 0));
@@ -129,11 +121,11 @@ public class ViewPaciente extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel1)
-                            .addGap(18, 18, 18)
-                            .addComponent(inputSearchPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(inputBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(btnBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGap(195, 195, 195)
                             .addComponent(btnNuevoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1073, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(345, 345, 345))
@@ -143,43 +135,34 @@ public class ViewPaciente extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(13, 13, 13)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(mensajeSeleccion)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnNuevoPaciente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(inputSearchPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1)))
-                            .addComponent(btnBuscarPaciente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(25, 25, 25)
+                    .addComponent(btnNuevoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(inputBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addComponent(btnBuscarPaciente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(25, 25, 25)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnBorrarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEditarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnEditarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(mensajeSeleccion, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1180, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    // fumada extrema que ni entiendo que hice alksdjklajdklajd
-    private void btnBuscarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPacienteActionPerformed
-        validacionPaciente.buscador(inputSearchPaciente,
-                paciente.buscarPaciente(inputSearchPaciente.getText().trim()),
-                tablaPacientes,
-                1);
-        this.repaint();
-    }//GEN-LAST:event_btnBuscarPacienteActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public components.ButtonCustom btnBorrarPaciente;
-    private components.ButtonCustom btnBuscarPaciente;
+    public components.ButtonCustom btnBuscarPaciente;
     public components.ButtonCustom btnEditarPaciente;
     public components.ButtonCustom btnNuevoPaciente;
-    private components.TextField inputSearchPaciente;
+    public components.TextField inputBuscarPaciente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;

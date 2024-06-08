@@ -63,8 +63,8 @@ public class InsumoDB extends DataBase {
             DefaultTableModel model = new DefaultTableModel();
             model.addColumn("ID");
             model.addColumn("Nombre");
-            model.addColumn("Stick");
-            model.addColumn("fecha");
+            model.addColumn("Stock");
+            model.addColumn("Fecha Ingreso");
 
             table.setModel(model);
 

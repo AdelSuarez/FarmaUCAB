@@ -2,10 +2,11 @@ package views.viewsGestion;
 
 import validaciones.ValidacionPaciente;
 import model.dataBase.PacienteDB;
-import controllers.ControllerPaciente;
+import controller.ControllerPaciente;
 
 public class GestionPaciente extends javax.swing.JPanel {
 
+    
     private PacienteDB paciente = new PacienteDB();
     private views.Dashboard dashboard;
     private views.ViewPaciente viewPaciente;

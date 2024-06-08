@@ -1,4 +1,4 @@
-package controllers;
+package controller;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import model.dataBase.PacienteDB;
+import validaciones.ValidacionPaciente;
 import views.ViewPaciente;
 import views.Dashboard;
 import views.viewsGestion.GestionPaciente;
@@ -14,21 +15,24 @@ public class ControllerPaciente implements ActionListener {
 
     private PacienteDB paciente = new PacienteDB();
     private ViewPaciente viewPaciente;
-    private Dashboard dashBoard;
+    private Dashboard dashboard;
     private GestionPaciente viewGestionPaciente;
+    private ValidacionPaciente validacionPaciente = new ValidacionPaciente();
 
-    public ControllerPaciente(ViewPaciente viewPaciente, Dashboard dashBoard) {
+
+    public ControllerPaciente(ViewPaciente viewPaciente, Dashboard dashboard) {
         this.viewPaciente = viewPaciente;
-        this.dashBoard = dashBoard;
+        this.dashboard = dashboard;
         this.viewPaciente.btnNuevoPaciente.addActionListener(this);
         this.viewPaciente.btnBorrarPaciente.addActionListener(this);
         this.viewPaciente.btnEditarPaciente.addActionListener(this);
-
+        this.viewPaciente.btnBuscarPaciente.addActionListener(this);
     }
 
     private void nuevoPaciente() {
-        this.viewGestionPaciente = new GestionPaciente(dashBoard, viewPaciente, "Nuevo");
-        dashBoard.initView(viewGestionPaciente);
+        this.viewGestionPaciente = new GestionPaciente(dashboard, viewPaciente, "Nuevo");
+        dashboard.initView(viewGestionPaciente);
+        viewPaciente.repaint();
     }
 
     private void borrarPaciente() {
@@ -37,7 +41,7 @@ public class ControllerPaciente implements ActionListener {
 
         if (filaSeleccionada != -1) {
             String cedula = viewPaciente.tablaPacientes.getValueAt(filaSeleccionada, 0).toString();
-            dialog.DialogEliminarPaciente dialog = new dialog.DialogEliminarPaciente(cedula, viewPaciente, dashBoard);
+            dialog.DialogEliminarPaciente dialog = new dialog.DialogEliminarPaciente(cedula, viewPaciente, dashboard);
             dialog.setVisible(true);
         } else {
             viewPaciente.mensajeSeleccion.setVisible(true);
@@ -52,8 +56,8 @@ public class ControllerPaciente implements ActionListener {
 
         if (filaSeleccionada != -1) {
             String cedula = viewPaciente.tablaPacientes.getValueAt(filaSeleccionada, 0).toString();
-            this.viewGestionPaciente = new GestionPaciente(dashBoard, viewPaciente, cedula);
-            dashBoard.initView(viewGestionPaciente);
+            this.viewGestionPaciente = new GestionPaciente(dashboard, viewPaciente, cedula);
+            dashboard.initView(viewGestionPaciente);
         } else {
             viewPaciente.mensajeSeleccion.setVisible(true);
         }
@@ -65,10 +69,19 @@ public class ControllerPaciente implements ActionListener {
             try {
                 paciente.mostrarPacientes(viewPaciente.tablaPacientes);
                 configuracionTabla();
+                viewPaciente.repaint();
+
             } catch (Exception e) {
             }
         }
-
+    }
+    
+    private void buscarPaciente(){
+        validacionPaciente.buscador(viewPaciente.inputBuscarPaciente,
+                paciente.buscarPaciente(viewPaciente.inputBuscarPaciente.getText().trim()),
+                viewPaciente.tablaPacientes,
+                1);
+        viewPaciente.repaint();
     }
 
     private void configuracionTabla() {
@@ -105,6 +118,8 @@ public class ControllerPaciente implements ActionListener {
             borrarPaciente();
         } else if (e.getSource() == viewPaciente.btnEditarPaciente) {
             editarPaciente();
+        } else if (e.getSource() == viewPaciente.btnBuscarPaciente) {
+            buscarPaciente();
         }
     }
 
