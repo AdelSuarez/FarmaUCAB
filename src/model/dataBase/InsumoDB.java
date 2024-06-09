@@ -7,10 +7,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import model.dataBase.OperationsDataBase;
 
-public class InsumoDB extends DataBase {
+public class InsumoDB extends DataBase implements OperationsDataBase{
 
-   public boolean nuevoInsumo(String nombre, int stock, String descripcion, String fecha) {
+   public boolean nuevo(String nombre, int stock, String descripcion, String fecha) {
         try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
@@ -95,7 +96,7 @@ public class InsumoDB extends DataBase {
 
     }
 
-    public String buscarInsumo(String nombre) {
+    public String buscardorInsumo(String nombre) {
         try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
@@ -169,7 +170,7 @@ public class InsumoDB extends DataBase {
         }
     }
 
-    public boolean editarInsumo(String id, String nuevoNombre, int nuevoStock, String nuevaDescripcion) {
+    public boolean editar(String id, String nuevoNombre, int nuevoStock, String nuevaDescripcion) {
         try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
@@ -205,7 +206,7 @@ public class InsumoDB extends DataBase {
         }
     }
 
-    public boolean eliminarInsumo(String id) {
+    public boolean eliminar(String id) {
         try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
@@ -234,5 +235,21 @@ public class InsumoDB extends DataBase {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    @Override
+    public void nuevo() {
+    }
+
+    @Override
+    public void editar() {
+    }
+
+    @Override
+    public void eliminar() {
+    }
+
+    @Override
+    public void buscar() {
     }
 }

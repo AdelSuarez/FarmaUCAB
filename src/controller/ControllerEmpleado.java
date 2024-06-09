@@ -11,14 +11,13 @@ import views.Dashboard;
 import views.ViewEmpleado;
 import views.viewsGestion.GestionEmpleado;
 
-public class ControllerEmpleado  implements ActionListener {
+public class ControllerEmpleado implements ActionListener {
 
     private Dashboard dashBoard;
     private ViewEmpleado viewEmpleado;
     private EmpleadoDB empleado = new EmpleadoDB();
     private GestionEmpleado viewGestionEmpleado;
     private ValidacionesEmpleado validacionesEmpleado = new ValidacionesEmpleado();
-
 
     public ControllerEmpleado(Dashboard dashboard, ViewEmpleado viewEmpleado) {
         this.dashBoard = dashboard;
@@ -65,8 +64,9 @@ public class ControllerEmpleado  implements ActionListener {
     }
 
     private void buscarEmpleado() {
+        viewEmpleado.mensajeSeleccion.setVisible(false);
         validacionesEmpleado.buscador(viewEmpleado.inputBuscarEmpleado,
-                empleado.buscarEmpleado(viewEmpleado.inputBuscarEmpleado.getText().trim()),
+                empleado.buscardorEmpleado(viewEmpleado.inputBuscarEmpleado.getText().trim()),
                 viewEmpleado.tablaEmpleados, 0);
         viewEmpleado.repaint();
     }
@@ -109,13 +109,13 @@ public class ControllerEmpleado  implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == viewEmpleado.btnNuevoEmpleado) {
             NuevoEmpleado();
-        } else if (e.getSource() == viewEmpleado.btnBorrarEmpleado){
+        } else if (e.getSource() == viewEmpleado.btnBorrarEmpleado) {
             borrarEmpleado();
-        } else if (e.getSource() == viewEmpleado.btnEditarEmpleado){
+        } else if (e.getSource() == viewEmpleado.btnEditarEmpleado) {
             editarEmpleado();
-        } else if (e.getSource() == viewEmpleado.btnBuscarEmpleado){
+        } else if (e.getSource() == viewEmpleado.btnBuscarEmpleado) {
             buscarEmpleado();
-        } 
+        }
     }
 
 }

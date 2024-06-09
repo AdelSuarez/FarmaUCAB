@@ -2,30 +2,28 @@ package views.viewsGestion;
 
 import controller.ControllerInsumo;
 import java.util.Calendar;
-
+import controller.ControllerGestionInsumo;
 
 public class GestionInsumo extends javax.swing.JPanel {
-    
 
-    
     private views.Dashboard dashboard;
     private views.ViewInsumo viewInsumo;
     private model.dataBase.InsumoDB insumo = new model.dataBase.InsumoDB();
+    private ControllerGestionInsumo controller;
     private String dato;
     private String[] datos;
     private validaciones.ValidacionInsumo validacionesInsumo = new validaciones.ValidacionInsumo();
 
-    public GestionInsumo(views.Dashboard dashboard, views.ViewInsumo viewInsumo,String dato) {
+    public GestionInsumo(views.Dashboard dashboard, views.ViewInsumo viewInsumo, String dato) {
         this.dashboard = dashboard;
         this.viewInsumo = viewInsumo;
         this.dato = dato;
         initComponents();
-        
+
         this.setSize(1180, 720);
         this.mensajeGuardado.setVisible(false);
-        obtenerFecha();
+        this.controller = new ControllerGestionInsumo(dashboard, viewInsumo, this, dato);
         this.repaint();
-        seleccionVentana();
     }
 
     @SuppressWarnings("unchecked")
@@ -55,11 +53,6 @@ public class GestionInsumo extends javax.swing.JPanel {
         btnRegresar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnRegresar.setPreferredSize(new java.awt.Dimension(40, 40));
         btnRegresar.setRadius(15);
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarActionPerformed(evt);
-            }
-        });
         jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 50, -1));
 
         panelRound1.setBackground(new java.awt.Color(240, 240, 240));
@@ -81,11 +74,6 @@ public class GestionInsumo extends javax.swing.JPanel {
         btnGuardarInsumo.setPreferredSize(new java.awt.Dimension(86, 40));
         btnGuardarInsumo.setRadius(15);
         btnGuardarInsumo.setRolloverEnabled(true);
-        btnGuardarInsumo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarInsumoActionPerformed(evt);
-            }
-        });
 
         mensajeGuardado.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         mensajeGuardado.setForeground(new java.awt.Color(40, 180, 99));
@@ -173,92 +161,18 @@ public class GestionInsumo extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        dashboard.initView(dashboard.getViewInsumo());
-        this.mensajeGuardado.setVisible(false);
-        new ControllerInsumo(dashboard, viewInsumo).cargarTabla();
-        this.repaint();
-        
-    }//GEN-LAST:event_btnRegresarActionPerformed
-
-    private void btnGuardarInsumoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarInsumoActionPerformed
-        if (dato.equals("Nuevo")) {
-            guardarInsumo();
-        }else {
-            editarInsumo();
-        }
-        this.repaint();
-    }//GEN-LAST:event_btnGuardarInsumoActionPerformed
-
-    private void guardarInsumo() {
-        if(validacionesInsumo.datosValidados(nombreInsumo, StockInsumo)){
-              if(insumo.nuevoInsumo(
-                      nombreInsumo.getText().trim(),
-                      (int) StockInsumo.getValue(), // Realiza un casting a int
-                      descripcionInsumo.getText().trim(),
-                      obtenerFecha())){
-                  mensajeGuardado.setVisible(true);
-                  limpiarInput();
-              }
-              
-          }  
-
-    }
-
-    private void editarInsumo() {
-        if(validacionesInsumo.datosValidados(nombreInsumo, StockInsumo)){
-            if(insumo.editarInsumo(dato, 
-                    nombreInsumo.getText().trim(), 
-                    (int) StockInsumo.getValue(), 
-                    descripcionInsumo.getText().trim())){
-                mensajeGuardado.setVisible(true);
-                limpiarInput();
-            }
-        }  
-
-    }
-
-    private void limpiarInput() {
-        nombreInsumo.setText("");
-        descripcionInsumo.setText("");
-        StockInsumo.setValue(0);
-    }
-
-    private void seleccionVentana() {
-        if (dato.equals("Nuevo")) {
-            tituloPrincipal.setText("Nuevo Insumo");
-        } else {
-            tituloPrincipal.setText("Editar Insumo");
-            this.datos = insumo.buscar(dato);
-            nombreInsumo.setText(datos[0]);
-            StockInsumo.setValue(Integer.valueOf(datos[1]));
-            descripcionInsumo.setText(datos[2]);
-        }
-
-    }
-    
-    public String obtenerFecha(){
-        Calendar calendario = Calendar.getInstance();
-        int dia = calendario.get(Calendar.DATE);
-        int mes = calendario.get(Calendar.MONTH) + 1; // Sumamos 1 porque los meses en Calendar van de 0 a 11
-        int annio = calendario.get(Calendar.YEAR);
-        String fechaActual = dia + "/" + mes + "/" + annio;
-        return fechaActual;
-    }
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Fecha;
-    private components.Spinner StockInsumo;
-    private components.ButtonCustom btnGuardarInsumo;
-    private components.ButtonCustom btnRegresar;
-    private components.TextArea descripcionInsumo;
+    public javax.swing.JLabel Fecha;
+    public components.Spinner StockInsumo;
+    public components.ButtonCustom btnGuardarInsumo;
+    public components.ButtonCustom btnRegresar;
+    public components.TextArea descripcionInsumo;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel mensajeGuardado;
-    private components.TextField nombreInsumo;
+    public javax.swing.JLabel mensajeGuardado;
+    public components.TextField nombreInsumo;
     private components.PanelRound panelRound1;
     private components.TextAreaScroll textAreaScroll2;
     private javax.swing.JLabel tittuloSecundario;
-    private javax.swing.JLabel tituloPrincipal;
+    public javax.swing.JLabel tituloPrincipal;
     // End of variables declaration//GEN-END:variables
 }

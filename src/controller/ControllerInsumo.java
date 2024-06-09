@@ -61,10 +61,11 @@ public class ControllerInsumo implements ActionListener {
         }
         viewInsumo.repaint();
     }
-    
-    private void buscarInsumo(){
+
+    private void buscarInsumo() {
+        viewInsumo.mensajeSeleccion.setVisible(false);
         validacionInsumo.buscador(viewInsumo.inputBuscarInsumo,
-                insumo.buscarInsumo(viewInsumo.inputBuscarInsumo.getText().trim()),
+                insumo.buscardorInsumo(viewInsumo.inputBuscarInsumo.getText().trim()),
                 viewInsumo.tablaInsumos,
                 1);
         viewInsumo.repaint();

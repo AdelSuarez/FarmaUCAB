@@ -19,7 +19,6 @@ public class ControllerPaciente implements ActionListener {
     private GestionPaciente viewGestionPaciente;
     private ValidacionPaciente validacionPaciente = new ValidacionPaciente();
 
-
     public ControllerPaciente(ViewPaciente viewPaciente, Dashboard dashboard) {
         this.viewPaciente = viewPaciente;
         this.dashboard = dashboard;
@@ -66,19 +65,16 @@ public class ControllerPaciente implements ActionListener {
 
     public void cargarTabla() {
         if (!paciente.isEmptyTabla("Pacientes")) {
-            try {
-                paciente.mostrarPacientes(viewPaciente.tablaPacientes);
-                configuracionTabla();
-                viewPaciente.repaint();
-
-            } catch (Exception e) {
-            }
+            paciente.mostrarPacientes(viewPaciente.tablaPacientes);
+            configuracionTabla();
+            viewPaciente.repaint();
         }
     }
-    
-    private void buscarPaciente(){
+
+    private void buscarPaciente() {
+        viewPaciente.mensajeSeleccion.setVisible(false);
         validacionPaciente.buscador(viewPaciente.inputBuscarPaciente,
-                paciente.buscarPaciente(viewPaciente.inputBuscarPaciente.getText().trim()),
+                paciente.buscardorPaciente(viewPaciente.inputBuscarPaciente.getText().trim()),
                 viewPaciente.tablaPacientes,
                 1);
         viewPaciente.repaint();

@@ -10,7 +10,6 @@ public class Dashboard extends javax.swing.JPanel {
     private ViewConsulta viewConsulta = new ViewConsulta();
     private ViewInsumo viewInsumo = new ViewInsumo(this);
     private ViewEmpleado viewEmpleado = new ViewEmpleado(this);
-    private main.Main main;
     private ControllerDashBoard controller;
 
     public Dashboard(main.Main main, boolean admin) {

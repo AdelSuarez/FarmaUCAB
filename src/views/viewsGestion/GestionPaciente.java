@@ -1,28 +1,15 @@
 package views.viewsGestion;
 
-import validaciones.ValidacionPaciente;
-import model.dataBase.PacienteDB;
-import controller.ControllerPaciente;
+import controller.ControllerGestionPaciente;
 
 public class GestionPaciente extends javax.swing.JPanel {
 
-    
-    private PacienteDB paciente = new PacienteDB();
-    private views.Dashboard dashboard;
-    private views.ViewPaciente viewPaciente;
-    private ValidacionPaciente validacionPaciente = new ValidacionPaciente();
-    private String cedula;
-    private String[] datosPaciente;
-    private String id;
+    private ControllerGestionPaciente controller;
 
-    public GestionPaciente(views.Dashboard dashboard, views.ViewPaciente viewPaciente, String ventana) {
-        this.cedula = ventana;
-        this.dashboard = dashboard;
-        this.viewPaciente = viewPaciente;
+    public GestionPaciente(views.Dashboard dashboard, views.ViewPaciente viewPaciente, String dato) {
         initComponents();
         this.setSize(1180, 720);
-        this.mensajeGuardado.setVisible(false);
-        seleccionVentana(ventana);
+        this.controller = new ControllerGestionPaciente(dashboard, viewPaciente, this, dato);
     }
 
     @SuppressWarnings("unchecked")
@@ -56,11 +43,6 @@ public class GestionPaciente extends javax.swing.JPanel {
         btnRegresar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnRegresar.setPreferredSize(new java.awt.Dimension(40, 40));
         btnRegresar.setRadius(15);
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarActionPerformed(evt);
-            }
-        });
         jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 50, -1));
 
         panelRound1.setBackground(new java.awt.Color(240, 240, 240));
@@ -129,11 +111,6 @@ public class GestionPaciente extends javax.swing.JPanel {
         btnGuardarPaciente.setPreferredSize(new java.awt.Dimension(86, 40));
         btnGuardarPaciente.setRadius(15);
         btnGuardarPaciente.setRolloverEnabled(true);
-        btnGuardarPaciente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarPacienteActionPerformed(evt);
-            }
-        });
 
         mensajeGuardado.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         mensajeGuardado.setForeground(new java.awt.Color(40, 180, 99));
@@ -217,115 +194,22 @@ public class GestionPaciente extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:
-        dashboard.initView(dashboard.getViewPaciente());
-        this.mensajeGuardado.setVisible(false);
-        new ControllerPaciente(viewPaciente, dashboard).cargarTabla();
-        this.repaint();
-    }//GEN-LAST:event_btnRegresarActionPerformed
-
-    private void btnGuardarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarPacienteActionPerformed
-        // TODO add your handling code here:
-        if (cedula.equals("Nuevo")) {
-            guardarPaciete();
-
-        } else {
-            editarPaciente();
-        }
-
-    }//GEN-LAST:event_btnGuardarPacienteActionPerformed
-
-    private void guardarPaciete() {
-        if (validacionPaciente.datosValidados(nombrePaciente, apellidoPaciente, cedulaPaciente, edadPaciente, telefonoPaciente, DEPaciente, generoPaciente)) {
-            if (paciente.nuevo(nombrePaciente.getText().trim(),
-                    apellidoPaciente.getText().trim(),
-                    cedulaPaciente.getText().trim(),
-                    telefonoPaciente.getText().trim(),
-                    DEPaciente.getText().trim(),
-                    generoPaciente.getSelectedItem().toString(),
-                    Integer.parseInt(edadPaciente.getText().trim()),
-                    descripcionPaciente.getText().trim())) {
-                validacionPaciente.mensaje(mensajeGuardado, "Paciente guardado");
-                limpiarInput();
-                this.repaint();
-            }
-        }
-        this.repaint();
-    }
-
-    private void editarPaciente() {
-        if (validacionPaciente.datosValidados(nombrePaciente, apellidoPaciente, cedulaPaciente, edadPaciente, telefonoPaciente, DEPaciente, generoPaciente)) {
-            if (paciente.editarPaciente(id,
-                    nombrePaciente.getText().trim(),
-                    apellidoPaciente.getText().trim(),
-                    cedulaPaciente.getText().trim(),
-                    telefonoPaciente.getText().trim(),
-                    DEPaciente.getText().trim(),
-                    generoPaciente.getSelectedItem().toString(),
-                    Integer.parseInt(edadPaciente.getText().trim()),
-                    descripcionPaciente.getText().trim())) {
-                validacionPaciente.mensaje(mensajeGuardado, "Editado con exito");
-                limpiarInput();
-                this.repaint();
-            }
-
-        }
-    }
-    
-    private void limpiarInput() {
-        nombrePaciente.setText("");
-        apellidoPaciente.setText("");
-        cedulaPaciente.setText("");
-        telefonoPaciente.setText("");
-        edadPaciente.setText("");
-        DEPaciente.setText("");
-        descripcionPaciente.setText("");
-        generoPaciente.setSelectedIndex(-1);
-    }
-
-    private void seleccionVentana(String ventana) {
-        if (ventana.equals("Nuevo")) {
-            tituloPrincipal.setText("Nuevo Paciente");
-
-        } else {
-            tituloPrincipal.setText("Editar Paciente");
-            this.datosPaciente = paciente.buscar(ventana);
-            this.id = datosPaciente[0];
-            nombrePaciente.setText(datosPaciente[1]);
-            apellidoPaciente.setText(datosPaciente[2]);
-            edadPaciente.setText(datosPaciente[3]);
-            telefonoPaciente.setText(datosPaciente[5]);
-            cedulaPaciente.setText(datosPaciente[6]);
-            DEPaciente.setText(datosPaciente[7]);
-            System.out.println(datosPaciente[4]);
-            if (datosPaciente[4].equals("Masculino")) {
-                generoPaciente.setSelectedIndex(0);
-            } else {
-                generoPaciente.setSelectedIndex(1);
-
-            }
-            descripcionPaciente.setText(datosPaciente[8]);
-
-        }
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private components.TextField DEPaciente;
-    private components.TextField apellidoPaciente;
-    private components.ButtonCustom btnGuardarPaciente;
-    private components.ButtonCustom btnRegresar;
-    private components.TextField cedulaPaciente;
-    private components.TextArea descripcionPaciente;
-    private components.TextField edadPaciente;
-    private components.Combobox generoPaciente;
+    public components.TextField DEPaciente;
+    public components.TextField apellidoPaciente;
+    public components.ButtonCustom btnGuardarPaciente;
+    public components.ButtonCustom btnRegresar;
+    public components.TextField cedulaPaciente;
+    public components.TextArea descripcionPaciente;
+    public components.TextField edadPaciente;
+    public components.Combobox generoPaciente;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel mensajeGuardado;
-    private components.TextField nombrePaciente;
+    public javax.swing.JLabel mensajeGuardado;
+    public components.TextField nombrePaciente;
     private components.PanelRound panelRound1;
-    private components.TextField telefonoPaciente;
+    public components.TextField telefonoPaciente;
     private components.TextAreaScroll textAreaScroll2;
     private javax.swing.JLabel tittuloSecundario;
-    private javax.swing.JLabel tituloPrincipal;
+    public javax.swing.JLabel tituloPrincipal;
     // End of variables declaration//GEN-END:variables
 }

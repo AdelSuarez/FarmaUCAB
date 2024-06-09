@@ -18,7 +18,7 @@ public class ControllerLogin implements ActionListener {
 
     public ControllerLogin(Main main, Login login) {
         this.main = main;
-        this.login = login;        
+        this.login = login;
         login.textoMensaje.setVisible(false);
         login.mesajeInicioSesion.setVisible(false);
         login.btnInicioSesion.addActionListener(this);
@@ -60,7 +60,7 @@ public class ControllerLogin implements ActionListener {
     }
 
     private void registrarUsuarioAdmin() {
-        if (validacionLogin.ceroCamposVaciosRegistro(login.inputNombre, login.inputApellido,login.inputTelefono, login.inputCorreo, login.inputUsuarioRegistro, login.inputPassword, login.inputRepetirPassword)
+        if (validacionLogin.ceroCamposVaciosRegistro(login.inputNombre, login.inputApellido, login.inputTelefono, login.inputCorreo, login.inputUsuarioRegistro, login.inputPassword, login.inputRepetirPassword)
                 && validacionLogin.verificacionPassword(login.textoMensaje, login.inputPassword, login.inputRepetirPassword)) {
             empleado.nuevo(
                     login.inputNombre.getText().trim(),

@@ -2,6 +2,7 @@ package views.viewsGestion;
 
 import controller.ControllerGestionEmpleado;
 
+
 public class GestionEmpleado extends javax.swing.JPanel {
 
     private ControllerGestionEmpleado controller;

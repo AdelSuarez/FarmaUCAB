@@ -10,9 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import model.dataBase.OperationsDataBase;
 
 public class EmpleadoDB extends DataBase implements OperationsDataBase{
-    @Override
-    public void nuevo() {
-    }
+    
     
     public void nuevo(String nombre, String apellido, String telefono, String correo, String usuario, boolean admin, String password) {
         try {
@@ -179,7 +177,7 @@ public class EmpleadoDB extends DataBase implements OperationsDataBase{
     
     
     
-    public boolean eliminarEmpleado(String usuario) {
+    public boolean eliminar(String usuario) {
         try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
@@ -209,7 +207,7 @@ public class EmpleadoDB extends DataBase implements OperationsDataBase{
         }
     }
     
-    public String buscarEmpleado(String nombre) {
+    public String buscardorEmpleado(String nombre) {
         try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
@@ -287,7 +285,7 @@ public class EmpleadoDB extends DataBase implements OperationsDataBase{
         }
     }
     
-    public boolean editarEmpleado(String id, String nuevoNombre, String nuevoApellido, String nuevoTelefono, String nuevoCorreo, String nuevoUsuario, boolean nuevoAdmin, String nuevaPassword) {
+    public boolean editar(String id, String nuevoNombre, String nuevoApellido, String nuevoTelefono, String nuevoCorreo, String nuevoUsuario, boolean nuevoAdmin, String nuevaPassword) {
         try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
@@ -327,5 +325,19 @@ public class EmpleadoDB extends DataBase implements OperationsDataBase{
         }
     }
 
+    @Override
+    public void editar() {
+    }
 
+    @Override
+    public void eliminar() {
+    }
+
+    @Override
+    public void buscar() {
+    }
+
+    @Override
+    public void nuevo() {
+    }
 }

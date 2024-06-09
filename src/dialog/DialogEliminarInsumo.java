@@ -134,7 +134,7 @@ public class DialogEliminarInsumo extends javax.swing.JFrame {
 
     private void btnEliminarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPacienteActionPerformed
         // TODO add your handling code here:
-        if (insumo.eliminarInsumo(id)) {
+        if (insumo.eliminar(id)) {
             new ControllerInsumo(dashboard, viewInsumo).cargarTabla();
             this.dispose();
         }

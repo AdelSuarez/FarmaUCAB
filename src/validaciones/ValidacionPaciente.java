@@ -22,7 +22,7 @@ public class ValidacionPaciente extends Validacion {
         if (validarInput(inputApellido, "Apellido")) {
             validarCaracteresInput(inputApellido, "Apellido", getREGEXNOMBRE(), contadorInput);
         }
-        if (validarInput(inputCedula, "Cedula")) {
+        if (validarInput(inputCedula, "Cedula") && validarCantidadDigitos(inputCedula, "Cedula", 6)) {
             validarCaracteresInput(inputCedula, "Cedula", getREGEXNUMERO(), contadorInput);
         }
         if (validarInput(inputEdad, "Edad")) {
@@ -36,7 +36,9 @@ public class ValidacionPaciente extends Validacion {
         if (inputTelefono.getText().equals("")){
             contadorInput[0]++;
         } else {
-            validarCaracteresInput(inputTelefono, "Telefono", getREGEXNUMERO(), contadorInput);
+            if (validarCantidadDigitos(inputTelefono, "Telefono", 11)){
+                validarCaracteresInput(inputTelefono, "Telefono", getREGEXNUMERO(), contadorInput);
+            }
 
         }
 

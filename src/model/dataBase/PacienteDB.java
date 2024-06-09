@@ -101,7 +101,7 @@ public class PacienteDB extends DataBase implements OperationsDataBase{
 
     }
 
-    public boolean eliminarPaciente(String cedula) {
+    public boolean eliminar(String cedula) {
         try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
@@ -132,7 +132,7 @@ public class PacienteDB extends DataBase implements OperationsDataBase{
         }
     }
 
-    public String buscarPaciente(String nombre) {
+    public String buscardorPaciente(String nombre) {
         try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
@@ -211,7 +211,7 @@ public class PacienteDB extends DataBase implements OperationsDataBase{
         }
     }
 
-    public boolean editarPaciente(String id, String nuevoNombre, String nuevoApellido, String nuevoCedula, String nuevoTelefono, String nuevoDE, String nuevoGenero, int nuevaEdad, String nuevaDescripcion) {
+    public boolean editar(String id, String nuevoNombre, String nuevoApellido, String nuevoCedula, String nuevoTelefono, String nuevoDE, String nuevoGenero, int nuevaEdad, String nuevaDescripcion) {
         try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
@@ -254,6 +254,18 @@ public class PacienteDB extends DataBase implements OperationsDataBase{
 
     @Override
     public void nuevo() {
+    }
+
+    @Override
+    public void editar() {
+    }
+
+    @Override
+    public void eliminar() {
+    }
+
+    @Override
+    public void buscar() {
     }
 
 }

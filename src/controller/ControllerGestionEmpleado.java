@@ -32,12 +32,14 @@ public class ControllerGestionEmpleado implements ActionListener {
         
         this.viewGestionEmpleado.mensajeGuardado.setVisible(false);
         seleccionVentana();
+
     }
 
     private void regresarView() {
-        dashboard.initView(dashboard.getViewEmpleado());
-        viewGestionEmpleado.mensajeGuardado.setVisible(false);
         new ControllerEmpleado(dashboard, viewEmpleado).cargarTabla();
+        dashboard.initView(dashboard.getViewEmpleado());
+        viewEmpleado.repaint();
+
     }
 
     private void guardarAccion() {
@@ -46,11 +48,12 @@ public class ControllerGestionEmpleado implements ActionListener {
         } else {
             editarEmpleado();
         }
+        new ControllerEmpleado(dashboard, viewEmpleado).cargarTabla();
+        viewEmpleado.repaint();
         viewGestionEmpleado.repaint();
     }
 
     private void guardarEmpleado() {
-        System.out.println("hola 1");
         if (valicacionEmpleado.datosValidados(
                 viewGestionEmpleado.nombreEmpleado,
                 viewGestionEmpleado.apellidoEmpleado,
@@ -72,7 +75,6 @@ public class ControllerGestionEmpleado implements ActionListener {
     }
 
     private void editarEmpleado() {
-        System.out.println("hola2");
         if (valicacionEmpleado.datosValidados(
                 viewGestionEmpleado.nombreEmpleado,
                 viewGestionEmpleado.apellidoEmpleado,
@@ -80,7 +82,7 @@ public class ControllerGestionEmpleado implements ActionListener {
                 viewGestionEmpleado.CorreoEmpleado,
                 viewGestionEmpleado.usuarioEmpleado,
                 viewGestionEmpleado.passwordField1)) {
-            empleado.editarEmpleado(idEmpleado,
+            empleado.editar(idEmpleado,
                     viewGestionEmpleado.nombreEmpleado.getText().trim(),
                     viewGestionEmpleado.apellidoEmpleado.getText().trim(),
                     viewGestionEmpleado.telefonoEmpleado.getText().trim(),

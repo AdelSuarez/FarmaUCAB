@@ -13,7 +13,7 @@ import views.ViewEmpleado;
 import views.ViewInsumo;
 import views.ViewPaciente;
 
-public class ControllerDashBoard implements ActionListener{
+public class ControllerDashBoard implements ActionListener {
 
     private ViewPaciente viewPaciente;
     private ViewConsulta viewConsulta = new ViewConsulta();
@@ -39,10 +39,10 @@ public class ControllerDashBoard implements ActionListener{
         this.dashboard.btnEmpleado.addActionListener(this);
         this.dashboard.btnInsumo.addActionListener(this);
         this.dashboard.btnPaciente.addActionListener(this);
-        
+
         iniciadorVentana(viewPaciente);
     }
-    
+
     public void iniciadorVentana(JPanel view) {
         dashboard.Content.removeAll();
         dashboard.Content.add(view, BorderLayout.CENTER);
@@ -57,63 +57,62 @@ public class ControllerDashBoard implements ActionListener{
     public ViewEmpleado getViewEmpleado() {
         return viewEmpleado;
     }
-    
-    public ViewInsumo getViewInsumo(){
+
+    public ViewInsumo getViewInsumo() {
         return viewInsumo;
     }
 
-    private void cerraSesion(){
+    private void cerraSesion() {
         dialog.DialogCerrarSesion dialog = new DialogCerrarSesion(main);
         dialog.setVisible(true);
     }
-    
-    private void activarViewIsumo(){
+
+    private void activarViewIsumo() {
         dashboard.btnPaciente.setColor(new MyColor().getBTNBGDASHBOAR());
         dashboard.btnInsumo.setColor(new MyColor().getBTNSELECTCOLOR());
         dashboard.btnConsulta.setColor(new MyColor().getBTNBGDASHBOAR());
         dashboard.btnEmpleado.setColor(new MyColor().getBTNBGDASHBOAR());
         iniciadorVentana(viewInsumo);
     }
-    
-    private void activarViewPaciente(){
+
+    private void activarViewPaciente() {
         dashboard.btnInsumo.setColor(new MyColor().getBTNBGDASHBOAR());
         dashboard.btnPaciente.setColor(new MyColor().getBTNSELECTCOLOR());
         dashboard.btnConsulta.setColor(new MyColor().getBTNBGDASHBOAR());
         dashboard.btnEmpleado.setColor(new MyColor().getBTNBGDASHBOAR());
         iniciadorVentana(viewPaciente);
     }
-    
-    private void activarViewEmpleado(){
+
+    private void activarViewEmpleado() {
         dashboard.btnPaciente.setColor(new MyColor().getBTNBGDASHBOAR());
         dashboard.btnInsumo.setColor(new MyColor().getBTNBGDASHBOAR());
         dashboard.btnConsulta.setColor(new MyColor().getBTNBGDASHBOAR());
         dashboard.btnEmpleado.setColor(new MyColor().getBTNSELECTCOLOR());
         iniciadorVentana(viewEmpleado);
     }
-    
-    private void activarViewConsulta(){
+
+    private void activarViewConsulta() {
         dashboard.btnPaciente.setColor(new MyColor().getBTNBGDASHBOAR());
         dashboard.btnInsumo.setColor(new MyColor().getBTNBGDASHBOAR());
         dashboard.btnConsulta.setColor(new MyColor().getBTNSELECTCOLOR());
         dashboard.btnEmpleado.setColor(new MyColor().getBTNBGDASHBOAR());
         iniciadorVentana(viewConsulta);
     }
-    
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == dashboard.btnInsumo){
+        if (e.getSource() == dashboard.btnInsumo) {
             activarViewIsumo();
-        } else if(e.getSource() == dashboard.btnCerrarSesion){
+        } else if (e.getSource() == dashboard.btnCerrarSesion) {
             cerraSesion();
-        } else if(e.getSource() == dashboard.btnPaciente){
+        } else if (e.getSource() == dashboard.btnPaciente) {
             activarViewPaciente();
-        } else if(e.getSource() == dashboard.btnEmpleado){
+        } else if (e.getSource() == dashboard.btnEmpleado) {
             activarViewEmpleado();
-        } else if(e.getSource() == dashboard.btnConsulta){
+        } else if (e.getSource() == dashboard.btnConsulta) {
             activarViewConsulta();
         }
-    
+
     }
 
 }

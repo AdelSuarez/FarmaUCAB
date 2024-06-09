@@ -64,7 +64,7 @@ public class ValidacionLogin extends Validacion {
 
         }
 
-        if (validarInput(inputTelefono, "Telefono")) {
+        if (validarInput(inputTelefono, "Telefono") && validarCantidadDigitos(inputTelefono, "Telefono", 11)) {
             validarCaracteresInput(inputTelefono, "Telefono", getREGEXNUMERO(), contadorInput);
 
         }

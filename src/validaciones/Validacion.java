@@ -7,6 +7,7 @@ import style.MyColor;
 public abstract class Validacion {
 
     private final String AVISOVACIO = " (Campo vacío)";
+    private final String AVISOLONGITUD = " (Cantidad de carateres minima)";
     private final String AVISOCARACTERES = " (Caracteres invalidos)";
     private final String REGEXNOMBRE = "^[A-Za-z ]*$";
     private final String REGEXCORREO = "[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}";
@@ -39,7 +40,20 @@ public abstract class Validacion {
 //        return estaVacio;
 
     }
-
+    public boolean validarCantidadDigitos(components.TextField textfiel, String texto, int cantidad) {
+//        boolean estaVacio = false;
+        if (textfiel.getText().length() < cantidad) {
+            textfiel.setLineColor(new MyColor().getRED());
+            textfiel.setLabelText(texto + AVISOLONGITUD);
+            return false;
+        } else {
+            textfiel.setLineColor(new MyColor().getAZUL());
+            textfiel.setLabelText(texto);
+//            estaVacio = true;
+            return true;
+        }
+//        return estaVacio;
+    }
 //         Verificadores de campos vacios
     public boolean validarInput(components.TextField textfiel, String texto) {
 //        boolean estaVacio = false;
