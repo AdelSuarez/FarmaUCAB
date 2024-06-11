@@ -34,6 +34,7 @@ public class ControllerGestionPaciente implements ActionListener {
     }
     
     private void regresarView() {
+        dashboard.refrescarViewPacientes();
         dashboard.initView(dashboard.getViewPaciente());
         viewGestionPaciente.mensajeGuardado.setVisible(false);
         new ControllerPaciente(viewPaciente, dashboard).cargarTabla();

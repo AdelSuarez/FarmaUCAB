@@ -1,7 +1,5 @@
 package views.viewsGestion;
 
-import controller.ControllerInsumo;
-import java.util.Calendar;
 import controller.ControllerGestionInsumo;
 
 public class GestionInsumo extends javax.swing.JPanel {
@@ -11,7 +9,6 @@ public class GestionInsumo extends javax.swing.JPanel {
     private model.dataBase.InsumoDB insumo = new model.dataBase.InsumoDB();
     private ControllerGestionInsumo controller;
     private String dato;
-    private String[] datos;
     private validaciones.ValidacionInsumo validacionesInsumo = new validaciones.ValidacionInsumo();
 
     public GestionInsumo(views.Dashboard dashboard, views.ViewInsumo viewInsumo, String dato) {

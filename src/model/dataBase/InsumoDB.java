@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import model.dataBase.OperationsDataBase;
+
 
 public class InsumoDB extends DataBase implements OperationsDataBase{
 
@@ -71,7 +71,7 @@ public class InsumoDB extends DataBase implements OperationsDataBase{
 
             String[] datos = new String[4];
             while (resultado.next()) {
-                // No entiendo el orden, consegui la secuencia tanteando
+                
                 datos[0] = resultado.getString(1);
                 datos[1] = resultado.getString(2);
                 datos[2] = resultado.getString(4);
@@ -130,7 +130,38 @@ public class InsumoDB extends DataBase implements OperationsDataBase{
         }
     }
 
-    public String[] buscar(String id) {
+    public String buscarIdInsumo(String nombre) {
+        try {
+            Class.forName(ORG);
+            conexion = DriverManager.getConnection(DIRECCIONDB);
+            String sqlSelect = "SELECT ID FROM Insumos WHERE NOMBRE LIKE ?";
+
+            PreparedStatement preparedStatement = conexion.prepareStatement(sqlSelect);
+            preparedStatement.setString(1,nombre);
+
+            ResultSet resultado = preparedStatement.executeQuery();
+            if (resultado.next()) {
+                String identificador = resultado.getString("ID");
+                preparedStatement.close();
+                return identificador;
+            }
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace(); // Registra el error para depuración
+            return "Error al buscar el paciente.";
+        } finally {
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return "-1";
+    }
+    
+    public String[] buscarInsumo(String id) {
         try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
@@ -141,20 +172,51 @@ public class InsumoDB extends DataBase implements OperationsDataBase{
 
             ResultSet resultado = preparedStatement.executeQuery();
             if (resultado.next()) {
+                String identificacion = resultado.getString("ID");
                 String nombreInsumo = resultado.getString("NOMBRE");
                 int cantidad = resultado.getInt("STOCK");
-                String descripcionInsumo = resultado.getString("DESCRIPCION");
-
+                String descripcion = resultado.getString("DESCRIPCION");
 
                 preparedStatement.close();
 
-                // Crear un arreglo con los datos del paciente
-                String[] datosPaciente = { nombreInsumo, String.valueOf(cantidad), descripcionInsumo};
+                String[] datosPaciente = {identificacion, nombreInsumo, String.valueOf(cantidad),descripcion};
                 return datosPaciente;
             } else {
-                // No se encontró ningún paciente con esa cédula
                 preparedStatement.close();
                 return null;
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error al buscar el insumo.");
+        } finally {
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    
+    public int buscarCantidad(String id) {
+        try {
+            Class.forName(ORG);
+            conexion = DriverManager.getConnection(DIRECCIONDB);
+            String sqlSelect = "SELECT * FROM Insumos WHERE id = ?";
+
+            PreparedStatement preparedStatement = conexion.prepareStatement(sqlSelect);
+            preparedStatement.setString(1, id);
+
+            ResultSet resultado = preparedStatement.executeQuery();
+            if (resultado.next()) {
+                int cantidad = resultado.getInt("STOCK");
+
+                preparedStatement.close();
+                return cantidad;
+            } else {
+                preparedStatement.close();
+                return 0;
             }
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();

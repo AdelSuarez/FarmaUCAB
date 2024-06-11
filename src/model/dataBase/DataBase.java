@@ -33,6 +33,12 @@ public class DataBase {
             + " FECHA            TEXT    NOT NULL, "
             + " STOCK            INT     NOT NULL, "
             + " DESCRIPCION      TEXT ) ";
+    private final String sqlCreateTablaConsultas= "CREATE TABLE IF NOT EXISTS Consultas"+
+            "(ID INTEGER PRIMARY KEY   NOT NULL," +
+            " FECHA           TEXT    NOT NULL, " +
+            " CIPACIENTE           TEXT    NOT NULL, "+
+            " DOCTOR           TEXT    NOT NULL, " +
+            " INSUMO           TEXT    NOT NULL) " ;
     protected final String ORG = "org.sqlite.JDBC";
     protected final String DIRECCIONDB = "jdbc:sqlite:./DataBase.db";
 
@@ -47,6 +53,10 @@ public class DataBase {
 
     public String getSqlCreateTablaPacientes() {
         return sqlCreateTablaPacientes;
+    }
+    
+    public String getSqlCreateTablaConsultas() {
+        return sqlCreateTablaConsultas;
     }
 
     public void createDB() {

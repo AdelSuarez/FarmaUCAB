@@ -79,8 +79,9 @@ public class ControllerInsumo implements ActionListener {
             } catch (Exception e) {
             }
         }
-
     }
+    
+    
 
     private void configuracionesTabla() {
         // COnfiguraciones de la jtable

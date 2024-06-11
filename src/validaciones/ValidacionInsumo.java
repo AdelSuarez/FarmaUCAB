@@ -30,7 +30,7 @@ public class ValidacionInsumo extends Validacion{
     
     @Override
     public void mensaje(JLabel jlabel, String mensaje) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
 }

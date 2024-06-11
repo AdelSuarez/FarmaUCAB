@@ -7,7 +7,7 @@ import controller.ControllerDashBoard;
 public class Dashboard extends javax.swing.JPanel {
 
     private ViewPaciente viewPaciente = new ViewPaciente(this);
-    private ViewConsulta viewConsulta = new ViewConsulta();
+    private ViewConsulta viewConsulta = new ViewConsulta(this);
     private ViewInsumo viewInsumo = new ViewInsumo(this);
     private ViewEmpleado viewEmpleado = new ViewEmpleado(this);
     private ControllerDashBoard controller;
@@ -41,6 +41,26 @@ public class Dashboard extends javax.swing.JPanel {
     public ViewInsumo getViewInsumo(){
         return viewInsumo;
     }
+    
+    public ViewConsulta getViewConsulta(){
+        return viewConsulta;
+    }
+    
+    public void refrescarViewConsulta(){
+        this.viewConsulta= new ViewConsulta(this);
+    }
+    
+    public void refrescarViewInsumo(){
+        this.viewInsumo= new ViewInsumo(this);
+    }
+    
+    public void refrescarViewPacientes(){
+        this.viewPaciente= new ViewPaciente(this);
+    }
+    
+    public void refrescarViewEmpleado(){
+        this.viewEmpleado= new ViewEmpleado(this);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -72,7 +92,6 @@ public class Dashboard extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(0, 102, 255));
         jLabel2.setText("Enfermeria");
 
-        btnPaciente.setForeground(new java.awt.Color(0, 0, 0));
         btnPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/groups_person_black.png"))); // NOI18N
         btnPaciente.setText("Pacientes");
         btnPaciente.setBorderColor(new java.awt.Color(250, 250, 250));
@@ -84,7 +103,6 @@ public class Dashboard extends javax.swing.JPanel {
         btnPaciente.setPreferredSize(new java.awt.Dimension(230, 50));
         btnPaciente.setRadius(15);
 
-        btnInsumo.setForeground(new java.awt.Color(0, 0, 0));
         btnInsumo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/vaccines_black.png"))); // NOI18N
         btnInsumo.setText("Medicamentos");
         btnInsumo.setBorderColor(new java.awt.Color(250, 250, 250));
@@ -96,7 +114,6 @@ public class Dashboard extends javax.swing.JPanel {
         btnInsumo.setPreferredSize(new java.awt.Dimension(230, 50));
         btnInsumo.setRadius(15);
 
-        btnConsulta.setForeground(new java.awt.Color(0, 0, 0));
         btnConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/assignment_black.png"))); // NOI18N
         btnConsulta.setText("Cosultas");
         btnConsulta.setBorderColor(new java.awt.Color(250, 250, 250));
@@ -108,7 +125,6 @@ public class Dashboard extends javax.swing.JPanel {
         btnConsulta.setPreferredSize(new java.awt.Dimension(230, 50));
         btnConsulta.setRadius(15);
 
-        btnEmpleado.setForeground(new java.awt.Color(0, 0, 0));
         btnEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/badge_black.png"))); // NOI18N
         btnEmpleado.setText("Empleados");
         btnEmpleado.setBorderColor(new java.awt.Color(250, 250, 250));
@@ -130,6 +146,11 @@ public class Dashboard extends javax.swing.JPanel {
         adminActivo.setColorOver(new java.awt.Color(46, 204, 113));
         adminActivo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         adminActivo.setRadius(15);
+        adminActivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminActivoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -177,9 +198,9 @@ public class Dashboard extends javax.swing.JPanel {
                 .addComponent(btnConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 384, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 334, Short.MAX_VALUE)
                 .addComponent(adminActivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42))
+                .addGap(101, 101, 101))
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, -1));
@@ -243,6 +264,10 @@ public class Dashboard extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void adminActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminActivoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_adminActivoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

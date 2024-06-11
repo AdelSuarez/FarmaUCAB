@@ -36,6 +36,7 @@ public class ControllerGestionEmpleado implements ActionListener {
     }
 
     private void regresarView() {
+        dashboard.refrescarViewEmpleado();
         new ControllerEmpleado(dashboard, viewEmpleado).cargarTabla();
         dashboard.initView(dashboard.getViewEmpleado());
         viewEmpleado.repaint();

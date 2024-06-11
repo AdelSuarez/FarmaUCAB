@@ -35,6 +35,7 @@ public class ControllerGestionInsumo implements ActionListener{
     }
     
     private void regresarView(){
+        dashboard.refrescarViewInsumo();
         dashboard.initView(dashboard.getViewInsumo());
         viewGestionInsumo.mensajeGuardado.setVisible(false);
         new ControllerInsumo(dashboard, viewInsumo).cargarTabla();
@@ -97,10 +98,10 @@ public class ControllerGestionInsumo implements ActionListener{
             viewGestionInsumo.tituloPrincipal.setText("Nuevo Insumo");
         } else {
             viewGestionInsumo.tituloPrincipal.setText("Editar Insumo");
-            this.datos = insumo.buscar(dato);
-            viewGestionInsumo.nombreInsumo.setText(datos[0]);
-            viewGestionInsumo.StockInsumo.setValue(Integer.valueOf(datos[1]));
-            viewGestionInsumo.descripcionInsumo.setText(datos[2]);
+            this.datos = insumo.buscarInsumo(dato);
+            viewGestionInsumo.nombreInsumo.setText(datos[1]);
+            viewGestionInsumo.StockInsumo.setValue(Integer.valueOf(datos[2]));
+            viewGestionInsumo.descripcionInsumo.setText(datos[3]);
         }
 
     }

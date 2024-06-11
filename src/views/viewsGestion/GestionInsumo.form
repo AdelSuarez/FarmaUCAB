@@ -164,7 +164,6 @@
                   <Dimension value="[86, 40]"/>
                 </Property>
                 <Property name="radius" type="int" value="15"/>
-                <Property name="rolloverEnabled" type="boolean" value="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>

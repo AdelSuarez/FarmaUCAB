@@ -12,13 +12,15 @@ import views.ViewConsulta;
 import views.ViewEmpleado;
 import views.ViewInsumo;
 import views.ViewPaciente;
+import views.viewsGestion.GestionConsulta;
 
 public class ControllerDashBoard implements ActionListener {
 
     private ViewPaciente viewPaciente;
-    private ViewConsulta viewConsulta = new ViewConsulta();
+    private ViewConsulta viewConsulta;
     private ViewInsumo viewInsumo;
     private ViewEmpleado viewEmpleado;
+    private GestionConsulta gestionConsulta;
 
     private Main main;
     private Dashboard dashboard;
@@ -29,6 +31,8 @@ public class ControllerDashBoard implements ActionListener {
         this.viewPaciente = new ViewPaciente(dashboard);
         this.viewInsumo = new ViewInsumo(dashboard);
         this.viewEmpleado = new ViewEmpleado(dashboard);
+        this.viewConsulta = new ViewConsulta(dashboard);
+        this.gestionConsulta= new GestionConsulta(dashboard,viewConsulta);
 
         dashboard.adminActivo.setVisible(admin);
         dashboard.btnEmpleado.setVisible(admin);
@@ -61,13 +65,18 @@ public class ControllerDashBoard implements ActionListener {
     public ViewInsumo getViewInsumo() {
         return viewInsumo;
     }
+    
+    public ViewConsulta getViewConsulta() {
+        return viewConsulta;
+    }
 
     private void cerraSesion() {
         dialog.DialogCerrarSesion dialog = new DialogCerrarSesion(main);
         dialog.setVisible(true);
     }
 
-    private void activarViewIsumo() {
+    private void activarViewInsumo() {
+        this.viewInsumo = new ViewInsumo(dashboard);
         dashboard.btnPaciente.setColor(new MyColor().getBTNBGDASHBOAR());
         dashboard.btnInsumo.setColor(new MyColor().getBTNSELECTCOLOR());
         dashboard.btnConsulta.setColor(new MyColor().getBTNBGDASHBOAR());
@@ -92,17 +101,18 @@ public class ControllerDashBoard implements ActionListener {
     }
 
     private void activarViewConsulta() {
+        this.gestionConsulta= new GestionConsulta(dashboard,viewConsulta);
         dashboard.btnPaciente.setColor(new MyColor().getBTNBGDASHBOAR());
         dashboard.btnInsumo.setColor(new MyColor().getBTNBGDASHBOAR());
         dashboard.btnConsulta.setColor(new MyColor().getBTNSELECTCOLOR());
         dashboard.btnEmpleado.setColor(new MyColor().getBTNBGDASHBOAR());
-        iniciadorVentana(viewConsulta);
+        iniciadorVentana(gestionConsulta);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == dashboard.btnInsumo) {
-            activarViewIsumo();
+            activarViewInsumo();
         } else if (e.getSource() == dashboard.btnCerrarSesion) {
             cerraSesion();
         } else if (e.getSource() == dashboard.btnPaciente) {

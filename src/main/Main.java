@@ -1,11 +1,22 @@
 package main;
 
+//  Adel Suárez
+//  Santiago Chirinos
+//  Eros Dos Ramos
+
+//  Usamos unica responsabilidad, cada parte    de nuestro codigo se encarga de una sola cosa.
+
+//  Usamos Segregacion de interfacez, porque cada interfaz grafica hace una sola cosa y no obliga al cliente a usar cosas que no quiera.
+
+//  Usamos Sustitucion de Liskov porque todo lo que hereda de otra clase en nuestro programa puede perfectamente ser usado como su padre.
+
+
 import model.dataBase.DataBase;
 import java.awt.BorderLayout;
 import style.styleWindow;
 
 // colocar todo en español, pero despues de la entrega final, colocarlo en ingles para el portafolio y repositorio
-// optimizar codigo, testear las ventanas para conseguir errores, y si se puede implementar test unitarios, no mostrar los test en la entrega
+// optimizar codigo, testear las ventanas para conseguir errores, y si se puede implementar test unitarios, no mostrar los test en la entrega, 
 public class Main extends javax.swing.JFrame {
 
     private model.dataBase.DataBase DB = new DataBase();
@@ -26,8 +37,8 @@ public class Main extends javax.swing.JFrame {
         iniciadorDB();
 
         // Interfaz
-        initView(viewAdmin(true));
-//        initView(login);
+//        initView(viewAdmin(true));
+        initView(login);
 
     }
 
@@ -51,6 +62,7 @@ public class Main extends javax.swing.JFrame {
         DB.createTabla(DB.getSqlCreateTablaEmpleados());
         DB.createTabla(DB.getSqlCreateTablaPacientes());
         DB.createTabla(DB.getSqlCreateTablaInsumo());
+        DB.createTabla(DB.getSqlCreateTablaConsultas());
 
     }
 

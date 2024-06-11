@@ -142,7 +142,7 @@ public class EmpleadoDB extends DataBase implements OperationsDataBase{
 
             String[] datos = new String[6];
             while (resultado.next()) {
-                // No entiendo el orden, consegui la secuencia tanteando
+                
                 datos[0] = resultado.getString(2) + " " + resultado.getString(3);
                 datos[1] = resultado.getString(5);
                 datos[2] = resultado.getString(4);

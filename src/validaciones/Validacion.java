@@ -89,11 +89,11 @@ public abstract class Validacion {
             components.TextField inputBuscar,
             String nombre,
             javax.swing.JTable tabla,
-            int indez
+            int index
     ) {
         
         
-        if (validarInput(inputBuscar, "Burcar")) {
+        if (validarInput(inputBuscar, "Buscar")) {
             int filaSeleccionada = -1;
             String nombreEmpleado = nombre;
             if (!nombreEmpleado.equals("")) {
@@ -101,7 +101,7 @@ public abstract class Validacion {
 
                 DefaultTableModel modeloTabla = (DefaultTableModel) tabla.getModel();
                 for (int i = 0; i < modeloTabla.getRowCount(); i++) {
-                    String nombreEnFila = (String) modeloTabla.getValueAt(i, indez); // Ajusta la columna según tu modelo
+                    String nombreEnFila = (String) modeloTabla.getValueAt(i, index); // Ajusta la columna según tu modelo
                     if (nombreEnFila.equals(nombreEmpleado)) {
                         // Encontramos la fila, ahora enfocamos
                         tabla.setRowSelectionInterval(i, i);
