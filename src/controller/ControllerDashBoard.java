@@ -2,25 +2,31 @@ package controller;
 
 import dialog.DialogCerrarSesion;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import main.Main;
 import style.MyColor;
 import views.Dashboard;
-import views.ViewConsulta;
+import views.viewsGestion.GestionConsulta;
 import views.ViewEmpleado;
 import views.ViewInsumo;
 import views.ViewPaciente;
-import views.viewsGestion.GestionConsulta;
+import views.ViewConsulta;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 
 public class ControllerDashBoard implements ActionListener {
 
     private ViewPaciente viewPaciente;
-    private ViewConsulta viewConsulta;
+    private GestionConsulta viewGestionConsulta;
     private ViewInsumo viewInsumo;
     private ViewEmpleado viewEmpleado;
-    private GestionConsulta gestionConsulta;
+    private ViewConsulta viewConsulta;
 
     private Main main;
     private Dashboard dashboard;
@@ -31,12 +37,15 @@ public class ControllerDashBoard implements ActionListener {
         this.viewPaciente = new ViewPaciente(dashboard);
         this.viewInsumo = new ViewInsumo(dashboard);
         this.viewEmpleado = new ViewEmpleado(dashboard);
-        this.viewConsulta = new ViewConsulta(dashboard);
-        this.gestionConsulta= new GestionConsulta(dashboard,viewConsulta);
+        this.viewGestionConsulta = new GestionConsulta(dashboard);
+        this.viewConsulta = new ViewConsulta(dashboard, viewGestionConsulta);
 
+//        dashboard.adminActivo.setVisible(admin);
         dashboard.adminActivo.setVisible(admin);
         dashboard.btnEmpleado.setVisible(admin);
-        dashboard.btnPaciente.setColor(new MyColor().getBTNSELECTCOLOR());
+        
+        // selecciona el boton de la view  que se muestra al iniciar la app
+        dashboard.btnConsulta.setColor(new MyColor().getBTNSELECTCOLOR());
 
         this.dashboard.btnCerrarSesion.addActionListener(this);
         this.dashboard.btnConsulta.addActionListener(this);
@@ -44,7 +53,7 @@ public class ControllerDashBoard implements ActionListener {
         this.dashboard.btnInsumo.addActionListener(this);
         this.dashboard.btnPaciente.addActionListener(this);
 
-        iniciadorVentana(viewPaciente);
+        iniciadorVentana(viewConsulta);
     }
 
     public void iniciadorVentana(JPanel view) {
@@ -65,9 +74,9 @@ public class ControllerDashBoard implements ActionListener {
     public ViewInsumo getViewInsumo() {
         return viewInsumo;
     }
-    
-    public ViewConsulta getViewConsulta() {
-        return viewConsulta;
+
+    public GestionConsulta getViewConsulta() {
+        return viewGestionConsulta;
     }
 
     private void cerraSesion() {
@@ -76,7 +85,7 @@ public class ControllerDashBoard implements ActionListener {
     }
 
     private void activarViewInsumo() {
-        this.viewInsumo = new ViewInsumo(dashboard);
+//        this.viewInsumo = new ViewInsumo(dashboard);
         dashboard.btnPaciente.setColor(new MyColor().getBTNBGDASHBOAR());
         dashboard.btnInsumo.setColor(new MyColor().getBTNSELECTCOLOR());
         dashboard.btnConsulta.setColor(new MyColor().getBTNBGDASHBOAR());
@@ -101,12 +110,43 @@ public class ControllerDashBoard implements ActionListener {
     }
 
     private void activarViewConsulta() {
-        this.gestionConsulta= new GestionConsulta(dashboard,viewConsulta);
+//        this.viewConsulta = new ViewConsulta(dashboard, viewGestionConsulta);
         dashboard.btnPaciente.setColor(new MyColor().getBTNBGDASHBOAR());
         dashboard.btnInsumo.setColor(new MyColor().getBTNBGDASHBOAR());
         dashboard.btnConsulta.setColor(new MyColor().getBTNSELECTCOLOR());
         dashboard.btnEmpleado.setColor(new MyColor().getBTNBGDASHBOAR());
-        iniciadorVentana(gestionConsulta);
+        iniciadorVentana(viewConsulta);
+    }
+    
+    public void horaTurno(){
+       try { 
+            URL url = new URL("http://worldtimeapi.org/api/timezone/America/Caracas");
+            URLConnection conn = url.openConnection();
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String line;
+            StringBuilder result = new StringBuilder();
+            while ((line = br.readLine()) != null) {
+                result.append(line);
+            }
+            br.close();
+            
+            String datetime = result.toString().split("\"datetime\":\"")[1].split("\"")[0];
+            String hora = datetime.substring(11, 19); // 
+            int horaDelDia = Integer.parseInt(hora.split(":")[0]);
+             if (horaDelDia >= 6 && horaDelDia < 12) {
+                dashboard.containerTurno.setBackground(Color.BLUE);
+                dashboard.titleTurno.setText("Mañana");
+            } else if (horaDelDia >= 12 && horaDelDia < 18) {
+                dashboard.containerTurno.setBackground(Color.GREEN);
+                dashboard.titleTurno.setText("Tarde");
+            } else {
+                dashboard.containerTurno.setBackground(Color.RED);
+                dashboard.titleTurno.setText("Noche");
+            }
+            // Aquí deberías analizar la respuesta JSON para extraer la hora
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

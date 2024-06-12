@@ -10,7 +10,7 @@ public class ValidacionConsulta extends Validacion{
             components.TextField doctoraCargo
         ){
         int[] contadorInput = {0};
-        if(validarCantidadDigitos(CIPaciente, "Cédula del paciente", 6) && validarInput(CIPaciente, "Cédula del paciente")){
+        if(validarInput(CIPaciente, "Cédula del paciente") && validarCantidadDigitos(CIPaciente, "Cédula del paciente", 6)  ){
             validarCaracteresInput(CIPaciente, "Cédula del paciente ", getREGEXNUMERO(), contadorInput);
         }
         if(validarInput(doctoraCargo, "Doctor a Cargo")){

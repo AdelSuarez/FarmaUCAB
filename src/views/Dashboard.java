@@ -1,5 +1,6 @@
 package views;
 
+import views.viewsGestion.GestionConsulta;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import controller.ControllerDashBoard;
@@ -7,7 +8,7 @@ import controller.ControllerDashBoard;
 public class Dashboard extends javax.swing.JPanel {
 
     private ViewPaciente viewPaciente = new ViewPaciente(this);
-    private ViewConsulta viewConsulta = new ViewConsulta(this);
+    private GestionConsulta viewConsulta = new GestionConsulta(this);
     private ViewInsumo viewInsumo = new ViewInsumo(this);
     private ViewEmpleado viewEmpleado = new ViewEmpleado(this);
     private ControllerDashBoard controller;
@@ -19,6 +20,7 @@ public class Dashboard extends javax.swing.JPanel {
         this.setLocation(0, 0);
         
         this.controller = new ControllerDashBoard(main, this, admin);
+        this.controller.horaTurno();
         this.repaint();
         
     }
@@ -42,12 +44,12 @@ public class Dashboard extends javax.swing.JPanel {
         return viewInsumo;
     }
     
-    public ViewConsulta getViewConsulta(){
+    public GestionConsulta getViewConsulta(){
         return viewConsulta;
     }
     
     public void refrescarViewConsulta(){
-        this.viewConsulta= new ViewConsulta(this);
+        this.viewConsulta= new GestionConsulta(this);
     }
     
     public void refrescarViewInsumo(){
@@ -75,9 +77,13 @@ public class Dashboard extends javax.swing.JPanel {
         btnConsulta = new components.ButtonCustom();
         btnEmpleado = new components.ButtonCustom();
         jLabel1 = new javax.swing.JLabel();
-        adminActivo = new components.ButtonCustom();
+        adminActivo = new components.PanelRound();
+        jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnCerrarSesion = new components.ButtonCustom();
+        containerTurno = new components.PanelRound();
+        titleTurno = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         Content = new javax.swing.JPanel();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -138,19 +144,34 @@ public class Dashboard extends javax.swing.JPanel {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ecg_heart.png"))); // NOI18N
 
-        adminActivo.setForeground(new java.awt.Color(255, 255, 255));
-        adminActivo.setText("Admin");
-        adminActivo.setBorderColor(new java.awt.Color(240, 240, 240));
-        adminActivo.setColor(new java.awt.Color(46, 204, 113));
-        adminActivo.setColorClick(new java.awt.Color(46, 204, 113));
-        adminActivo.setColorOver(new java.awt.Color(46, 204, 113));
-        adminActivo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        adminActivo.setRadius(15);
-        adminActivo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                adminActivoActionPerformed(evt);
-            }
-        });
+        adminActivo.setBackground(new java.awt.Color(46, 204, 113));
+        adminActivo.setPreferredSize(new java.awt.Dimension(64, 30));
+        adminActivo.setRoundBottomLeft(15);
+        adminActivo.setRoundBottomRight(15);
+        adminActivo.setRoundTopLeft(15);
+        adminActivo.setRoundTopRight(15);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Admin");
+
+        javax.swing.GroupLayout adminActivoLayout = new javax.swing.GroupLayout(adminActivo);
+        adminActivo.setLayout(adminActivoLayout);
+        adminActivoLayout.setHorizontalGroup(
+            adminActivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(adminActivoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        adminActivoLayout.setVerticalGroup(
+            adminActivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, adminActivoLayout.createSequentialGroup()
+                .addContainerGap(7, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -191,16 +212,16 @@ public class Dashboard extends javax.swing.JPanel {
                 .addGap(4, 4, 4)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
-                .addComponent(btnPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(btnInsumo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
                 .addComponent(btnConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnInsumo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 334, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 381, Short.MAX_VALUE)
                 .addComponent(adminActivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(101, 101, 101))
+                .addGap(46, 46, 46))
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, -1));
@@ -218,20 +239,65 @@ public class Dashboard extends javax.swing.JPanel {
         btnCerrarSesion.setPreferredSize(new java.awt.Dimension(40, 40));
         btnCerrarSesion.setRadius(15);
 
+        containerTurno.setBackground(new java.awt.Color(102, 102, 255));
+        containerTurno.setPreferredSize(new java.awt.Dimension(64, 30));
+        containerTurno.setRoundBottomLeft(15);
+        containerTurno.setRoundBottomRight(15);
+        containerTurno.setRoundTopLeft(15);
+        containerTurno.setRoundTopRight(15);
+
+        titleTurno.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        titleTurno.setForeground(new java.awt.Color(255, 255, 255));
+        titleTurno.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titleTurno.setText("Mañana");
+
+        javax.swing.GroupLayout containerTurnoLayout = new javax.swing.GroupLayout(containerTurno);
+        containerTurno.setLayout(containerTurnoLayout);
+        containerTurnoLayout.setHorizontalGroup(
+            containerTurnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(containerTurnoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(titleTurno, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        containerTurnoLayout.setVerticalGroup(
+            containerTurnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, containerTurnoLayout.createSequentialGroup()
+                .addContainerGap(7, Short.MAX_VALUE)
+                .addComponent(titleTurno)
+                .addContainerGap())
+        );
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(214, 214, 214));
+        jLabel4.setText("Turno:");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(1087, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(containerTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addComponent(jLabel4)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 919, Short.MAX_VALUE)
                 .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(containerTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -265,24 +331,24 @@ public class Dashboard extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void adminActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminActivoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_adminActivoActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel Content;
-    public components.ButtonCustom adminActivo;
+    public components.PanelRound adminActivo;
     public components.ButtonCustom btnCerrarSesion;
     public components.ButtonCustom btnConsulta;
     public components.ButtonCustom btnEmpleado;
     public components.ButtonCustom btnInsumo;
     public components.ButtonCustom btnPaciente;
+    public components.PanelRound containerTurno;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
+    public javax.swing.JLabel titleTurno;
     // End of variables declaration//GEN-END:variables
 }

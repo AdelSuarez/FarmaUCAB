@@ -4,8 +4,6 @@ package main;
 //  Santiago Chirinos
 //  Eros Dos Ramos
 
-//  Usamos unica responsabilidad, cada parte    de nuestro codigo se encarga de una sola cosa.
-
 //  Usamos Segregacion de interfacez, porque cada interfaz grafica hace una sola cosa y no obliga al cliente a usar cosas que no quiera.
 
 //  Usamos Sustitucion de Liskov porque todo lo que hereda de otra clase en nuestro programa puede perfectamente ser usado como su padre.
@@ -37,8 +35,8 @@ public class Main extends javax.swing.JFrame {
         iniciadorDB();
 
         // Interfaz
-//        initView(viewAdmin(true));
-        initView(login);
+        initView(viewAdmin(true));
+//        initView(login);
 
     }
 

@@ -49,5 +49,7 @@ public class MyColor {
     // dcbb39 10%
     // c3a632 20%
     // Verde
-    // 28B463
+    // 28B463 0%
+    // 24a259 10%
+    // 20904f 20%
 }

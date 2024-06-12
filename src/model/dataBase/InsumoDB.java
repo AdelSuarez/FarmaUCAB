@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -298,7 +299,7 @@ public class InsumoDB extends DataBase implements OperationsDataBase{
             }
         }
     }
-
+    
     @Override
     public void nuevo() {
     }

@@ -7,8 +7,8 @@ package dialog;
 import java.awt.Color;
 import model.dataBase.ConsultaDB;
 import views.Dashboard;
-import views.ViewConsulta;
-import controller.ControllerConsulta;
+import views.viewsGestion.GestionConsulta;
+import controller.ControllerGestionConsulta;
 
 /**
  *
@@ -18,10 +18,10 @@ public class DialogEliminarConsulta extends javax.swing.JDialog {
 
     private ConsultaDB consulta = new ConsultaDB();
     private String usuario = "";
-    private views.ViewConsulta viewConsulta;
+    private views.viewsGestion.GestionConsulta viewConsulta;
     private Dashboard dashBoard;
     
-    public DialogEliminarConsulta(String usuario, ViewConsulta viewConsulta, Dashboard dashBoard) {
+    public DialogEliminarConsulta(String usuario, GestionConsulta viewConsulta, Dashboard dashBoard) {
         this.setUndecorated(true);
         initComponents();
         this.setLocationRelativeTo(null);
@@ -160,7 +160,7 @@ public class DialogEliminarConsulta extends javax.swing.JDialog {
 
     private void btnEliminarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEmpleadoActionPerformed
         if (consulta.eliminarConsulta(usuario)) {
-            new ControllerConsulta(dashBoard, viewConsulta).cargarTabla();
+            new ControllerGestionConsulta(dashBoard, viewConsulta).cargarTabla();
             this.dispose();
         }
     }//GEN-LAST:event_btnEliminarEmpleadoActionPerformed

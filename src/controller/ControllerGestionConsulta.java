@@ -1,153 +1,107 @@
 package controller;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import javax.swing.DefaultListModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import model.dataBase.ConsultaDB;
-import model.dataBase.InsumoDB;
-import model.dataBase.RellenarComboBox;
 import validaciones.ValidacionConsulta;
 import views.Dashboard;
-import views.ViewConsulta;
 import views.viewsGestion.GestionConsulta;
-import javax.swing.DefaultListModel;
+import views.ViewConsulta;
 
-public class ControllerGestionConsulta implements ActionListener{
-private Dashboard dashboard;
-    private ViewConsulta viewConsulta;
+public class ControllerGestionConsulta implements ActionListener {
+
+    private Dashboard dashboard;
     private GestionConsulta viewGestionConsulta;
-    private ConsultaDB consulta = new ConsultaDB();
-    private ValidacionConsulta validacionesConsulta = new ValidacionConsulta();
-    RellenarComboBox rellenarComboBox = new RellenarComboBox();
-    ArrayList arrayinsumos = new ArrayList();
-    ArrayList arraycantidad = new ArrayList();
-    DefaultListModel modelo = new DefaultListModel();
-    private String dato;
-    
-    public ControllerGestionConsulta(Dashboard dashboard, ViewConsulta viewConsulta, GestionConsulta viewGestionConsulta, String dato){
-        this.dashboard = dashboard;
-        this.viewConsulta = viewConsulta;
-        this.viewGestionConsulta = viewGestionConsulta;
-        this.dato = dato;
-        
-        this.viewGestionConsulta.btnGuardarConsulta.addActionListener(this);
-        this.viewGestionConsulta.botonAñadir.addActionListener(this);
-        this.viewGestionConsulta.botonQuitar.addActionListener(this);
-        this.viewGestionConsulta.botonMostrarConsulta.addActionListener(this);
-        viewGestionConsulta.fechaActual.setText(fechaActual());
-        rellenarComboBox.RellenarCombox("Insumos" ,"NOMBRE" ,viewGestionConsulta.insumosDelPaciente);
-        viewGestionConsulta.ListaDeInsumos.setModel(modelo);
-    }
-    
-    public void AñadirInsumo(){ 
-        if(validacionesConsulta.validarCantidad(viewGestionConsulta.Cantidad)){ 
-            DefaultListModel modelo = (DefaultListModel) viewGestionConsulta.ListaDeInsumos.getModel();
-            arrayinsumos.add(viewGestionConsulta.insumosDelPaciente.getSelectedItem().toString());
-            arraycantidad.add(Integer.valueOf(viewGestionConsulta.Cantidad.getText()));
-            modelo.addElement(viewGestionConsulta.insumosDelPaciente.getSelectedItem().toString() + "x" + viewGestionConsulta.Cantidad.getText());
-        }  
-        viewGestionConsulta.repaint();
-    }  
-    
-    public void QuitarInsumo(){ 
-        DefaultListModel modelo = (DefaultListModel) viewGestionConsulta.ListaDeInsumos.getModel();
-        arrayinsumos.remove(viewGestionConsulta.ListaDeInsumos.getSelectedIndex());
-        arraycantidad.remove(viewGestionConsulta.ListaDeInsumos.getSelectedIndex());
-        modelo.remove(viewGestionConsulta.ListaDeInsumos.getSelectedIndex());
-    } 
-        
-    private void mostrarView(){
-        dashboard.refrescarViewConsulta();
-        dashboard.initView(dashboard.getViewConsulta());
-        viewGestionConsulta.mensajeDeGuardado.setVisible(false);
-        new ControllerConsulta(dashboard, viewConsulta).cargarTabla();
-        viewGestionConsulta.repaint();
-    }
-    
-    public void modificarCantidadesInsumos(ArrayList<String> arrayInsumos,ArrayList<Integer> arrayCantidades){
-        String[] datosInsumo;
-        String idInsumo;
-        int nuevaCantidadInsumo;
-        InsumoDB insumo=new InsumoDB();
-        for(int i=0;i<=arrayInsumos.size()-1;i++){
-            idInsumo=insumo.buscarIdInsumo(arrayInsumos.get(i));
-            datosInsumo=insumo.buscarInsumo(idInsumo);
-            nuevaCantidadInsumo=(insumo.buscarCantidad(idInsumo)-arrayCantidades.get(i));
-            if(nuevaCantidadInsumo>=0){
-                insumo.editar(datosInsumo[0], datosInsumo[1], nuevaCantidadInsumo,datosInsumo[3]);
-            } else{
-                insumo.editar(datosInsumo[0], datosInsumo[1],0,datosInsumo[3]);
-            }
-        }
-    }
-    
-    public String arrayListAString(ArrayList<String> arrayInsumos,ArrayList<Integer> arrayCantidades){
-        String insumos="";
-        if(!arrayInsumos.isEmpty()){
-            while(!arrayInsumos.isEmpty()){
-                insumos=insumos+arrayInsumos.get(0)+"x"+String.valueOf(arrayCantidades.get(0))+" ";
-                arrayInsumos.remove(0);
-                arrayCantidades.remove(0);
-            }
-        }
-        return insumos;
-    }
-    
-    public void guardarConsulta(String insumos) {
-        if (validacionesConsulta.datosValidados(viewGestionConsulta.CIPaciente, viewGestionConsulta.doctoraCargo)) {
-            if(!viewGestionConsulta.CIPaciente.getText().equals("") && 
-               !viewGestionConsulta.doctoraCargo.getText().equals("")){
-                modificarCantidadesInsumos(arrayinsumos, arraycantidad);
-                if (consulta.nuevaConsulta(viewGestionConsulta.fechaActual.getText(),
-                    viewGestionConsulta.CIPaciente.getText().trim(),
-                    viewGestionConsulta.doctoraCargo.getText().trim(),
-                    insumos)) {
-                    
-                    viewGestionConsulta.mensajeDeGuardado.setText("Consulta guardada con exito");
-                    viewGestionConsulta.mensajeDeGuardado.setVisible(true);
-                    
-                    limpiarInput();
-                    viewGestionConsulta.repaint();
-                    arrayinsumos.clear();
-                    arraycantidad.clear();
-                    DefaultListModel model= (DefaultListModel) viewGestionConsulta.ListaDeInsumos.getModel();
-                    model.removeAllElements();
-                }
-            }    
-        }
-        viewGestionConsulta.repaint();
-    }
-    
-    private void limpiarInput() {
-        viewGestionConsulta.CIPaciente.setText("");
-        viewGestionConsulta.doctoraCargo.setText("");
-        viewGestionConsulta.Cantidad.setText("");
-    }
-    
-    public static String fechaActual(){
+    private ConsultaDB consulta = new model.dataBase.ConsultaDB();
+    private ValidacionConsulta validacionConsulta = new ValidacionConsulta();
 
-        Date fecha=new Date();
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/YYYY");
-        
-        return formatoFecha.format(fecha);
+    private ViewConsulta viewConsulta;
+
+    public ControllerGestionConsulta(Dashboard dashboard, GestionConsulta viewGestionConsulta) {
+        this.dashboard = dashboard;
+        this.viewGestionConsulta = viewGestionConsulta;
+        this.viewGestionConsulta.btnRegresar.addActionListener(this);
+        this.viewGestionConsulta.inputBuscarConsulta.addActionListener(this);
+        this.viewGestionConsulta.btnBorrarConsulta.addActionListener(this);
     }
-    
+
+    private void regresarView() {
+        this.viewConsulta = new ViewConsulta(dashboard, viewGestionConsulta);
+        dashboard.initView(viewConsulta);
+    }
+
+    private void borrarConsulta() {
+        int filaSeleccionada = viewGestionConsulta.tablaConsulta.getSelectedRow();
+        viewGestionConsulta.mensajeSeleccion.setVisible(false);
+        if (filaSeleccionada != -1) { // Verifica si se ha seleccionado una fila
+            String id = viewGestionConsulta.tablaConsulta.getValueAt(filaSeleccionada, 0).toString();
+            dialog.DialogEliminarConsulta dialog = new dialog.DialogEliminarConsulta(id, viewGestionConsulta, dashboard);
+            dialog.setVisible(true);
+        } else {
+            viewGestionConsulta.mensajeSeleccion.setVisible(true);
+        }
+        viewGestionConsulta.repaint();
+    }
+
+    private void buscarConsulta() {
+        viewGestionConsulta.mensajeSeleccion.setVisible(false);
+        validacionConsulta.buscador(viewGestionConsulta.inputBuscarConsulta,
+                viewGestionConsulta.inputBuscarConsulta.getText().trim(),
+                viewGestionConsulta.tablaConsulta,
+                2);
+        viewGestionConsulta.repaint();
+    }
+
+    public void cargarTabla() {
+        if (!consulta.isEmptyTabla("Consultas")) {
+            try {
+                consulta.mostrarConsulta(viewGestionConsulta.tablaConsulta);
+                configuracionesTabla();
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    private void configuracionesTabla() {
+        // COnfiguraciones de la jtable
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        viewGestionConsulta.tablaConsulta.getColumnModel().getColumn(0).setPreferredWidth(40);
+        viewGestionConsulta.tablaConsulta.getColumnModel().getColumn(0).setResizable(false);
+        viewGestionConsulta.tablaConsulta.getColumnModel().getColumn(1).setPreferredWidth(60);
+        viewGestionConsulta.tablaConsulta.getColumnModel().getColumn(1).setResizable(false);
+        viewGestionConsulta.tablaConsulta.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        viewGestionConsulta.tablaConsulta.getColumnModel().getColumn(2).setPreferredWidth(100);
+        viewGestionConsulta.tablaConsulta.getColumnModel().getColumn(2).setResizable(false);
+        viewGestionConsulta.tablaConsulta.getColumnModel().getColumn(3).setPreferredWidth(250);
+        viewGestionConsulta.tablaConsulta.getColumnModel().getColumn(3).setResizable(false);
+        viewGestionConsulta.tablaConsulta.getColumnModel().getColumn(4).setPreferredWidth(300);
+        viewGestionConsulta.tablaConsulta.getColumnModel().getColumn(4).setResizable(false);
+
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+        headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        headerRenderer.setBackground(new Color(240, 240, 240)); // Cambia el color aquí
+        viewGestionConsulta.tablaConsulta.setBackground(new Color(255, 255, 255));
+
+        // Asigna el renderizador personalizado a la cabecera
+        viewGestionConsulta.tablaConsulta.getTableHeader().setDefaultRenderer(headerRenderer);
+        viewGestionConsulta.tablaConsulta.setDefaultEditor(Object.class, null);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == viewGestionConsulta.botonMostrarConsulta){
-            mostrarView();
-        } else if (e.getSource() == viewGestionConsulta.botonAñadir){
-            AñadirInsumo();    
-        } else if (e.getSource() == viewGestionConsulta.botonQuitar){
-            QuitarInsumo();
-        } else if (e.getSource() == viewGestionConsulta.btnGuardarConsulta){
-            modificarCantidadesInsumos(arrayinsumos,arraycantidad);
-            String insumos=arrayListAString(arrayinsumos,arraycantidad);
-            guardarConsulta(insumos);
+        if (e.getSource() == viewGestionConsulta.btnRegresar) {
+            regresarView();
+        } else if (e.getSource() == viewGestionConsulta.btnBorrarConsulta) {
+            borrarConsulta();
+        } else if (e.getSource() == viewGestionConsulta.btnBuscarConsulta) {
+            System.out.println("hola consuta");
+            buscarConsulta();
         }
     }
-    
+
 }

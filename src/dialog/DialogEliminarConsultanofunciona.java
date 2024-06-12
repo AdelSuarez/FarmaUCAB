@@ -1,19 +1,19 @@
 package dialog;
 
-import controller.ControllerConsulta;
+import controller.ControllerGestionConsulta;
 import java.awt.Color;
 import model.dataBase.ConsultaDB;
 import views.Dashboard;
-import views.ViewConsulta;
+import views.viewsGestion.GestionConsulta;
 
 public class DialogEliminarConsultanofunciona extends javax.swing.JFrame {
 
     private ConsultaDB consulta = new ConsultaDB();
     private String usuario = "";
-    private views.ViewConsulta viewConsulta;
+    private views.viewsGestion.GestionConsulta viewConsulta;
     private Dashboard dashBoard;
 
-    public DialogEliminarConsultanofunciona(String usuario, ViewConsulta viewConsulta, Dashboard dashBoard) {
+    public DialogEliminarConsultanofunciona(String usuario, GestionConsulta viewConsulta, Dashboard dashBoard) {
         this.setUndecorated(true);
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
@@ -136,7 +136,7 @@ public class DialogEliminarConsultanofunciona extends javax.swing.JFrame {
 
     private void btnEliminarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEmpleadoActionPerformed
         if (consulta.eliminarConsulta(usuario)) {
-            new ControllerConsulta(dashBoard, viewConsulta).cargarTabla();
+            new ControllerGestionConsulta(dashBoard, viewConsulta).cargarTabla();
             this.dispose();
         }
 
