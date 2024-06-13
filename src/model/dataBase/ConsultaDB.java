@@ -55,7 +55,6 @@ public class ConsultaDB extends DataBase{
          try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
-//            String sqlConsulta = "SELECT * FROM " + nombreTabla;
             String sqlConsulta = "SELECT * FROM Consultas ORDER BY FECHA";
 
             statement = (Statement) conexion.createStatement();
@@ -95,14 +94,14 @@ public class ConsultaDB extends DataBase{
 
     }
     
-    public String buscarConsulta(String ID) {
+    public String buscarConsulta(String CI) {
         try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
-            String sqlSelect = "SELECT * FROM Consultas WHERE ID = ?";
+            String sqlSelect = "SELECT * FROM Consultas WHERE CIPACIENTE LIKE ?";
 
             PreparedStatement preparedStatement = conexion.prepareStatement(sqlSelect);
-            preparedStatement.setString(1, ID);
+            preparedStatement.setString(1,"%" + CI + "%");
 
             ResultSet resultado = preparedStatement.executeQuery();
             if (resultado.next()) {
@@ -111,8 +110,7 @@ public class ConsultaDB extends DataBase{
                 preparedStatement.close();
 
                 // Crear un arreglo con los datos del paciente
-                String datosConsulta = paciente;
-                return datosConsulta;
+                return paciente;
             } else {
                 // No se encontró ningún paciente con esa cédula
                 preparedStatement.close();

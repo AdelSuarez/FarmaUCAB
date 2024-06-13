@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package dialog;
 
 import java.awt.Color;
@@ -10,17 +6,13 @@ import views.Dashboard;
 import views.viewsGestion.GestionConsulta;
 import controller.ControllerGestionConsulta;
 
-/**
- *
- * @author LAPTOP
- */
 public class DialogEliminarConsulta extends javax.swing.JDialog {
 
     private ConsultaDB consulta = new ConsultaDB();
     private String usuario = "";
     private views.viewsGestion.GestionConsulta viewConsulta;
     private Dashboard dashBoard;
-    
+
     public DialogEliminarConsulta(String usuario, GestionConsulta viewConsulta, Dashboard dashBoard) {
         this.setUndecorated(true);
         initComponents();
@@ -39,6 +31,7 @@ public class DialogEliminarConsulta extends javax.swing.JDialog {
         setBackground(new Color(0, 0, 0, 0));
         this.repaint();
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

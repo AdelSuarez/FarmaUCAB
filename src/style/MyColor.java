@@ -10,6 +10,12 @@ public class MyColor {
     private final Color AZUL = new Color(3, 155, 216);
     private final Color BTNSELECTCOLOR = new Color(215, 215, 215);
     private final Color BTNBGDASHBOAR = new Color(240, 240, 240);
+    
+    private final Color VERDE = Color.decode("#28B463");
+
+    public Color getVERDE() {
+        return VERDE;
+    }
 
     public Color getBTNBGDASHBOAR() {
         return BTNBGDASHBOAR;

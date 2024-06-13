@@ -1,6 +1,7 @@
 package views;
 
 import controller.ControllerConsulta;
+import views.viewsGestion.GestionConsulta;
 
 
 
@@ -10,13 +11,13 @@ public class ViewConsulta extends javax.swing.JPanel {
     private ControllerConsulta controller;
     private String dato;
 
-    public ViewConsulta (views.Dashboard dashboard, views.viewsGestion.GestionConsulta viewConsulta) {
+    public ViewConsulta (views.Dashboard dashboard) {
         this.dashboard = dashboard;
         initComponents();
         this.setSize(1180, 720);
 
         this.mensajeDeGuardado.setVisible(false);
-        this.controller = new ControllerConsulta(dashboard, viewConsulta, this, dato);
+        this.controller = new ControllerConsulta(dashboard, this, dato);
         this.repaint();
 
     }

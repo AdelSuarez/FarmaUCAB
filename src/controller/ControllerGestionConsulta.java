@@ -23,13 +23,14 @@ public class ControllerGestionConsulta implements ActionListener {
     public ControllerGestionConsulta(Dashboard dashboard, GestionConsulta viewGestionConsulta) {
         this.dashboard = dashboard;
         this.viewGestionConsulta = viewGestionConsulta;
+        
         this.viewGestionConsulta.btnRegresar.addActionListener(this);
-        this.viewGestionConsulta.inputBuscarConsulta.addActionListener(this);
+        this.viewGestionConsulta.btnBuscarConsulta.addActionListener(this);
         this.viewGestionConsulta.btnBorrarConsulta.addActionListener(this);
     }
 
     private void regresarView() {
-        this.viewConsulta = new ViewConsulta(dashboard, viewGestionConsulta);
+        this.viewConsulta = new ViewConsulta(dashboard);
         dashboard.initView(viewConsulta);
     }
 
@@ -49,7 +50,7 @@ public class ControllerGestionConsulta implements ActionListener {
     private void buscarConsulta() {
         viewGestionConsulta.mensajeSeleccion.setVisible(false);
         validacionConsulta.buscador(viewGestionConsulta.inputBuscarConsulta,
-                viewGestionConsulta.inputBuscarConsulta.getText().trim(),
+                consulta.buscarConsulta(viewGestionConsulta.inputBuscarConsulta.getText().trim()),
                 viewGestionConsulta.tablaConsulta,
                 2);
         viewGestionConsulta.repaint();
@@ -99,7 +100,6 @@ public class ControllerGestionConsulta implements ActionListener {
         } else if (e.getSource() == viewGestionConsulta.btnBorrarConsulta) {
             borrarConsulta();
         } else if (e.getSource() == viewGestionConsulta.btnBuscarConsulta) {
-            System.out.println("hola consuta");
             buscarConsulta();
         }
     }

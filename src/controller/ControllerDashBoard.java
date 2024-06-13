@@ -37,8 +37,7 @@ public class ControllerDashBoard implements ActionListener {
         this.viewPaciente = new ViewPaciente(dashboard);
         this.viewInsumo = new ViewInsumo(dashboard);
         this.viewEmpleado = new ViewEmpleado(dashboard);
-        this.viewGestionConsulta = new GestionConsulta(dashboard);
-        this.viewConsulta = new ViewConsulta(dashboard, viewGestionConsulta);
+        this.viewConsulta = new ViewConsulta(dashboard);
 
 //        dashboard.adminActivo.setVisible(admin);
         dashboard.adminActivo.setVisible(admin);
@@ -134,13 +133,13 @@ public class ControllerDashBoard implements ActionListener {
             String hora = datetime.substring(11, 19); // 
             int horaDelDia = Integer.parseInt(hora.split(":")[0]);
              if (horaDelDia >= 6 && horaDelDia < 12) {
-                dashboard.containerTurno.setBackground(Color.BLUE);
+                dashboard.containerTurno.setBackground(new MyColor().getAZUL());
                 dashboard.titleTurno.setText("Mañana");
             } else if (horaDelDia >= 12 && horaDelDia < 18) {
-                dashboard.containerTurno.setBackground(Color.GREEN);
+                dashboard.containerTurno.setBackground(new MyColor().getVERDE());
                 dashboard.titleTurno.setText("Tarde");
             } else {
-                dashboard.containerTurno.setBackground(Color.RED);
+                dashboard.containerTurno.setBackground(new MyColor().getRED());
                 dashboard.titleTurno.setText("Noche");
             }
             // Aquí deberías analizar la respuesta JSON para extraer la hora

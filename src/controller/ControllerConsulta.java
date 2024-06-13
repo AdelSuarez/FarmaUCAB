@@ -27,9 +27,8 @@ public class ControllerConsulta implements ActionListener {
     private DefaultListModel modelo = new DefaultListModel();
     private String dato;
 
-    public ControllerConsulta(Dashboard dashboard, GestionConsulta viewGestionConsulta, ViewConsulta viewConsulta, String dato) {
+    public ControllerConsulta(Dashboard dashboard, ViewConsulta viewConsulta, String dato) {
         this.dashboard = dashboard;
-        this.viewGestionConsulta = viewGestionConsulta;
         this.viewConsulta = viewConsulta;
         this.dato = dato;
 
@@ -62,9 +61,12 @@ public class ControllerConsulta implements ActionListener {
 
     private void mostrarView() {
         dashboard.refrescarViewConsulta();
-        dashboard.initView(dashboard.getViewConsulta());
-        viewConsulta.mensajeDeGuardado.setVisible(false);
-        new ControllerGestionConsulta(dashboard, viewGestionConsulta).cargarTabla();
+//
+//        dashboard.initView(dashboard.getViewConsulta());
+//        viewConsulta.mensajeDeGuardado.setVisible(false);
+//        new ControllerGestionConsulta(dashboard, viewGestionConsulta).cargarTabla();
+        this.viewGestionConsulta = new GestionConsulta(dashboard);
+        dashboard.initView(viewGestionConsulta);
         viewConsulta.repaint();
     }
 

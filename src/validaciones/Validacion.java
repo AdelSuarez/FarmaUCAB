@@ -92,7 +92,6 @@ public abstract class Validacion {
             int index
     ) {
         
-        
         if (validarInput(inputBuscar, "Buscar")) {
             int filaSeleccionada = -1;
             String nombreEmpleado = nombre;

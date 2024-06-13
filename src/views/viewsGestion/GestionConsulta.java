@@ -63,11 +63,6 @@ public class GestionConsulta extends javax.swing.JPanel {
         btnBuscarConsulta.setColorOver(new java.awt.Color(240, 240, 240));
         btnBuscarConsulta.setPreferredSize(new java.awt.Dimension(30, 30));
         btnBuscarConsulta.setRadius(15);
-        btnBuscarConsulta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarConsultaActionPerformed(evt);
-            }
-        });
 
         mensajeSeleccion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         mensajeSeleccion.setForeground(new java.awt.Color(225, 0, 0));
@@ -156,16 +151,12 @@ public class GestionConsulta extends javax.swing.JPanel {
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnBuscarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarConsultaActionPerformed
-        mensajeSeleccion.setVisible(false);
-        validacionConsulta.buscador(inputBuscarConsulta,
-                inputBuscarConsulta.getText().trim(),
-                tablaConsulta,
-                2);
-        repaint();
-    }//GEN-LAST:event_btnBuscarConsultaActionPerformed
-
-
+//            mensajeSeleccion.setVisible(false);
+//        validacionConsulta.buscador(inputBuscarConsulta,
+//                inputBuscarConsulta.getText().trim(),
+//                tablaConsulta,
+//                2);
+//        repaint();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public components.ButtonCustom btnBorrarConsulta;
     public components.ButtonCustom btnBuscarConsulta;

@@ -8,7 +8,7 @@ import controller.ControllerDashBoard;
 public class Dashboard extends javax.swing.JPanel {
 
     private ViewPaciente viewPaciente = new ViewPaciente(this);
-    private GestionConsulta viewConsulta = new GestionConsulta(this);
+    private ViewConsulta viewConsulta = new ViewConsulta(this);
     private ViewInsumo viewInsumo = new ViewInsumo(this);
     private ViewEmpleado viewEmpleado = new ViewEmpleado(this);
     private ControllerDashBoard controller;
@@ -44,12 +44,12 @@ public class Dashboard extends javax.swing.JPanel {
         return viewInsumo;
     }
     
-    public GestionConsulta getViewConsulta(){
+    public ViewConsulta getViewConsulta(){
         return viewConsulta;
     }
     
     public void refrescarViewConsulta(){
-        this.viewConsulta= new GestionConsulta(this);
+        this.viewConsulta= new ViewConsulta(this);
     }
     
     public void refrescarViewInsumo(){
