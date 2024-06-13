@@ -1,6 +1,5 @@
 package views;
 
-import views.viewsGestion.GestionConsulta;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import controller.ControllerDashBoard;
@@ -13,13 +12,12 @@ public class Dashboard extends javax.swing.JPanel {
     private ViewEmpleado viewEmpleado = new ViewEmpleado(this);
     private ControllerDashBoard controller;
 
-    public Dashboard(main.Main main, boolean admin) {
+    public Dashboard(main.Main main, boolean admin, String[] datosUsuario) {
         initComponents();
-
         this.setSize(1400, 800);
         this.setLocation(0, 0);
         
-        this.controller = new ControllerDashBoard(main, this, admin);
+        this.controller = new ControllerDashBoard(main, this, admin, datosUsuario);
         this.controller.horaTurno();
         this.repaint();
         
@@ -77,8 +75,11 @@ public class Dashboard extends javax.swing.JPanel {
         btnConsulta = new components.ButtonCustom();
         btnEmpleado = new components.ButtonCustom();
         jLabel1 = new javax.swing.JLabel();
-        adminActivo = new components.PanelRound();
-        jLabel3 = new javax.swing.JLabel();
+        panelRound1 = new components.PanelRound();
+        tag = new components.PanelRound();
+        estatus = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        NombreEmpleado = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnCerrarSesion = new components.ButtonCustom();
         containerTurno = new components.PanelRound();
@@ -101,7 +102,7 @@ public class Dashboard extends javax.swing.JPanel {
         btnPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/groups_person_black.png"))); // NOI18N
         btnPaciente.setText("Pacientes");
         btnPaciente.setBorderColor(new java.awt.Color(250, 250, 250));
-        btnPaciente.setColor(new java.awt.Color(240, 240, 240));
+        btnPaciente.setColor(new java.awt.Color(250, 250, 250));
         btnPaciente.setColorClick(new java.awt.Color(230, 230, 230));
         btnPaciente.setColorOver(new java.awt.Color(215, 215, 215));
         btnPaciente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -112,7 +113,7 @@ public class Dashboard extends javax.swing.JPanel {
         btnInsumo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/vaccines_black.png"))); // NOI18N
         btnInsumo.setText("Medicamentos");
         btnInsumo.setBorderColor(new java.awt.Color(250, 250, 250));
-        btnInsumo.setColor(new java.awt.Color(240, 240, 240));
+        btnInsumo.setColor(new java.awt.Color(250, 250, 250));
         btnInsumo.setColorClick(new java.awt.Color(230, 230, 230));
         btnInsumo.setColorOver(new java.awt.Color(215, 215, 215));
         btnInsumo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -123,7 +124,7 @@ public class Dashboard extends javax.swing.JPanel {
         btnConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/assignment_black.png"))); // NOI18N
         btnConsulta.setText("Cosultas");
         btnConsulta.setBorderColor(new java.awt.Color(250, 250, 250));
-        btnConsulta.setColor(new java.awt.Color(240, 240, 240));
+        btnConsulta.setColor(new java.awt.Color(250, 250, 250));
         btnConsulta.setColorClick(new java.awt.Color(230, 230, 230));
         btnConsulta.setColorOver(new java.awt.Color(215, 215, 215));
         btnConsulta.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -134,7 +135,7 @@ public class Dashboard extends javax.swing.JPanel {
         btnEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/badge_black.png"))); // NOI18N
         btnEmpleado.setText("Empleados");
         btnEmpleado.setBorderColor(new java.awt.Color(250, 250, 250));
-        btnEmpleado.setColor(new java.awt.Color(240, 240, 240));
+        btnEmpleado.setColor(new java.awt.Color(250, 250, 250));
         btnEmpleado.setColorClick(new java.awt.Color(230, 230, 230));
         btnEmpleado.setColorOver(new java.awt.Color(215, 215, 215));
         btnEmpleado.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -144,33 +145,70 @@ public class Dashboard extends javax.swing.JPanel {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ecg_heart.png"))); // NOI18N
 
-        adminActivo.setBackground(new java.awt.Color(46, 204, 113));
-        adminActivo.setPreferredSize(new java.awt.Dimension(64, 30));
-        adminActivo.setRoundBottomLeft(15);
-        adminActivo.setRoundBottomRight(15);
-        adminActivo.setRoundTopLeft(15);
-        adminActivo.setRoundTopRight(15);
+        panelRound1.setBackground(new java.awt.Color(215, 215, 215));
+        panelRound1.setForeground(new java.awt.Color(255, 255, 255));
+        panelRound1.setRoundBottomLeft(15);
+        panelRound1.setRoundBottomRight(15);
+        panelRound1.setRoundTopLeft(15);
+        panelRound1.setRoundTopRight(15);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Admin");
+        tag.setBackground(new java.awt.Color(46, 204, 113));
+        tag.setPreferredSize(new java.awt.Dimension(64, 30));
+        tag.setRoundBottomLeft(15);
+        tag.setRoundBottomRight(15);
+        tag.setRoundTopLeft(15);
+        tag.setRoundTopRight(15);
 
-        javax.swing.GroupLayout adminActivoLayout = new javax.swing.GroupLayout(adminActivo);
-        adminActivo.setLayout(adminActivoLayout);
-        adminActivoLayout.setHorizontalGroup(
-            adminActivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(adminActivoLayout.createSequentialGroup()
+        estatus.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        estatus.setForeground(new java.awt.Color(255, 255, 255));
+        estatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        estatus.setText("Admin");
+
+        javax.swing.GroupLayout tagLayout = new javax.swing.GroupLayout(tag);
+        tag.setLayout(tagLayout);
+        tagLayout.setHorizontalGroup(
+            tagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tagLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+                .addComponent(estatus, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        adminActivoLayout.setVerticalGroup(
-            adminActivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, adminActivoLayout.createSequentialGroup()
+        tagLayout.setVerticalGroup(
+            tagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tagLayout.createSequentialGroup()
                 .addContainerGap(7, Short.MAX_VALUE)
-                .addComponent(jLabel3)
+                .addComponent(estatus)
                 .addContainerGap())
+        );
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/account_circle_black.png"))); // NOI18N
+
+        NombreEmpleado.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        NombreEmpleado.setText("Usuario");
+
+        javax.swing.GroupLayout panelRound1Layout = new javax.swing.GroupLayout(panelRound1);
+        panelRound1.setLayout(panelRound1Layout);
+        panelRound1Layout.setHorizontalGroup(
+            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(NombreEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        panelRound1Layout.setVerticalGroup(
+            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound1Layout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel5)
+                    .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(NombreEmpleado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tag, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(18, 18, 18))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -178,27 +216,31 @@ public class Dashboard extends javax.swing.JPanel {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(9, 9, 9)
-                .addComponent(jLabel1)
-                .addGap(6, 6, 6)
-                .addComponent(jLabel2))
-            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(jLabel1)
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel2))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(btnPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(btnInsumo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(btnConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(btnPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(btnInsumo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(btnConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelRound1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(adminActivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,9 +261,9 @@ public class Dashboard extends javax.swing.JPanel {
                 .addComponent(btnPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 381, Short.MAX_VALUE)
-                .addComponent(adminActivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 339, Short.MAX_VALUE)
+                .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50))
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, -1));
@@ -334,21 +376,24 @@ public class Dashboard extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel Content;
-    public components.PanelRound adminActivo;
+    public javax.swing.JLabel NombreEmpleado;
     public components.ButtonCustom btnCerrarSesion;
     public components.ButtonCustom btnConsulta;
     public components.ButtonCustom btnEmpleado;
     public components.ButtonCustom btnInsumo;
     public components.ButtonCustom btnPaciente;
     public components.PanelRound containerTurno;
+    public javax.swing.JLabel estatus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
+    private components.PanelRound panelRound1;
+    public components.PanelRound tag;
     public javax.swing.JLabel titleTurno;
     // End of variables declaration//GEN-END:variables
 }

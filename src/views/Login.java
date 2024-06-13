@@ -5,14 +5,12 @@ import controller.ControllerLogin;
 public class Login extends javax.swing.JPanel {
 
     private ControllerLogin controller;
-    private main.Main main;
 
     public Login(main.Main main) {
         initComponents();
         this.setSize(1400, 800);
         this.setLocation(0, 0);
 
-        this.main = main;
         this.controller = new ControllerLogin(main, this);
         controller.tipoLogin();
 

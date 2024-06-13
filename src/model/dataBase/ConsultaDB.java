@@ -8,9 +8,9 @@ import java.sql.Statement;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class ConsultaDB extends DataBase{
-     
-    public boolean nuevaConsulta(String fecha ,String paciente ,String doctor ,String insumo) {
+public class ConsultaDB extends DataBase {
+
+    public boolean nuevaConsulta(String fecha, String paciente, String doctor, String insumo) {
         try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
@@ -50,9 +50,9 @@ public class ConsultaDB extends DataBase{
             }
         }
     }
-    
-        public void mostrarConsulta( JTable table){
-         try {
+
+    public void mostrarConsulta(JTable table) {
+        try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
             String sqlConsulta = "SELECT * FROM Consultas ORDER BY FECHA";
@@ -66,8 +66,8 @@ public class ConsultaDB extends DataBase{
             model.addColumn("DOCTOR");
             model.addColumn("INSUMO");
             table.setModel(model);
-            
-            String [] datos = new String[5];
+
+            String[] datos = new String[5];
             while (resultado.next()) {
                 datos[0] = resultado.getString(1);
                 datos[1] = resultado.getString(2);
@@ -93,7 +93,7 @@ public class ConsultaDB extends DataBase{
         }
 
     }
-    
+
     public String buscarConsulta(String CI) {
         try {
             Class.forName(ORG);
@@ -101,12 +101,12 @@ public class ConsultaDB extends DataBase{
             String sqlSelect = "SELECT * FROM Consultas WHERE CIPACIENTE LIKE ?";
 
             PreparedStatement preparedStatement = conexion.prepareStatement(sqlSelect);
-            preparedStatement.setString(1,"%" + CI + "%");
+            preparedStatement.setString(1, "%" + CI + "%");
 
             ResultSet resultado = preparedStatement.executeQuery();
             if (resultado.next()) {
                 String paciente = resultado.getString("CIPACIENTE");
-                
+
                 preparedStatement.close();
 
                 // Crear un arreglo con los datos del paciente
@@ -129,9 +129,8 @@ public class ConsultaDB extends DataBase{
             }
         }
     }
-    
-    
-    public boolean eliminarConsulta( String id) {
+
+    public boolean eliminarConsulta(String id) {
         try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);

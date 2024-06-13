@@ -5,12 +5,15 @@ import java.awt.Color;
 public class MyColor {
 
     private final Color WHITE = new Color(225, 225, 225);
+
     private final Color REDPRIMARIO = new Color(225, 0, 0);
     private final Color REDSECUNDARIO = new Color(245, 183, 177);
+
     private final Color AZUL = new Color(3, 155, 216);
-    private final Color BTNSELECTCOLOR = new Color(215, 215, 215);
-    private final Color BTNBGDASHBOAR = new Color(240, 240, 240);
-    
+
+    private final Color BTNSELECTCOLOR = new Color(230, 230, 230);
+    private final Color BTNBGDASHBOAR = new Color(250, 250, 250);
+
     private final Color VERDE = Color.decode("#28B463");
 
     public Color getVERDE() {

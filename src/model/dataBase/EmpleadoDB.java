@@ -9,9 +9,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.dataBase.OperationsDataBase;
 
-public class EmpleadoDB extends DataBase implements OperationsDataBase{
-    
-    
+public class EmpleadoDB extends DataBase implements OperationsDataBase {
+
     public void nuevo(String nombre, String apellido, String telefono, String correo, String usuario, boolean admin, String password) {
         try {
             Class.forName(ORG);
@@ -142,7 +141,7 @@ public class EmpleadoDB extends DataBase implements OperationsDataBase{
 
             String[] datos = new String[6];
             while (resultado.next()) {
-                
+
                 datos[0] = resultado.getString(2) + " " + resultado.getString(3);
                 datos[1] = resultado.getString(5);
                 datos[2] = resultado.getString(4);
@@ -174,9 +173,7 @@ public class EmpleadoDB extends DataBase implements OperationsDataBase{
         }
 
     }
-    
-    
-    
+
     public boolean eliminar(String usuario) {
         try {
             Class.forName(ORG);
@@ -206,7 +203,7 @@ public class EmpleadoDB extends DataBase implements OperationsDataBase{
             }
         }
     }
-    
+
     public String buscardorEmpleado(String nombre) {
         try {
             Class.forName(ORG);
@@ -240,7 +237,7 @@ public class EmpleadoDB extends DataBase implements OperationsDataBase{
             }
         }
     }
-    
+
     public String[] buscar(String usuario) {
         try {
             Class.forName(ORG);
@@ -284,7 +281,7 @@ public class EmpleadoDB extends DataBase implements OperationsDataBase{
             }
         }
     }
-    
+
     public boolean editar(String id, String nuevoNombre, String nuevoApellido, String nuevoTelefono, String nuevoCorreo, String nuevoUsuario, boolean nuevoAdmin, String nuevaPassword) {
         try {
             Class.forName(ORG);

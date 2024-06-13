@@ -1,18 +1,12 @@
 package views;
 
 import controller.ControllerConsulta;
-import views.viewsGestion.GestionConsulta;
-
-
 
 public class ViewConsulta extends javax.swing.JPanel {
-    private views.Dashboard dashboard;
-    private views.viewsGestion.GestionConsulta viewConsulta;
     private ControllerConsulta controller;
     private String dato;
 
     public ViewConsulta (views.Dashboard dashboard) {
-        this.dashboard = dashboard;
         initComponents();
         this.setSize(1180, 720);
 

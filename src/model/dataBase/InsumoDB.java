@@ -5,14 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+public class InsumoDB extends DataBase implements OperationsDataBase {
 
-public class InsumoDB extends DataBase implements OperationsDataBase{
-
-   public boolean nuevo(String nombre, int stock, String descripcion, String fecha) {
+    public boolean nuevo(String nombre, int stock, String descripcion, String fecha) {
         try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
@@ -72,7 +70,7 @@ public class InsumoDB extends DataBase implements OperationsDataBase{
 
             String[] datos = new String[4];
             while (resultado.next()) {
-                
+
                 datos[0] = resultado.getString(1);
                 datos[1] = resultado.getString(2);
                 datos[2] = resultado.getString(4);
@@ -138,7 +136,7 @@ public class InsumoDB extends DataBase implements OperationsDataBase{
             String sqlSelect = "SELECT ID FROM Insumos WHERE NOMBRE LIKE ?";
 
             PreparedStatement preparedStatement = conexion.prepareStatement(sqlSelect);
-            preparedStatement.setString(1,nombre);
+            preparedStatement.setString(1, nombre);
 
             ResultSet resultado = preparedStatement.executeQuery();
             if (resultado.next()) {
@@ -161,7 +159,7 @@ public class InsumoDB extends DataBase implements OperationsDataBase{
         }
         return "-1";
     }
-    
+
     public String[] buscarInsumo(String id) {
         try {
             Class.forName(ORG);
@@ -180,7 +178,7 @@ public class InsumoDB extends DataBase implements OperationsDataBase{
 
                 preparedStatement.close();
 
-                String[] datosPaciente = {identificacion, nombreInsumo, String.valueOf(cantidad),descripcion};
+                String[] datosPaciente = {identificacion, nombreInsumo, String.valueOf(cantidad), descripcion};
                 return datosPaciente;
             } else {
                 preparedStatement.close();
@@ -199,7 +197,7 @@ public class InsumoDB extends DataBase implements OperationsDataBase{
             }
         }
     }
-    
+
     public int buscarCantidad(String id) {
         try {
             Class.forName(ORG);
@@ -299,7 +297,7 @@ public class InsumoDB extends DataBase implements OperationsDataBase{
             }
         }
     }
-    
+
     @Override
     public void nuevo() {
     }

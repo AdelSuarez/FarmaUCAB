@@ -3,12 +3,8 @@ package main;
 //  Adel Suárez
 //  Santiago Chirinos
 //  Eros Dos Ramos
-
 //  Usamos Segregacion de interfacez, porque cada interfaz grafica hace una sola cosa y no obliga al cliente a usar cosas que no quiera.
-
 //  Usamos Sustitucion de Liskov porque todo lo que hereda de otra clase en nuestro programa puede perfectamente ser usado como su padre.
-
-
 import model.dataBase.DataBase;
 import java.awt.BorderLayout;
 import style.styleWindow;
@@ -20,12 +16,14 @@ public class Main extends javax.swing.JFrame {
     private model.dataBase.DataBase DB = new DataBase();
     private views.Login login;
     private views.Dashboard dashboard;
+
     private boolean admin = false;
+    private String[] datosEmpleado = {"0", "test", "test"};
 
     public Main() {
 //      Configuraciones de la ventana
         login = new views.Login(this);
-        dashboard = new views.Dashboard(this, admin);
+        dashboard = new views.Dashboard(this, admin, datosEmpleado);
         styleWindow ventana = new styleWindow();
         initComponents();
         ventana.configuracionesVentana(this, 1400, 800, "Enfermeria UCAB");
@@ -35,13 +33,13 @@ public class Main extends javax.swing.JFrame {
         iniciadorDB();
 
         // Interfaz
-        initView(viewAdmin(true));
+        initView(viewAdmin(true, datosEmpleado));
 //        initView(login);
 
     }
 
-    public views.Dashboard viewAdmin(boolean admin) {
-        return dashboard = new views.Dashboard(this, admin);
+    public views.Dashboard viewAdmin(boolean admin, String[] datosUsuario) {
+        return dashboard = new views.Dashboard(this, admin, datosUsuario);
     }
 
     public views.Login getLogin() {

@@ -41,13 +41,16 @@ public class ControllerLogin implements ActionListener {
 
         if (validacionLogin.ceroCamposVaciosInicioSesion(login.inputUsuarioSesion, login.inputPasswordUsuario) == 2) {
             if (empleado.inicioEmpleado(login.inputUsuarioSesion.getText().trim(), login.inputPasswordUsuario.getText().trim())) {
+                
+                String[] datosEmpleado = empleado.buscar(login.inputUsuarioSesion.getText().trim());
+                
                 if (empleado.validarEmpleadoAdmin(login.inputUsuarioSesion.getText().trim())) {
                     limpiarInput();
-                    main.initView(main.viewAdmin(true));
+                    main.initView(main.viewAdmin(true, datosEmpleado));
 
                 } else {
                     limpiarInput();
-                    main.initView(main.viewAdmin(false));
+                    main.initView(main.viewAdmin(false, datosEmpleado));
                 }
 
             } else {
@@ -70,7 +73,8 @@ public class ControllerLogin implements ActionListener {
                     login.inputUsuarioRegistro.getText().trim(),
                     true,
                     login.inputPassword.getText().trim());
-            main.initView(main.viewAdmin(true));
+            String[] datosEmpleado = {"0", login.inputNombre.getText().trim(), login.inputApellido.getText().trim()};
+            main.initView(main.viewAdmin(true, datosEmpleado));
 
         } else {
             validacionLogin.verificacionPassword(login.textoMensaje, login.inputPassword, login.inputRepetirPassword);

@@ -2,7 +2,6 @@ package controller;
 
 import dialog.DialogCerrarSesion;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
@@ -27,21 +26,24 @@ public class ControllerDashBoard implements ActionListener {
     private ViewInsumo viewInsumo;
     private ViewEmpleado viewEmpleado;
     private ViewConsulta viewConsulta;
+    private String nombre;
 
     private Main main;
     private Dashboard dashboard;
 
-    public ControllerDashBoard(Main main, Dashboard dashboard, boolean admin) {
+    public ControllerDashBoard(Main main, Dashboard dashboard, boolean admin, String[] datosUsuario) {
         this.main = main;
         this.dashboard = dashboard;
+        this.nombre = datosUsuario[1] + " " + datosUsuario[2];
         this.viewPaciente = new ViewPaciente(dashboard);
         this.viewInsumo = new ViewInsumo(dashboard);
         this.viewEmpleado = new ViewEmpleado(dashboard);
         this.viewConsulta = new ViewConsulta(dashboard);
 
 //        dashboard.adminActivo.setVisible(admin);
-        dashboard.adminActivo.setVisible(admin);
+//        dashboard.adminActivo.setVisible(admin);
         dashboard.btnEmpleado.setVisible(admin);
+        dashboard.NombreEmpleado.setText(nombre);
         
         // selecciona el boton de la view  que se muestra al iniciar la app
         dashboard.btnConsulta.setColor(new MyColor().getBTNSELECTCOLOR());
@@ -53,6 +55,7 @@ public class ControllerDashBoard implements ActionListener {
         this.dashboard.btnPaciente.addActionListener(this);
 
         iniciadorVentana(viewConsulta);
+        tagAdmin(admin);
     }
 
     public void iniciadorVentana(JPanel view) {
@@ -87,6 +90,7 @@ public class ControllerDashBoard implements ActionListener {
 //        this.viewInsumo = new ViewInsumo(dashboard);
         dashboard.btnPaciente.setColor(new MyColor().getBTNBGDASHBOAR());
         dashboard.btnInsumo.setColor(new MyColor().getBTNSELECTCOLOR());
+//        dashboard.btnInsumo.setForeground(new MyColor().getAZUL());
         dashboard.btnConsulta.setColor(new MyColor().getBTNBGDASHBOAR());
         dashboard.btnEmpleado.setColor(new MyColor().getBTNBGDASHBOAR());
         iniciadorVentana(viewInsumo);
@@ -145,6 +149,16 @@ public class ControllerDashBoard implements ActionListener {
             // Aquí deberías analizar la respuesta JSON para extraer la hora
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+    
+    private void tagAdmin(boolean esAdmin){
+        if(esAdmin){
+            dashboard.tag.setBackground(new MyColor().getVERDE());
+            dashboard.estatus.setText("Admin");
+        } else {
+            dashboard.tag.setBackground(new MyColor().getAZUL());
+            dashboard.estatus.setText("Usuario");
         }
     }
 

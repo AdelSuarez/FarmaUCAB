@@ -9,7 +9,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.dataBase.OperationsDataBase;
 
-public class PacienteDB extends DataBase implements OperationsDataBase{
+public class PacienteDB extends DataBase implements OperationsDataBase {
 
     public boolean nuevo(String nombre, String apellido, String cedula, String telefono, String DE, String genero, int edad, String descripcion) {
         try {
