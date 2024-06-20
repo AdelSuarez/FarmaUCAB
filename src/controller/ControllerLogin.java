@@ -2,10 +2,13 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import main.Main;
 import views.Login;
 import model.dataBase.DataBase;
 import model.dataBase.EmpleadoDB;
+import src.EnterKeyAdapter;
 import style.MyColor;
 import validaciones.ValidacionLogin;
 
@@ -25,6 +28,20 @@ public class ControllerLogin implements ActionListener {
         login.btnRegistrar.addActionListener(this);
     }
 
+    public void opcionEnter(){
+        login.inputPasswordUsuario.addKeyListener(new EnterKeyAdapter(() -> iniciarSesion()));
+        login.inputUsuarioSesion.addKeyListener(new EnterKeyAdapter(() -> iniciarSesion()));
+        
+        login.inputNombre.addKeyListener(new EnterKeyAdapter(() -> registrarUsuarioAdmin()));
+        login.inputApellido.addKeyListener(new EnterKeyAdapter(() -> registrarUsuarioAdmin()));
+        login.inputCorreo.addKeyListener(new EnterKeyAdapter(() -> registrarUsuarioAdmin()));
+        login.inputTelefono.addKeyListener(new EnterKeyAdapter(() -> registrarUsuarioAdmin()));
+        login.inputUsuarioRegistro.addKeyListener(new EnterKeyAdapter(() -> registrarUsuarioAdmin()));
+        login.inputPassword.addKeyListener(new EnterKeyAdapter(() -> registrarUsuarioAdmin()));
+        login.inputRepetirPassword.addKeyListener(new EnterKeyAdapter(() -> registrarUsuarioAdmin()));
+
+    }
+    
     public void tipoLogin() {
         if (new DataBase().isEmptyTabla("Empleados")) {
             login.PanelAdmin.setVisible(true);
@@ -36,7 +53,7 @@ public class ControllerLogin implements ActionListener {
         }
     }
 
-    private void IniciarSesion() {
+    private void iniciarSesion() {
         login.mesajeInicioSesion.setVisible(false);
 
         if (validacionLogin.ceroCamposVaciosInicioSesion(login.inputUsuarioSesion, login.inputPasswordUsuario) == 2) {
@@ -88,11 +105,11 @@ public class ControllerLogin implements ActionListener {
         login.mesajeInicioSesion.setVisible(false);
 
     }
-
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == login.btnInicioSesion) {
-            IniciarSesion();
+            iniciarSesion();
         } else if (e.getSource() == login.btnRegistrar) {
             registrarUsuarioAdmin();
         }

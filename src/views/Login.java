@@ -13,6 +13,7 @@ public class Login extends javax.swing.JPanel {
 
         this.controller = new ControllerLogin(main, this);
         controller.tipoLogin();
+        controller.opcionEnter();
 
     }
 
