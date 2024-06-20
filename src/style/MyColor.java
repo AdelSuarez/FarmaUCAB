@@ -3,8 +3,8 @@ package style;
 import java.awt.Color;
 
 public class MyColor {
-
-    private final Color WHITE = new Color(225, 225, 225);
+    private final Color WHITESECUNDARIO = Color.decode("#FAFAFA");
+    private final Color WHITE = Color.decode("#FFFFFF");
 
     private final Color REDPRIMARIO = new Color(225, 0, 0);
     private final Color REDSECUNDARIO = new Color(245, 183, 177);
@@ -32,7 +32,7 @@ public class MyColor {
         return REDSECUNDARIO;
     }
 
-    public Color getRED() {
+    public Color getREDPRIMARIO() {
         return REDPRIMARIO;
     }
 

@@ -28,46 +28,37 @@ public abstract class Validacion {
     public abstract void mensaje(JLabel jlabel, String mensaje);
 
     public boolean validarInputPassword(components.PasswordField textfielpassword, String Texto) {
-//        boolean estaVacio = false;
         if (textfielpassword.getText().equals("")) {
             textfielpassword.setLabelText(Texto + AVISOVACIO);
             return false;
         } else {
             textfielpassword.setLabelText(Texto);
-//            estaVacio = true;
             return true;
         }
-//        return estaVacio;
 
     }
     public boolean validarCantidadDigitos(components.TextField textfiel, String texto, int cantidad) {
-//        boolean estaVacio = false;
         if (textfiel.getText().length() < cantidad) {
-            textfiel.setLineColor(new MyColor().getRED());
+            textfiel.setLineColor(new MyColor().getREDPRIMARIO());
             textfiel.setLabelText(texto + AVISOLONGITUD);
             return false;
         } else {
             textfiel.setLineColor(new MyColor().getAZUL());
             textfiel.setLabelText(texto);
-//            estaVacio = true;
             return true;
         }
-//        return estaVacio;
     }
 //         Verificadores de campos vacios
     public boolean validarInput(components.TextField textfiel, String texto) {
-//        boolean estaVacio = false;
         if (textfiel.getText().equals("")) {
-            textfiel.setLineColor(new MyColor().getRED());
+            textfiel.setLineColor(new MyColor().getREDPRIMARIO());
             textfiel.setLabelText(texto + AVISOVACIO);
             return false;
         } else {
             textfiel.setLineColor(new MyColor().getAZUL());
             textfiel.setLabelText(texto);
-//            estaVacio = true;
             return true;
         }
-//        return estaVacio;
     }
 
     public void validarCaracteresInput(components.TextField textfiel, String texto, String regex, int[] contador) {
@@ -79,7 +70,7 @@ public abstract class Validacion {
             contador[0]++;
 
         } else {
-            textfiel.setLineColor(new MyColor().getRED());
+            textfiel.setLineColor(new MyColor().getREDPRIMARIO());
             textfiel.setLabelText(texto + AVISOCARACTERES);
         }
 

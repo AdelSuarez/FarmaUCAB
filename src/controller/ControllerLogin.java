@@ -54,8 +54,8 @@ public class ControllerLogin implements ActionListener {
                 }
 
             } else {
-                login.inputUsuarioSesion.setLineColor(new MyColor().getRED());
-                login.inputPasswordUsuario.setLineColor(new MyColor().getRED());
+                login.inputUsuarioSesion.setLineColor(new MyColor().getREDPRIMARIO());
+                login.inputPasswordUsuario.setLineColor(new MyColor().getREDPRIMARIO());
                 login.mesajeInicioSesion.setVisible(true);
             }
         }

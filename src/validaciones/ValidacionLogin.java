@@ -15,8 +15,8 @@ public class ValidacionLogin extends Validacion {
             return true;
 
         } else {
-            inputPassword.setLineColor(new MyColor().getRED());
-            inputRepetirPassword.setLineColor(new MyColor().getRED());
+            inputPassword.setLineColor(new MyColor().getREDPRIMARIO());
+            inputRepetirPassword.setLineColor(new MyColor().getREDPRIMARIO());
             if (!inputPassword.getText().equals("") && !inputRepetirPassword.getText().equals("")) {
                 mensaje(jlabel, "Las contraseñas no coinciden!");
             }
@@ -35,7 +35,7 @@ public class ValidacionLogin extends Validacion {
             inputPassword.setLineColor(new MyColor().getAZUL());
 
         } else {
-            inputPassword.setLineColor(new MyColor().getRED());
+            inputPassword.setLineColor(new MyColor().getREDPRIMARIO());
 
         }
 

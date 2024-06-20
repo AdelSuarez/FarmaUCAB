@@ -67,7 +67,7 @@ public class Dashboard extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        panelOpciones = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         btnPaciente = new components.ButtonCustom();
         btnInsumo = new components.ButtonCustom();
@@ -75,11 +75,11 @@ public class Dashboard extends javax.swing.JPanel {
         btnConsulta = new components.ButtonCustom();
         btnEmpleado = new components.ButtonCustom();
         jLabel1 = new javax.swing.JLabel();
-        panelRound1 = new components.PanelRound();
         tag = new components.PanelRound();
         estatus = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         NombreEmpleado = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
         btnCerrarSesion = new components.ButtonCustom();
         containerTurno = new components.PanelRound();
@@ -91,13 +91,16 @@ public class Dashboard extends javax.swing.JPanel {
         jPanel1.setToolTipText("");
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(250, 250, 250));
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(169, 169, 169)));
-        jPanel2.setPreferredSize(new java.awt.Dimension(220, 800));
+        panelOpciones.setBackground(new java.awt.Color(250, 250, 250));
+        panelOpciones.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(169, 169, 169)));
+        panelOpciones.setPreferredSize(new java.awt.Dimension(220, 800));
+        panelOpciones.setLayout(null);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 102, 255));
         jLabel2.setText("Enfermeria");
+        panelOpciones.add(jLabel2);
+        jLabel2.setBounds(80, 20, 156, 40);
 
         btnPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/groups_person_black.png"))); // NOI18N
         btnPaciente.setText("Pacientes");
@@ -109,6 +112,8 @@ public class Dashboard extends javax.swing.JPanel {
         btnPaciente.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnPaciente.setPreferredSize(new java.awt.Dimension(230, 50));
         btnPaciente.setRadius(15);
+        panelOpciones.add(btnPaciente);
+        btnPaciente.setBounds(13, 236, 230, 50);
 
         btnInsumo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/vaccines_black.png"))); // NOI18N
         btnInsumo.setText("Medicamentos");
@@ -120,6 +125,10 @@ public class Dashboard extends javax.swing.JPanel {
         btnInsumo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnInsumo.setPreferredSize(new java.awt.Dimension(230, 50));
         btnInsumo.setRadius(15);
+        panelOpciones.add(btnInsumo);
+        btnInsumo.setBounds(13, 180, 230, 50);
+        panelOpciones.add(jSeparator1);
+        jSeparator1.setBounds(1, 78, 248, 10);
 
         btnConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/assignment_black.png"))); // NOI18N
         btnConsulta.setText("Cosultas");
@@ -131,6 +140,8 @@ public class Dashboard extends javax.swing.JPanel {
         btnConsulta.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnConsulta.setPreferredSize(new java.awt.Dimension(230, 50));
         btnConsulta.setRadius(15);
+        panelOpciones.add(btnConsulta);
+        btnConsulta.setBounds(13, 124, 230, 50);
 
         btnEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/badge_black.png"))); // NOI18N
         btnEmpleado.setText("Empleados");
@@ -142,15 +153,12 @@ public class Dashboard extends javax.swing.JPanel {
         btnEmpleado.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnEmpleado.setPreferredSize(new java.awt.Dimension(230, 50));
         btnEmpleado.setRadius(15);
+        panelOpciones.add(btnEmpleado);
+        btnEmpleado.setBounds(13, 292, 230, 50);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ecg_heart.png"))); // NOI18N
-
-        panelRound1.setBackground(new java.awt.Color(215, 215, 215));
-        panelRound1.setForeground(new java.awt.Color(255, 255, 255));
-        panelRound1.setRoundBottomLeft(15);
-        panelRound1.setRoundBottomRight(15);
-        panelRound1.setRoundTopLeft(15);
-        panelRound1.setRoundTopRight(15);
+        panelOpciones.add(jLabel1);
+        jLabel1.setBounds(10, 10, 64, 64);
 
         tag.setBackground(new java.awt.Color(46, 204, 113));
         tag.setPreferredSize(new java.awt.Dimension(64, 30));
@@ -181,92 +189,21 @@ public class Dashboard extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        panelOpciones.add(tag);
+        tag.setBounds(178, 717, 64, 30);
+
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/account_circle_black.png"))); // NOI18N
+        panelOpciones.add(jLabel5);
+        jLabel5.setBounds(13, 715, 32, 32);
 
         NombreEmpleado.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         NombreEmpleado.setText("Usuario");
+        panelOpciones.add(NombreEmpleado);
+        NombreEmpleado.setBounds(51, 717, 121, 30);
+        panelOpciones.add(jSeparator2);
+        jSeparator2.setBounds(1, 699, 248, 10);
 
-        javax.swing.GroupLayout panelRound1Layout = new javax.swing.GroupLayout(panelRound1);
-        panelRound1.setLayout(panelRound1Layout);
-        panelRound1Layout.setHorizontalGroup(
-            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(NombreEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        panelRound1Layout.setVerticalGroup(
-            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound1Layout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
-                .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5)
-                    .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(NombreEmpleado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tag, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(18, 18, 18))
-        );
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(jLabel1)
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel2))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(btnPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(btnInsumo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(btnConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(panelRound1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(9, 9, 9)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(4, 4, 4)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(btnConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnInsumo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 339, Short.MAX_VALUE)
-                .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
-        );
-
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, -1));
+        jPanel1.add(panelOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, -1));
 
         jPanel3.setBackground(new java.awt.Color(250, 250, 250));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(169, 169, 169)));
@@ -389,10 +326,10 @@ public class Dashboard extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
-    private components.PanelRound panelRound1;
+    private javax.swing.JSeparator jSeparator2;
+    public javax.swing.JPanel panelOpciones;
     public components.PanelRound tag;
     public javax.swing.JLabel titleTurno;
     // End of variables declaration//GEN-END:variables

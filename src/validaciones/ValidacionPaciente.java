@@ -71,7 +71,7 @@ public class ValidacionPaciente extends Validacion {
             return true;
         }
         inputEdad.setLabelText("Edad (Fuera de rango)");
-        inputEdad.setLineColor(new MyColor().getRED());
+        inputEdad.setLineColor(new MyColor().getREDPRIMARIO());
         return false;
     }
 

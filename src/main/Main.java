@@ -23,7 +23,7 @@ public class Main extends javax.swing.JFrame {
     public Main() {
 //      Configuraciones de la ventana
         login = new views.Login(this);
-        dashboard = new views.Dashboard(this, admin, datosEmpleado);
+//        dashboard = new views.Dashboard(this, admin, datosEmpleado);
         styleWindow ventana = new styleWindow();
         initComponents();
         ventana.configuracionesVentana(this, 1400, 800, "Enfermeria UCAB");

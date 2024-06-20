@@ -29,7 +29,7 @@ public class ControllerGestionEmpleado implements ActionListener {
 
         this.viewGestionEmpleado.btnRegresar.addActionListener(this);
         this.viewGestionEmpleado.btnGuardarEmpleado.addActionListener(this);
-        
+
         this.viewGestionEmpleado.mensajeGuardado.setVisible(false);
         seleccionVentana();
 
@@ -61,7 +61,11 @@ public class ControllerGestionEmpleado implements ActionListener {
                 viewGestionEmpleado.telefonoEmpleado,
                 viewGestionEmpleado.CorreoEmpleado,
                 viewGestionEmpleado.usuarioEmpleado,
-                viewGestionEmpleado.passwordField1)) {
+                viewGestionEmpleado.passwordField1) && empleado.buscarUsuarioRepetido(
+                        viewGestionEmpleado.usuarioEmpleado.getText().trim(),
+                        viewGestionEmpleado.mensajeGuardado,
+                        viewGestionEmpleado.usuarioEmpleado,
+                        "Usuario")) {
             empleado.nuevo(
                     viewGestionEmpleado.nombreEmpleado.getText().trim(),
                     viewGestionEmpleado.apellidoEmpleado.getText().trim(),
@@ -130,7 +134,7 @@ public class ControllerGestionEmpleado implements ActionListener {
 
         if (e.getSource() == viewGestionEmpleado.btnRegresar) {
             regresarView();
-        } else if (e.getSource() == viewGestionEmpleado.btnGuardarEmpleado){
+        } else if (e.getSource() == viewGestionEmpleado.btnGuardarEmpleado) {
             guardarAccion();
         }
     }

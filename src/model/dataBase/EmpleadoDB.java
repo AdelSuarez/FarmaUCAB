@@ -5,9 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import model.dataBase.OperationsDataBase;
+import style.MyColor;
 
 public class EmpleadoDB extends DataBase implements OperationsDataBase {
 
@@ -227,6 +228,43 @@ public class EmpleadoDB extends DataBase implements OperationsDataBase {
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace(); // Registra el error para depuración
             return "Error al buscar el empleado.";
+        } finally {
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    public boolean buscarUsuarioRepetido(String usuario, JLabel mensaje, components.TextField textfiel, String texto) {
+        try {
+            Class.forName(ORG);
+            conexion = DriverManager.getConnection(DIRECCIONDB);
+            String sqlSelect = "SELECT COUNT(*) AS total FROM Empleados WHERE UPPER(USUARIO) = UPPER(?)";
+
+            PreparedStatement preparedStatement = conexion.prepareStatement(sqlSelect);
+            preparedStatement.setString(1, usuario);
+
+            ResultSet resultado = preparedStatement.executeQuery();
+            if (resultado.next()) {
+                textfiel.setLineColor(new MyColor().getREDPRIMARIO());
+                textfiel.setLabelText(texto + " (Usuario repetido)");
+                preparedStatement.close();
+                // Si totalUsuarios es mayor que 0, significa que el usuario ya existe
+                return false;
+            } else {
+                preparedStatement.close();
+                textfiel.setLineColor(new MyColor().getAZUL());
+                textfiel.setLabelText(texto);
+                // No se encontró ningún usuario con ese nombre, por lo que no está repetido
+                return true;
+            }
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace(); // Registra el error para depuración
+            return false; // Retorna false si hay un error al buscar el usuario
         } finally {
             try {
                 if (conexion != null) {

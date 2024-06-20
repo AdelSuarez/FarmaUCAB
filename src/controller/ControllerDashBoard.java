@@ -40,8 +40,6 @@ public class ControllerDashBoard implements ActionListener {
         this.viewEmpleado = new ViewEmpleado(dashboard);
         this.viewConsulta = new ViewConsulta(dashboard);
 
-//        dashboard.adminActivo.setVisible(admin);
-//        dashboard.adminActivo.setVisible(admin);
         dashboard.btnEmpleado.setVisible(admin);
         dashboard.NombreEmpleado.setText(nombre);
         
@@ -143,7 +141,7 @@ public class ControllerDashBoard implements ActionListener {
                 dashboard.containerTurno.setBackground(new MyColor().getVERDE());
                 dashboard.titleTurno.setText("Tarde");
             } else {
-                dashboard.containerTurno.setBackground(new MyColor().getRED());
+                dashboard.containerTurno.setBackground(new MyColor().getREDPRIMARIO());
                 dashboard.titleTurno.setText("Noche");
             }
             // Aquí deberías analizar la respuesta JSON para extraer la hora
@@ -161,7 +159,7 @@ public class ControllerDashBoard implements ActionListener {
             dashboard.estatus.setText("Usuario");
         }
     }
-
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == dashboard.btnInsumo) {
@@ -174,7 +172,7 @@ public class ControllerDashBoard implements ActionListener {
             activarViewEmpleado();
         } else if (e.getSource() == dashboard.btnConsulta) {
             activarViewConsulta();
-        }
+        } 
 
     }
 
