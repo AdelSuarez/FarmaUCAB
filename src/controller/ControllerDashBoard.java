@@ -18,6 +18,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class ControllerDashBoard implements ActionListener {
 
@@ -120,7 +122,8 @@ public class ControllerDashBoard implements ActionListener {
     }
     
     public void horaTurno(){
-       try { 
+        String hora;
+        try { 
             URL url = new URL("http://worldtimeapi.org/api/timezone/America/Caracas");
             URLConnection conn = url.openConnection();
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -130,23 +133,26 @@ public class ControllerDashBoard implements ActionListener {
                 result.append(line);
             }
             br.close();
-            
+
             String datetime = result.toString().split("\"datetime\":\"")[1].split("\"")[0];
-            String hora = datetime.substring(11, 19); // 
-            int horaDelDia = Integer.parseInt(hora.split(":")[0]);
-             if (horaDelDia >= 6 && horaDelDia < 12) {
-                dashboard.containerTurno.setBackground(new MyColor().getAZUL());
-                dashboard.titleTurno.setText("Mañana");
-            } else if (horaDelDia >= 12 && horaDelDia < 18) {
-                dashboard.containerTurno.setBackground(new MyColor().getVERDE());
-                dashboard.titleTurno.setText("Tarde");
-            } else {
-                dashboard.containerTurno.setBackground(new MyColor().getREDPRIMARIO());
-                dashboard.titleTurno.setText("Noche");
-            }
-            // Aquí deberías analizar la respuesta JSON para extraer la hora
+            hora = datetime.substring(11, 19); // 
         } catch (Exception e) {
-            e.printStackTrace();
+            // Si hay un error (como una UnknownHostException), obtenemos la hora del sistema local
+            LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+            hora = now.format(formatter);
+        }
+
+        int horaDelDia = Integer.parseInt(hora.split(":")[0]);
+        if (horaDelDia >= 6 && horaDelDia < 12) {
+            dashboard.containerTurno.setBackground(new MyColor().getAZUL());
+            dashboard.titleTurno.setText("Mañana");
+        } else if (horaDelDia >= 12 && horaDelDia < 18) {
+            dashboard.containerTurno.setBackground(new MyColor().getVERDE());
+            dashboard.titleTurno.setText("Tarde");
+        } else {
+            dashboard.containerTurno.setBackground(new MyColor().getREDPRIMARIO());
+            dashboard.titleTurno.setText("Noche");
         }
     }
     
