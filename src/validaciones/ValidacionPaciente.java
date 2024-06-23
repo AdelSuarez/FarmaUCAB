@@ -2,6 +2,7 @@ package validaciones;
 
 import javax.swing.JLabel;
 import style.MyColor;
+import model.dataBase.DataBase;
 
 public class ValidacionPaciente extends Validacion {
 
@@ -22,7 +23,7 @@ public class ValidacionPaciente extends Validacion {
         if (validarInput(inputApellido, "Apellido")) {
             validarCaracteresInput(inputApellido, "Apellido", getREGEXNOMBRE(), contadorInput);
         }
-        if (validarInput(inputCedula, "Cedula") && validarCantidadDigitos(inputCedula, "Cedula", 6)) {
+        if (validarInput(inputCedula, "Cedula") && validarCantidadDigitos(inputCedula, "Cedula", 6) && cedulaRepetida(inputCedula, "Cedula")) {
             validarCaracteresInput(inputCedula, "Cedula", getREGEXNUMERO(), contadorInput);
         }
         if (validarInput(inputEdad, "Edad")) {
@@ -61,6 +62,19 @@ public class ValidacionPaciente extends Validacion {
             combobox.setLabeText("Genero (No seleccionado)");
         }
         return "";
+    }
+    
+    private boolean cedulaRepetida(components.TextField inputCedula, String texto){
+        if (new DataBase().buscarDatoRepetida(inputCedula.getText().trim(), "SELECT COUNT(*) AS total FROM Pacientes WHERE UPPER(CEDULA) = UPPER(?)")){
+            inputCedula.setLineColor(new MyColor().getREDPRIMARIO());
+            inputCedula.setLabelText(texto + " (Cédula repetida)");
+            return false;
+        } else {
+            inputCedula.setLineColor(new MyColor().getAZUL());
+            inputCedula.setLabelText(texto);
+            return true;
+        }
+                       
     }
     
     private boolean validarEdad(components.TextField inputEdad){

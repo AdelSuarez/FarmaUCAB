@@ -25,7 +25,6 @@ public class ViewConsulta extends javax.swing.JPanel {
         btnMostrarConsulta = new components.ButtonCustom();
         panelRound1 = new components.PanelRound();
         jLabel3 = new javax.swing.JLabel();
-        CIPaciente = new components.TextField();
         doctoraCargo = new components.TextField();
         btnGuardarConsulta = new components.ButtonCustom();
         fechaActual = new components.TextField();
@@ -37,6 +36,8 @@ public class ViewConsulta extends javax.swing.JPanel {
         ListaDeInsumos = new javax.swing.JList<>();
         textAreaScroll2 = new components.TextAreaScroll();
         descripcionConsulta = new components.TextArea();
+        Pacientes = new components.Combobox();
+        btnNuevoPaciente = new components.ButtonCustom();
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setPreferredSize(new java.awt.Dimension(1350, 920));
@@ -63,11 +64,6 @@ public class ViewConsulta extends javax.swing.JPanel {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setText("Datos de la Consulta");
-
-        CIPaciente.setBackground(new java.awt.Color(240, 240, 240));
-        CIPaciente.setForeground(new java.awt.Color(80, 80, 80));
-        CIPaciente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        CIPaciente.setLabelText("Cédula del paciente");
 
         doctoraCargo.setBackground(new java.awt.Color(240, 240, 240));
         doctoraCargo.setForeground(new java.awt.Color(80, 80, 80));
@@ -138,24 +134,40 @@ public class ViewConsulta extends javax.swing.JPanel {
         descripcionConsulta.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         textAreaScroll2.setViewportView(descripcionConsulta);
 
+        Pacientes.setBackground(new java.awt.Color(240, 240, 240));
+        Pacientes.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Pacientes.setLabeText("Pacientes");
+
+        btnNuevoPaciente.setForeground(new java.awt.Color(255, 255, 255));
+        btnNuevoPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/person_add_white.png"))); // NOI18N
+        btnNuevoPaciente.setBorderColor(new java.awt.Color(240, 240, 240));
+        btnNuevoPaciente.setColor(new java.awt.Color(0, 105, 255));
+        btnNuevoPaciente.setColorClick(new java.awt.Color(0, 95, 230));
+        btnNuevoPaciente.setColorOver(new java.awt.Color(0, 84, 204));
+        btnNuevoPaciente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnNuevoPaciente.setPreferredSize(new java.awt.Dimension(86, 40));
+        btnNuevoPaciente.setRadius(15);
+
         javax.swing.GroupLayout panelRound1Layout = new javax.swing.GroupLayout(panelRound1);
         panelRound1.setLayout(panelRound1Layout);
         panelRound1Layout.setHorizontalGroup(
             panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRound1Layout.createSequentialGroup()
                 .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound1Layout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(CIPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(textAreaScroll2, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
-                            .addComponent(doctoraCargo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(107, 107, 107))
                     .addGroup(panelRound1Layout.createSequentialGroup()
                         .addGap(79, 79, 79)
                         .addComponent(mensajeDeGuardado, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(185, 185, 185)))
+                        .addGap(185, 185, 185))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound1Layout.createSequentialGroup()
+                        .addGap(75, 75, 75)
+                        .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3)
+                            .addComponent(textAreaScroll2, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
+                            .addComponent(doctoraCargo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Pacientes, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnNuevoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)))
                 .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(ListaDeInsumos, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelRound1Layout.createSequentialGroup()
@@ -195,9 +207,11 @@ public class ViewConsulta extends javax.swing.JPanel {
                     .addGroup(panelRound1Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(CIPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(24, 24, 24)
+                        .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(Pacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnNuevoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(doctoraCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(textAreaScroll2, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -206,7 +220,7 @@ public class ViewConsulta extends javax.swing.JPanel {
                     .addComponent(btnGuardarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(mensajeDeGuardado)
                     .addComponent(fechaActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(52, 52, 52))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -253,12 +267,13 @@ public class ViewConsulta extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public components.TextField CIPaciente;
     public components.TextField CantidadInsumo;
     public javax.swing.JList<String> ListaDeInsumos;
+    public components.Combobox Pacientes;
     public components.ButtonCustom btnAñadir;
     public components.ButtonCustom btnGuardarConsulta;
     public components.ButtonCustom btnMostrarConsulta;
+    public components.ButtonCustom btnNuevoPaciente;
     public components.ButtonCustom btnQuitar;
     public components.TextArea descripcionConsulta;
     public components.TextField doctoraCargo;

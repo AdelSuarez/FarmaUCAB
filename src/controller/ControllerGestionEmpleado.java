@@ -61,11 +61,7 @@ public class ControllerGestionEmpleado implements ActionListener {
                 viewGestionEmpleado.telefonoEmpleado,
                 viewGestionEmpleado.CorreoEmpleado,
                 viewGestionEmpleado.usuarioEmpleado,
-                viewGestionEmpleado.passwordField1) && empleado.buscarUsuarioRepetido(
-                        viewGestionEmpleado.usuarioEmpleado.getText().trim(),
-                        viewGestionEmpleado.mensajeGuardado,
-                        viewGestionEmpleado.usuarioEmpleado,
-                        "Usuario")) {
+                viewGestionEmpleado.passwordField1)) {
             empleado.nuevo(
                     viewGestionEmpleado.nombreEmpleado.getText().trim(),
                     viewGestionEmpleado.apellidoEmpleado.getText().trim(),

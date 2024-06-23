@@ -9,30 +9,30 @@ import views.ViewPaciente;
 import views.viewsGestion.GestionPaciente;
 
 public class ControllerGestionPaciente implements ActionListener {
-    
+
     private Dashboard dashboard;
     private ViewPaciente viewPaciente;
     private GestionPaciente viewGestionPaciente;
     private ValidacionPaciente validacionPaciente = new ValidacionPaciente();
     private PacienteDB paciente = new PacienteDB();
-    
+
     private String[] datosPaciente;
     private String id;
     private String dato;
-    
+
     public ControllerGestionPaciente(Dashboard dashboard, ViewPaciente viewPaciente, GestionPaciente viewGestionPaciente, String dato) {
         this.dashboard = dashboard;
         this.viewPaciente = viewPaciente;
         this.viewGestionPaciente = viewGestionPaciente;
-        
+
         this.dato = dato;
-        
+
         this.viewGestionPaciente.mensajeGuardado.setVisible(true);
         this.viewGestionPaciente.btnRegresar.addActionListener(this);
         this.viewGestionPaciente.btnGuardarPaciente.addActionListener(this);
         seleccionVentana(dato);
     }
-    
+
     private void regresarView() {
         dashboard.refrescarViewPacientes();
         dashboard.initView(dashboard.getViewPaciente());
@@ -40,16 +40,16 @@ public class ControllerGestionPaciente implements ActionListener {
         new ControllerPaciente(viewPaciente, dashboard).cargarTabla();
         viewGestionPaciente.repaint();
     }
-    
+
     private void guardarAccion() {
         if (dato.equals("Nuevo")) {
             guardarPaciete();
-            
+
         } else {
             editarPaciente();
         }
     }
-    
+
     private void guardarPaciete() {
         if (validacionPaciente.datosValidados(
                 viewGestionPaciente.nombrePaciente,
@@ -74,7 +74,7 @@ public class ControllerGestionPaciente implements ActionListener {
         }
         viewGestionPaciente.repaint();
     }
-    
+
     private void editarPaciente() {
         if (validacionPaciente.datosValidados(
                 viewGestionPaciente.nombrePaciente,
@@ -97,14 +97,14 @@ public class ControllerGestionPaciente implements ActionListener {
                 limpiarInput();
                 viewGestionPaciente.repaint();
             }
-            
+
         }
     }
-    
+
     private void seleccionVentana(String dato) {
         if (dato.equals("Nuevo")) {
             viewGestionPaciente.tituloPrincipal.setText("Nuevo Paciente");
-            
+
         } else {
             viewGestionPaciente.tituloPrincipal.setText("Editar Paciente");
             this.datosPaciente = paciente.buscar(dato);
@@ -120,13 +120,13 @@ public class ControllerGestionPaciente implements ActionListener {
                 viewGestionPaciente.generoPaciente.setSelectedIndex(0);
             } else {
                 viewGestionPaciente.generoPaciente.setSelectedIndex(1);
-                
+
             }
             viewGestionPaciente.descripcionPaciente.setText(datosPaciente[8]);
-            
+
         }
     }
-    
+
     private void limpiarInput() {
         viewGestionPaciente.nombrePaciente.setText("");
         viewGestionPaciente.apellidoPaciente.setText("");
@@ -137,7 +137,7 @@ public class ControllerGestionPaciente implements ActionListener {
         viewGestionPaciente.descripcionPaciente.setText("");
         viewGestionPaciente.generoPaciente.setSelectedIndex(-1);
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == viewGestionPaciente.btnRegresar) {
@@ -146,5 +146,5 @@ public class ControllerGestionPaciente implements ActionListener {
             guardarAccion();
         }
     }
-    
+
 }

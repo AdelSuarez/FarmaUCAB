@@ -99,33 +99,33 @@ public class ControllerConsulta implements ActionListener {
         return insumos;
     }
 
-    public void guardarConsulta(String insumos) {
-        if (validacionesConsulta.datosValidados(viewConsulta.CIPaciente, viewConsulta.doctoraCargo)) {
-            if (!viewConsulta.CIPaciente.getText().equals("")
-                    && !viewConsulta.doctoraCargo.getText().equals("")) {
-                modificarCantidadesInsumos(arrayinsumos, arraycantidad);
-                if (consulta.nuevaConsulta(viewConsulta.fechaActual.getText(),
-                        viewConsulta.CIPaciente.getText().trim(),
-                        viewConsulta.doctoraCargo.getText().trim(),
-                        insumos)) {
-
-                    viewConsulta.mensajeDeGuardado.setText("Consulta guardada con exito");
-                    viewConsulta.mensajeDeGuardado.setVisible(true);
-
-                    limpiarInput();
-                    viewConsulta.repaint();
-                    arrayinsumos.clear();
-                    arraycantidad.clear();
-                    DefaultListModel model = (DefaultListModel) viewConsulta.ListaDeInsumos.getModel();
-                    model.removeAllElements();
-                }
-            }
-        }
-        viewConsulta.repaint();
-    }
+//    public void guardarConsulta(String insumos) {
+//        if (validacionesConsulta.datosValidados(viewConsulta.CIPaciente, viewConsulta.doctoraCargo)) {
+//            if (!viewConsulta.CIPaciente.getText().equals("")
+//                    && !viewConsulta.doctoraCargo.getText().equals("")) {
+//                modificarCantidadesInsumos(arrayinsumos, arraycantidad);
+//                if (consulta.nuevaConsulta(viewConsulta.fechaActual.getText(),
+//                        viewConsulta.CIPaciente.getText().trim(),
+//                        viewConsulta.doctoraCargo.getText().trim(),
+//                        insumos)) {
+//
+//                    viewConsulta.mensajeDeGuardado.setText("Consulta guardada con exito");
+//                    viewConsulta.mensajeDeGuardado.setVisible(true);
+//
+//                    limpiarInput();
+//                    viewConsulta.repaint();
+//                    arrayinsumos.clear();
+//                    arraycantidad.clear();
+//                    DefaultListModel model = (DefaultListModel) viewConsulta.ListaDeInsumos.getModel();
+//                    model.removeAllElements();
+//                }
+//            }
+//        }
+//        viewConsulta.repaint();
+//    }
 
     private void limpiarInput() {
-        viewConsulta.CIPaciente.setText("");
+//        viewConsulta.CIPaciente.setText("");
         viewConsulta.doctoraCargo.setText("");
         viewConsulta.CantidadInsumo.setText("");
     }
@@ -149,7 +149,7 @@ public class ControllerConsulta implements ActionListener {
         } else if (e.getSource() == viewConsulta.btnGuardarConsulta) {
             modificarCantidadesInsumos(arrayinsumos, arraycantidad);
             String insumos = arrayListAString(arrayinsumos, arraycantidad);
-            guardarConsulta(insumos);
+//            guardarConsulta(insumos);
         }
     }
 

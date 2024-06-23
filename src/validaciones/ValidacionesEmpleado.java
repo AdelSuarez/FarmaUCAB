@@ -1,6 +1,8 @@
 package validaciones;
 
 import javax.swing.JLabel;
+import model.dataBase.DataBase;
+import style.MyColor;
 
 public class ValidacionesEmpleado extends Validacion {
 
@@ -25,7 +27,7 @@ public class ValidacionesEmpleado extends Validacion {
         if (validarInput(correoEmpleado, "Correo")) {
             validarCaracteresInput(correoEmpleado, "Correo", getREGEXCORREO(), contadorInput);
         }
-        if (validarInput(usuarioEmpleado, "Usuario")) {
+        if (validarInput(usuarioEmpleado, "Usuario") && usuarioRepetida(usuarioEmpleado, "Usuario")) {
             contadorInput[0]++;
         }
         if (validarInputPassword(passwordEmpleado, "Contraseña")) {
@@ -36,6 +38,19 @@ public class ValidacionesEmpleado extends Validacion {
         } else {
             return false;
         }
+    }
+    
+    private boolean usuarioRepetida(components.TextField usuarioEmpleado, String texto){
+        if (new DataBase().buscarDatoRepetida(usuarioEmpleado.getText().trim(), "SELECT COUNT(*) AS total FROM Empleados WHERE USUARIO = ?")){
+            usuarioEmpleado.setLineColor(new MyColor().getREDPRIMARIO());
+            usuarioEmpleado.setLabelText(texto + " (Usuario repetida)");
+            return false;
+        } else {
+            usuarioEmpleado.setLineColor(new MyColor().getAZUL());
+            usuarioEmpleado.setLabelText(texto);
+            return true;
+        }
+                       
     }
 
     @Override

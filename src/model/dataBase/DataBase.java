@@ -138,5 +138,35 @@ public class DataBase {
         }
         return isEmpty;
     }
+    public boolean buscarDatoRepetida(String dato, String consulta) {
+        try {
+            Class.forName(ORG);
+            conexion = DriverManager.getConnection(DIRECCIONDB);
+            PreparedStatement preparedStatement = conexion.prepareStatement(consulta);
+            preparedStatement.setString(1, dato);
+
+            ResultSet resultado = preparedStatement.executeQuery();
+            if (resultado.next()) {
+                if (resultado.getInt("total") > 0) {
+                    return true;
+                }
+            } else {
+                return false;
+            }
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace(); // Registra el error para depuración
+            return false; // Retorna false si hay un error al buscar la cédula
+        } finally {
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return false;
+    }
 
 }

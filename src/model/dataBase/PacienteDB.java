@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import model.dataBase.OperationsDataBase;
 
 public class PacienteDB extends DataBase implements OperationsDataBase {
 
@@ -251,6 +250,7 @@ public class PacienteDB extends DataBase implements OperationsDataBase {
             }
         }
     }
+
 
     @Override
     public void nuevo() {
