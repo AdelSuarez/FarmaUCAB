@@ -1,5 +1,5 @@
-
 package controller;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import views.Dashboard;
@@ -9,40 +9,40 @@ import java.util.Calendar;
 import model.dataBase.InsumoDB;
 import validaciones.ValidacionInsumo;
 
-
-public class ControllerGestionInsumo implements ActionListener{
+public class ControllerGestionInsumo implements ActionListener {
 
     private Dashboard dashboard;
     private ViewInsumo viewInsumo;
     private GestionInsumo viewGestionInsumo;
     private InsumoDB insumo = new InsumoDB();
     private ValidacionInsumo validacionesInsumo = new ValidacionInsumo();
-    
+
     private String dato;
     private String[] datos;
 
-
-    public ControllerGestionInsumo(Dashboard dashboard, ViewInsumo viewInsumo, GestionInsumo viewGestionInsumo, String dato){
+    public ControllerGestionInsumo(Dashboard dashboard, ViewInsumo viewInsumo, GestionInsumo viewGestionInsumo, String dato) {
         this.dashboard = dashboard;
         this.viewInsumo = viewInsumo;
         this.viewGestionInsumo = viewGestionInsumo;
         this.dato = dato;
-        
+
         this.viewGestionInsumo.btnGuardarInsumo.addActionListener(this);
         this.viewGestionInsumo.btnRegresar.addActionListener(this);
+        this.viewGestionInsumo.activarBlister.addActionListener(this);
         obtenerFecha();
         seleccionVentana();
+        habilitarBlister();
     }
-    
-    private void regresarView(){
+
+    private void regresarView() {
         dashboard.refrescarViewInsumo();
         dashboard.initView(dashboard.getViewInsumo());
         viewGestionInsumo.mensajeGuardado.setVisible(false);
         new ControllerInsumo(dashboard, viewInsumo).cargarTabla();
         viewGestionInsumo.repaint();
     }
-    
-    private void guardarAccion(){
+
+    private void guardarAccion() {
         if (dato.equals("Nuevo")) {
             guardarInsumo();
         } else {
@@ -50,13 +50,18 @@ public class ControllerGestionInsumo implements ActionListener{
         }
         viewGestionInsumo.repaint();
     }
-    
-    private void guardarInsumo(){
-        if (validacionesInsumo.datosValidados(viewGestionInsumo.nombreInsumo, viewGestionInsumo.StockInsumo)) {
+
+    private void guardarInsumo() {
+        if (validacionesInsumo.datosValidados(viewGestionInsumo.nombreInsumo,
+                viewGestionInsumo.StockInsumo,
+                viewGestionInsumo.cantidadBlister,
+                viewGestionInsumo.activarBlister)) {
+            
             if (insumo.nuevo(
                     viewGestionInsumo.nombreInsumo.getText().trim(),
                     (int) viewGestionInsumo.StockInsumo.getValue(), // Realiza un casting a int
                     viewGestionInsumo.descripcionInsumo.getText().trim(),
+                    (viewGestionInsumo.activarBlister.isSelected()) ? (Integer)viewGestionInsumo.cantidadBlister.getValue() : 0,
                     obtenerFecha())) {
                 viewGestionInsumo.mensajeGuardado.setVisible(true);
                 limpiarInput();
@@ -64,19 +69,23 @@ public class ControllerGestionInsumo implements ActionListener{
 
         }
     }
-    
-    private void editarInsumo(){
-        if (validacionesInsumo.datosValidados(viewGestionInsumo.nombreInsumo, viewGestionInsumo.StockInsumo)) {
+
+    private void editarInsumo() {
+        if (validacionesInsumo.datosValidados(viewGestionInsumo.nombreInsumo, 
+                viewGestionInsumo.StockInsumo,
+                viewGestionInsumo.cantidadBlister,
+                viewGestionInsumo.activarBlister)) {
             if (insumo.editar(dato,
                     viewGestionInsumo.nombreInsumo.getText().trim(),
                     (int) viewGestionInsumo.StockInsumo.getValue(),
+                    (viewGestionInsumo.activarBlister.isSelected()) ? (Integer)viewGestionInsumo.cantidadBlister.getValue() : 0,
                     viewGestionInsumo.descripcionInsumo.getText().trim())) {
                 viewGestionInsumo.mensajeGuardado.setVisible(true);
                 limpiarInput();
             }
         }
     }
-    
+
     private String obtenerFecha() {
         Calendar calendario = Calendar.getInstance();
         int dia = calendario.get(Calendar.DATE);
@@ -86,13 +95,16 @@ public class ControllerGestionInsumo implements ActionListener{
         viewGestionInsumo.Fecha.setText(fechaActual);
         return fechaActual;
     }
-    
+
     private void limpiarInput() {
         viewGestionInsumo.nombreInsumo.setText("");
         viewGestionInsumo.descripcionInsumo.setText("");
         viewGestionInsumo.StockInsumo.setValue(0);
+        viewGestionInsumo.cantidadBlister.setValue(0);
+        viewGestionInsumo.activarBlister.setSelected(false);
+        habilitarBlister();
     }
-    
+
     private void seleccionVentana() {
         if (dato.equals("Nuevo")) {
             viewGestionInsumo.tituloPrincipal.setText("Nuevo Insumo");
@@ -101,19 +113,38 @@ public class ControllerGestionInsumo implements ActionListener{
             this.datos = insumo.buscarInsumo(dato);
             viewGestionInsumo.nombreInsumo.setText(datos[1]);
             viewGestionInsumo.StockInsumo.setValue(Integer.valueOf(datos[2]));
-            viewGestionInsumo.descripcionInsumo.setText(datos[3]);
+            viewGestionInsumo.descripcionInsumo.setText(datos[4]);
+            if(Integer.valueOf(datos[3]) != 0){
+                viewGestionInsumo.activarBlister.setSelected(true);
+            }
+            System.out.println(datos[3]);
+            viewGestionInsumo.cantidadBlister.setValue(Integer.valueOf(datos[3]));
         }
 
     }
-    
-    
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == viewGestionInsumo.btnRegresar){
-            regresarView();
-        } else if (e.getSource() == viewGestionInsumo.btnGuardarInsumo){
-            guardarAccion();
+
+    private void habilitarBlister() {
+        if (viewGestionInsumo.activarBlister.isSelected()) {
+            viewGestionInsumo.cantidadBlister.setEnabled(true);
+        } else {
+            if ((Integer)viewGestionInsumo.cantidadBlister.getValue() != 0){
+                viewGestionInsumo.cantidadBlister.setLabelText("Cant. del blister");
+                viewGestionInsumo.cantidadBlister.setValue(0);
+            }
+
+            viewGestionInsumo.cantidadBlister.setEnabled(false);
         }
     }
-    
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == viewGestionInsumo.btnRegresar) {
+            regresarView();
+        } else if (e.getSource() == viewGestionInsumo.btnGuardarInsumo) {
+            guardarAccion();
+        } else if (e.getSource() == viewGestionInsumo.activarBlister) {
+            habilitarBlister();
+        }
+    }
+
 }

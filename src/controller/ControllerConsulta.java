@@ -70,22 +70,22 @@ public class ControllerConsulta implements ActionListener {
         viewConsulta.repaint();
     }
 
-    public void modificarCantidadesInsumos(ArrayList<String> arrayInsumos, ArrayList<Integer> arrayCantidades) {
-        String[] datosInsumo;
-        String idInsumo;
-        int nuevaCantidadInsumo;
-        InsumoDB insumo = new InsumoDB();
-        for (int i = 0; i <= arrayInsumos.size() - 1; i++) {
-            idInsumo = insumo.buscarIdInsumo(arrayInsumos.get(i));
-            datosInsumo = insumo.buscarInsumo(idInsumo);
-            nuevaCantidadInsumo = (insumo.buscarCantidad(idInsumo) - arrayCantidades.get(i));
-            if (nuevaCantidadInsumo >= 0) {
-                insumo.editar(datosInsumo[0], datosInsumo[1], nuevaCantidadInsumo, datosInsumo[3]);
-            } else {
-                insumo.editar(datosInsumo[0], datosInsumo[1], 0, datosInsumo[3]);
-            }
-        }
-    }
+//    public void modificarCantidadesInsumos(ArrayList<String> arrayInsumos, ArrayList<Integer> arrayCantidades) {
+//        String[] datosInsumo;
+//        String idInsumo;
+//        int nuevaCantidadInsumo;
+//        InsumoDB insumo = new InsumoDB();
+//        for (int i = 0; i <= arrayInsumos.size() - 1; i++) {
+//            idInsumo = insumo.buscarIdInsumo(arrayInsumos.get(i));
+//            datosInsumo = insumo.buscarInsumo(idInsumo);
+//            nuevaCantidadInsumo = (insumo.buscarCantidad(idInsumo) - arrayCantidades.get(i));
+//            if (nuevaCantidadInsumo >= 0) {
+//                insumo.editar(datosInsumo[0], datosInsumo[1], nuevaCantidadInsumo, datosInsumo[3]);
+//            } else {
+//                insumo.editar(datosInsumo[0], datosInsumo[1], 0, datosInsumo[3]);
+//            }
+//        }
+//    }
 
     public String arrayListAString(ArrayList<String> arrayInsumos, ArrayList<Integer> arrayCantidades) {
         String insumos = "";
@@ -147,7 +147,7 @@ public class ControllerConsulta implements ActionListener {
         } else if (e.getSource() == viewConsulta.btnQuitar) {
             QuitarInsumo();
         } else if (e.getSource() == viewConsulta.btnGuardarConsulta) {
-            modificarCantidadesInsumos(arrayinsumos, arraycantidad);
+//            modificarCantidadesInsumos(arrayinsumos, arraycantidad);
             String insumos = arrayListAString(arrayinsumos, arraycantidad);
 //            guardarConsulta(insumos);
         }

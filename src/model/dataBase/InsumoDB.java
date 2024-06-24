@@ -10,18 +10,19 @@ import javax.swing.table.DefaultTableModel;
 
 public class InsumoDB extends DataBase implements OperationsDataBase {
 
-    public boolean nuevo(String nombre, int stock, String descripcion, String fecha) {
+    public boolean nuevo(String nombre, int stock, String descripcion, int cantidadBlister ,String fecha) {
         try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
             conexion.setAutoCommit(false);
 
-            String sqlInsert = "INSERT INTO Insumos (NOMBRE, FECHA, STOCK, DESCRIPCION) VALUES (?, ?, ?, ?)";
+            String sqlInsert = "INSERT INTO Insumos (NOMBRE, FECHA, STOCK, CANTIDADBLISTER ,DESCRIPCION) VALUES (?, ?, ?, ?,?)";
             PreparedStatement preparedStatement = conexion.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, nombre);
             preparedStatement.setString(2, fecha); // Utiliza la fecha proporcionada
             preparedStatement.setInt(3, stock);
-            preparedStatement.setString(4, descripcion);
+            preparedStatement.setInt(4, cantidadBlister);
+            preparedStatement.setString(5, descripcion);
 
             int filasInsertadas = preparedStatement.executeUpdate();
             if (filasInsertadas > 0) {
@@ -63,18 +64,20 @@ public class InsumoDB extends DataBase implements OperationsDataBase {
             DefaultTableModel model = new DefaultTableModel();
             model.addColumn("ID");
             model.addColumn("Nombre");
-            model.addColumn("Stock");
+            model.addColumn("Cant.");
+            model.addColumn("Cant. total (xBlister)");
             model.addColumn("Fecha Ingreso");
 
             table.setModel(model);
 
-            String[] datos = new String[4];
+            String[] datos = new String[5];
             while (resultado.next()) {
-
+                int blisterTotal = Integer.parseInt(resultado.getString(5))* Integer.parseInt(resultado.getString(4));
                 datos[0] = resultado.getString(1);
                 datos[1] = resultado.getString(2);
                 datos[2] = resultado.getString(4);
-                datos[3] = resultado.getString(3);
+                datos[3] = (resultado.getString(5).equals("0"))? "-" : String.valueOf(blisterTotal);
+                datos[4] = resultado.getString(3);
                 model.addRow(datos);
             }
 
@@ -173,12 +176,13 @@ public class InsumoDB extends DataBase implements OperationsDataBase {
             if (resultado.next()) {
                 String identificacion = resultado.getString("ID");
                 String nombreInsumo = resultado.getString("NOMBRE");
-                int cantidad = resultado.getInt("STOCK");
+                int cantidad = resultado.getInt("STOCK");                
+                int cantidadBlister = resultado.getInt("CANTIDADBLISTER");
                 String descripcion = resultado.getString("DESCRIPCION");
 
                 preparedStatement.close();
 
-                String[] datosPaciente = {identificacion, nombreInsumo, String.valueOf(cantidad), descripcion};
+                String[] datosPaciente = {identificacion, nombreInsumo, String.valueOf(cantidad), String.valueOf(cantidadBlister) ,descripcion};
                 return datosPaciente;
             } else {
                 preparedStatement.close();
@@ -231,18 +235,19 @@ public class InsumoDB extends DataBase implements OperationsDataBase {
         }
     }
 
-    public boolean editar(String id, String nuevoNombre, int nuevoStock, String nuevaDescripcion) {
+    public boolean editar(String id, String nuevoNombre, int nuevoStock, int nuevaCantidadBlister,String nuevaDescripcion) {
         try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
             conexion.setAutoCommit(false);
 
-            String sqlUpdate = "UPDATE Insumos SET NOMBRE = ?, STOCK = ?, DESCRIPCION = ? WHERE ID = ?";
+            String sqlUpdate = "UPDATE Insumos SET NOMBRE = ?, STOCK = ?, CANTIDADBLISTER = ?,DESCRIPCION = ? WHERE ID = ?";
             PreparedStatement preparedStatement = conexion.prepareStatement(sqlUpdate);
             preparedStatement.setString(1, nuevoNombre);
             preparedStatement.setInt(2, nuevoStock);
-            preparedStatement.setString(3, nuevaDescripcion);
-            preparedStatement.setString(4, id);
+            preparedStatement.setInt(3, nuevaCantidadBlister);
+            preparedStatement.setString(4, nuevaDescripcion);
+            preparedStatement.setString(5, id);
 
             int filasActualizadas = preparedStatement.executeUpdate();
             if (filasActualizadas > 0) {

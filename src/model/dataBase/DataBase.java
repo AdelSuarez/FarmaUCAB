@@ -8,6 +8,7 @@ public class DataBase {
 
     protected Connection conexion = null;
     protected Statement statement = null;
+    
     private final String sqlCreateTablaEmpleados = "CREATE TABLE IF NOT EXISTS Empleados "
             + "(ID INTEGER PRIMARY KEY   NOT NULL,"
             + " NOMBRE           TEXT    NOT NULL, "
@@ -32,6 +33,7 @@ public class DataBase {
             + " NOMBRE           TEXT    NOT NULL, "
             + " FECHA            TEXT    NOT NULL, "
             + " STOCK            INT     NOT NULL, "
+            + " CANTIDADBLISTER  INT, "
             + " DESCRIPCION      TEXT ) ";
     private final String sqlCreateTablaConsultas = "CREATE TABLE IF NOT EXISTS Consultas"
             + "(ID INTEGER PRIMARY KEY   NOT NULL,"

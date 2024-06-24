@@ -7,23 +7,52 @@ public class ValidacionInsumo extends Validacion{
 
     public boolean datosValidados(
             components.TextField nombreInsumo,
-            components.Spinner StockInsumo
+            components.Spinner stockInsumo,
+            components.Spinner cantidadBlister,
+            components.JCheckBoxCustom bliesterActivo
         ){
         int[] contadorInput = {0};
         if(validarInput(nombreInsumo, "Nombre")){
             validarCaracteresInput(nombreInsumo, "nombre", getREGEXNOMBRE(), contadorInput);
         }
-        if(StockInsumo.getValue().equals(0)){
-            StockInsumo.setLabelText("Stock (Campo vacío)");
-        } else {
-            StockInsumo.setLabelText("Stock");
+        if (validarCantidad(stockInsumo, "Cant.") && cantidadValida(stockInsumo, "Cant.")){
             contadorInput[0]++;
         }
         
-        if(contadorInput[0] == 2){
+        if (bliesterActivo.isSelected()){
+            if (validarCantidad(cantidadBlister, "Cant.") && cantidadValida(cantidadBlister, "Cant.")){
+                cantidadBlister.setLabelText("Cant. del blister");
+                contadorInput[0]++;
+            }
+        } else{
+            contadorInput[0]++;
+        }
+        
+        
+        if(contadorInput[0] == 3){
             return true;
         } else {
             return false;
+        }
+    }
+    
+    private boolean validarCantidad(components.Spinner inputCantidad, String texto){
+        if(inputCantidad.getValue().equals(0)){
+            inputCantidad.setLabelText(texto + " (Campo vacío)");
+            return false;
+        } else {
+            inputCantidad.setLabelText(texto);
+            return true;
+        }
+    }
+    
+    private boolean cantidadValida(components.Spinner inputCantidad, String texto){
+        if((Integer) inputCantidad.getValue() < 0){
+            inputCantidad.setLabelText(texto + " (Cantidad negativa)");
+            return false;
+        } else {
+            inputCantidad.setLabelText(texto);
+            return true;
         }
     }
     

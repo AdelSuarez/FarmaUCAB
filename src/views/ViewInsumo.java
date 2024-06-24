@@ -37,7 +37,7 @@ public class ViewInsumo extends javax.swing.JPanel {
         jPanel1.setPreferredSize(new java.awt.Dimension(1350, 920));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("Insumos");
+        jLabel1.setText("Medicamentos");
 
         tablaInsumos.setBackground(new java.awt.Color(255, 255, 255));
         tablaInsumos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
