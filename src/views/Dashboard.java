@@ -80,11 +80,14 @@ public class Dashboard extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         NombreEmpleado = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
+        btnControl = new components.ButtonCustom();
+        btnEstadistica = new components.ButtonCustom();
         jPanel3 = new javax.swing.JPanel();
         btnCerrarSesion = new components.ButtonCustom();
         containerTurno = new components.PanelRound();
         titleTurno = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        wifiActivo = new javax.swing.JLabel();
         Content = new javax.swing.JPanel();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -153,8 +156,13 @@ public class Dashboard extends javax.swing.JPanel {
         btnEmpleado.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnEmpleado.setPreferredSize(new java.awt.Dimension(230, 50));
         btnEmpleado.setRadius(15);
+        btnEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEmpleadoActionPerformed(evt);
+            }
+        });
         panelOpciones.add(btnEmpleado);
-        btnEmpleado.setBounds(13, 292, 230, 50);
+        btnEmpleado.setBounds(13, 348, 230, 50);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ecg_heart.png"))); // NOI18N
         panelOpciones.add(jLabel1);
@@ -202,6 +210,32 @@ public class Dashboard extends javax.swing.JPanel {
         NombreEmpleado.setBounds(51, 717, 121, 30);
         panelOpciones.add(jSeparator2);
         jSeparator2.setBounds(1, 699, 248, 10);
+
+        btnControl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/data_table_black.png"))); // NOI18N
+        btnControl.setText("Control");
+        btnControl.setBorderColor(new java.awt.Color(250, 250, 250));
+        btnControl.setColor(new java.awt.Color(250, 250, 250));
+        btnControl.setColorClick(new java.awt.Color(230, 230, 230));
+        btnControl.setColorOver(new java.awt.Color(215, 215, 215));
+        btnControl.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnControl.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnControl.setPreferredSize(new java.awt.Dimension(230, 50));
+        btnControl.setRadius(15);
+        panelOpciones.add(btnControl);
+        btnControl.setBounds(13, 404, 230, 50);
+
+        btnEstadistica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/bar_chart_black.png"))); // NOI18N
+        btnEstadistica.setText("Estadisticas");
+        btnEstadistica.setBorderColor(new java.awt.Color(250, 250, 250));
+        btnEstadistica.setColor(new java.awt.Color(250, 250, 250));
+        btnEstadistica.setColorClick(new java.awt.Color(230, 230, 230));
+        btnEstadistica.setColorOver(new java.awt.Color(215, 215, 215));
+        btnEstadistica.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnEstadistica.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnEstadistica.setPreferredSize(new java.awt.Dimension(230, 50));
+        btnEstadistica.setRadius(15);
+        panelOpciones.add(btnEstadistica);
+        btnEstadistica.setBounds(13, 292, 230, 50);
 
         jPanel1.add(panelOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, -1));
 
@@ -251,6 +285,9 @@ public class Dashboard extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(214, 214, 214));
         jLabel4.setText("Turno:");
 
+        wifiActivo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        wifiActivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/signal_wifi.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -263,7 +300,9 @@ public class Dashboard extends javax.swing.JPanel {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(69, 69, 69)
                         .addComponent(jLabel4)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 919, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 861, Short.MAX_VALUE)
+                .addComponent(wifiActivo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41))
         );
@@ -272,6 +311,7 @@ public class Dashboard extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(7, 7, 7)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(wifiActivo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel4)
@@ -310,13 +350,19 @@ public class Dashboard extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEmpleadoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel Content;
     public javax.swing.JLabel NombreEmpleado;
     public components.ButtonCustom btnCerrarSesion;
     public components.ButtonCustom btnConsulta;
+    public components.ButtonCustom btnControl;
     public components.ButtonCustom btnEmpleado;
+    public components.ButtonCustom btnEstadistica;
     public components.ButtonCustom btnInsumo;
     public components.ButtonCustom btnPaciente;
     public components.PanelRound containerTurno;
@@ -332,5 +378,6 @@ public class Dashboard extends javax.swing.JPanel {
     public javax.swing.JPanel panelOpciones;
     public components.PanelRound tag;
     public javax.swing.JLabel titleTurno;
+    public javax.swing.JLabel wifiActivo;
     // End of variables declaration//GEN-END:variables
 }

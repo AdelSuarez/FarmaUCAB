@@ -38,6 +38,8 @@ public class GestionInsumo extends javax.swing.JPanel {
         textAreaScroll2 = new components.TextAreaScroll();
         descripcionInsumo = new components.TextArea();
         Fecha = new javax.swing.JLabel();
+        cantidadBlister = new components.Spinner();
+        activarBlister = new components.JCheckBoxCustom();
         tituloPrincipal = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -70,7 +72,6 @@ public class GestionInsumo extends javax.swing.JPanel {
         btnGuardarInsumo.setLabel("Guardar");
         btnGuardarInsumo.setPreferredSize(new java.awt.Dimension(86, 40));
         btnGuardarInsumo.setRadius(15);
-        btnGuardarInsumo.setRolloverEnabled(true);
 
         mensajeGuardado.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         mensajeGuardado.setForeground(new java.awt.Color(40, 180, 99));
@@ -86,7 +87,7 @@ public class GestionInsumo extends javax.swing.JPanel {
         StockInsumo.setToolTipText("");
         StockInsumo.setFocusable(false);
         StockInsumo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        StockInsumo.setLabelText("Stock");
+        StockInsumo.setLabelText("Cant.");
 
         textAreaScroll2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         textAreaScroll2.setLabelText("Descripcion");
@@ -100,25 +101,43 @@ public class GestionInsumo extends javax.swing.JPanel {
 
         Fecha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        cantidadBlister.setBackground(new java.awt.Color(240, 240, 240));
+        cantidadBlister.setForeground(new java.awt.Color(80, 80, 80));
+        cantidadBlister.setToolTipText("");
+        cantidadBlister.setFocusable(false);
+        cantidadBlister.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cantidadBlister.setLabelText("Cant. del blister");
+
+        activarBlister.setForeground(new java.awt.Color(0, 0, 0));
+        activarBlister.setText("Blister");
+        activarBlister.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout panelRound1Layout = new javax.swing.GroupLayout(panelRound1);
         panelRound1.setLayout(panelRound1Layout);
         panelRound1Layout.setHorizontalGroup(
             panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRound1Layout.createSequentialGroup()
                 .addGap(63, 63, 63)
-                .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(activarBlister, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound1Layout.createSequentialGroup()
+                            .addComponent(StockInsumo, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(cantidadBlister, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound1Layout.createSequentialGroup()
+                            .addComponent(tittuloSecundario)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Fecha))
+                        .addGroup(panelRound1Layout.createSequentialGroup()
+                            .addComponent(mensajeGuardado)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnGuardarInsumo, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(nombreInsumo, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelRound1Layout.createSequentialGroup()
-                        .addComponent(tittuloSecundario)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Fecha))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelRound1Layout.createSequentialGroup()
-                        .addComponent(mensajeGuardado)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnGuardarInsumo, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(textAreaScroll2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(StockInsumo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nombreInsumo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 65, Short.MAX_VALUE))
+                        .addGap(2, 2, 2)
+                        .addComponent(textAreaScroll2, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 63, Short.MAX_VALUE))
         );
         panelRound1Layout.setVerticalGroup(
             panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,15 +148,19 @@ public class GestionInsumo extends javax.swing.JPanel {
                     .addComponent(Fecha))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(nombreInsumo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(StockInsumo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(activarBlister, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(StockInsumo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cantidadBlister, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(textAreaScroll2, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardarInsumo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(mensajeGuardado))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addGap(18, 18, 18))
         );
 
         jPanel1.add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, 500, 560));
@@ -161,8 +184,10 @@ public class GestionInsumo extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JLabel Fecha;
     public components.Spinner StockInsumo;
+    public components.JCheckBoxCustom activarBlister;
     public components.ButtonCustom btnGuardarInsumo;
     public components.ButtonCustom btnRegresar;
+    public components.Spinner cantidadBlister;
     public components.TextArea descripcionInsumo;
     private javax.swing.JPanel jPanel1;
     public javax.swing.JLabel mensajeGuardado;

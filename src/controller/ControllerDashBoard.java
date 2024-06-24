@@ -8,12 +8,13 @@ import javax.swing.JPanel;
 import main.Main;
 import style.MyColor;
 import views.Dashboard;
-import views.viewsGestion.GestionConsulta;
 import views.ViewEmpleado;
 import views.ViewInsumo;
 import views.ViewPaciente;
 import views.ViewConsulta;
-
+import views.ViewEstadistica;
+import views.ViewControl;
+        
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -24,10 +25,12 @@ import java.time.format.DateTimeFormatter;
 public class ControllerDashBoard implements ActionListener {
 
     private ViewPaciente viewPaciente;
-    private GestionConsulta viewGestionConsulta;
     private ViewInsumo viewInsumo;
     private ViewEmpleado viewEmpleado;
     private ViewConsulta viewConsulta;
+    private ViewEstadistica viewEstadistica;
+    private ViewControl viewControl;
+    
     private String nombre;
 
     private Main main;
@@ -41,8 +44,12 @@ public class ControllerDashBoard implements ActionListener {
         this.viewInsumo = new ViewInsumo(dashboard);
         this.viewEmpleado = new ViewEmpleado(dashboard);
         this.viewConsulta = new ViewConsulta(dashboard);
+        this.viewEstadistica = new ViewEstadistica(dashboard);
+        this.viewControl = new ViewControl(dashboard);
+        
 
         dashboard.btnEmpleado.setVisible(admin);
+        dashboard.btnControl.setVisible(admin);
         dashboard.NombreEmpleado.setText(nombre);
         
         // selecciona el boton de la view  que se muestra al iniciar la app
@@ -53,6 +60,8 @@ public class ControllerDashBoard implements ActionListener {
         this.dashboard.btnEmpleado.addActionListener(this);
         this.dashboard.btnInsumo.addActionListener(this);
         this.dashboard.btnPaciente.addActionListener(this);
+        this.dashboard.btnEstadistica.addActionListener(this);
+        this.dashboard.btnControl.addActionListener(this);
 
         iniciadorVentana(viewConsulta);
         tagAdmin(admin);
@@ -65,34 +74,54 @@ public class ControllerDashBoard implements ActionListener {
         dashboard.Content.repaint();
     }
 
-    public ViewPaciente getViewPaciente() {
-        return viewPaciente;
-    }
-
-    public ViewEmpleado getViewEmpleado() {
-        return viewEmpleado;
-    }
-
-    public ViewInsumo getViewInsumo() {
-        return viewInsumo;
-    }
-
-    public GestionConsulta getViewConsulta() {
-        return viewGestionConsulta;
-    }
-
+//    public ViewPaciente getViewPaciente() {
+//        return viewPaciente;
+//    }
+//
+//    public ViewEmpleado getViewEmpleado() {
+//        return viewEmpleado;
+//    }
+//
+//    public ViewInsumo getViewInsumo() {
+//        return viewInsumo;
+//    }
+//
+//    public GestionConsulta getViewConsulta() {
+//        return viewGestionConsulta;
+//    }
+//
     private void cerraSesion() {
         dialog.DialogCerrarSesion dialog = new DialogCerrarSesion(main);
         dialog.setVisible(true);
     }
-
-    private void activarViewInsumo() {
-//        this.viewInsumo = new ViewInsumo(dashboard);
+    
+    private void activarViewEstadistica() {
         dashboard.btnPaciente.setColor(new MyColor().getBTNBGDASHBOAR());
-        dashboard.btnInsumo.setColor(new MyColor().getBTNSELECTCOLOR());
-//        dashboard.btnInsumo.setForeground(new MyColor().getAZUL());
+        dashboard.btnInsumo.setColor(new MyColor().getBTNBGDASHBOAR());
         dashboard.btnConsulta.setColor(new MyColor().getBTNBGDASHBOAR());
         dashboard.btnEmpleado.setColor(new MyColor().getBTNBGDASHBOAR());
+        dashboard.btnEstadistica.setColor(new MyColor().getBTNSELECTCOLOR());
+        dashboard.btnControl.setColor(new MyColor().getBTNBGDASHBOAR());
+        iniciadorVentana(viewEstadistica);
+    }
+    
+    private void activarViewControl() {
+        dashboard.btnPaciente.setColor(new MyColor().getBTNBGDASHBOAR());
+        dashboard.btnInsumo.setColor(new MyColor().getBTNBGDASHBOAR());
+        dashboard.btnConsulta.setColor(new MyColor().getBTNBGDASHBOAR());
+        dashboard.btnEmpleado.setColor(new MyColor().getBTNBGDASHBOAR());
+        dashboard.btnEstadistica.setColor(new MyColor().getBTNBGDASHBOAR());
+        dashboard.btnControl.setColor(new MyColor().getBTNSELECTCOLOR());
+        iniciadorVentana(viewControl);
+    }
+
+    private void activarViewInsumo() {
+        dashboard.btnPaciente.setColor(new MyColor().getBTNBGDASHBOAR());
+        dashboard.btnInsumo.setColor(new MyColor().getBTNSELECTCOLOR());
+        dashboard.btnConsulta.setColor(new MyColor().getBTNBGDASHBOAR());
+        dashboard.btnEmpleado.setColor(new MyColor().getBTNBGDASHBOAR());
+        dashboard.btnEstadistica.setColor(new MyColor().getBTNBGDASHBOAR());
+        dashboard.btnControl.setColor(new MyColor().getBTNBGDASHBOAR());
         iniciadorVentana(viewInsumo);
     }
 
@@ -101,6 +130,8 @@ public class ControllerDashBoard implements ActionListener {
         dashboard.btnPaciente.setColor(new MyColor().getBTNSELECTCOLOR());
         dashboard.btnConsulta.setColor(new MyColor().getBTNBGDASHBOAR());
         dashboard.btnEmpleado.setColor(new MyColor().getBTNBGDASHBOAR());
+        dashboard.btnEstadistica.setColor(new MyColor().getBTNBGDASHBOAR());
+        dashboard.btnControl.setColor(new MyColor().getBTNBGDASHBOAR());
         iniciadorVentana(viewPaciente);
     }
 
@@ -109,6 +140,8 @@ public class ControllerDashBoard implements ActionListener {
         dashboard.btnInsumo.setColor(new MyColor().getBTNBGDASHBOAR());
         dashboard.btnConsulta.setColor(new MyColor().getBTNBGDASHBOAR());
         dashboard.btnEmpleado.setColor(new MyColor().getBTNSELECTCOLOR());
+        dashboard.btnEstadistica.setColor(new MyColor().getBTNBGDASHBOAR());
+        dashboard.btnControl.setColor(new MyColor().getBTNBGDASHBOAR());
         iniciadorVentana(viewEmpleado);
     }
 
@@ -118,12 +151,15 @@ public class ControllerDashBoard implements ActionListener {
         dashboard.btnInsumo.setColor(new MyColor().getBTNBGDASHBOAR());
         dashboard.btnConsulta.setColor(new MyColor().getBTNSELECTCOLOR());
         dashboard.btnEmpleado.setColor(new MyColor().getBTNBGDASHBOAR());
+        dashboard.btnEstadistica.setColor(new MyColor().getBTNBGDASHBOAR());
+        dashboard.btnControl.setColor(new MyColor().getBTNBGDASHBOAR());
         iniciadorVentana(viewConsulta);
     }
     
     public void horaTurno(){
         String hora;
         try { 
+            dashboard.wifiActivo.setVisible(false);
             URL url = new URL("http://worldtimeapi.org/api/timezone/America/Caracas");
             URLConnection conn = url.openConnection();
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -138,6 +174,7 @@ public class ControllerDashBoard implements ActionListener {
             hora = datetime.substring(11, 19); // 
         } catch (Exception e) {
             // Si hay un error (como una UnknownHostException), obtenemos la hora del sistema local
+            dashboard.wifiActivo.setVisible(true);
             LocalDateTime now = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
             hora = now.format(formatter);
@@ -178,7 +215,11 @@ public class ControllerDashBoard implements ActionListener {
             activarViewEmpleado();
         } else if (e.getSource() == dashboard.btnConsulta) {
             activarViewConsulta();
-        } 
+        } else if (e.getSource() == dashboard.btnEstadistica) {
+            activarViewEstadistica();
+        } else if (e.getSource() == dashboard.btnControl) {
+            activarViewControl();
+        }
 
     }
 

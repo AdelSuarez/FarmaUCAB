@@ -81,7 +81,6 @@ public class ControllerInsumo implements ActionListener {
         }
     }
     
-    
 
     private void configuracionesTabla() {
         // COnfiguraciones de la jtable
@@ -95,10 +94,13 @@ public class ControllerInsumo implements ActionListener {
         viewInsumo.tablaInsumos.getColumnModel().getColumn(2).setPreferredWidth(40);
         viewInsumo.tablaInsumos.getColumnModel().getColumn(2).setResizable(false);
         viewInsumo.tablaInsumos.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
-        viewInsumo.tablaInsumos.getColumnModel().getColumn(3).setPreferredWidth(100);
+        viewInsumo.tablaInsumos.getColumnModel().getColumn(3).setPreferredWidth(50);
         viewInsumo.tablaInsumos.getColumnModel().getColumn(3).setResizable(false);
         viewInsumo.tablaInsumos.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
-
+        viewInsumo.tablaInsumos.getColumnModel().getColumn(4).setPreferredWidth(100);
+        viewInsumo.tablaInsumos.getColumnModel().getColumn(4).setResizable(false);
+        viewInsumo.tablaInsumos.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+        
         DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
         headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
         headerRenderer.setBackground(new Color(240, 240, 240)); // Cambia el color aquí

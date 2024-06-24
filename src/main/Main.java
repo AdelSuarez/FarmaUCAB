@@ -8,16 +8,18 @@ package main;
 import model.dataBase.DataBase;
 import java.awt.BorderLayout;
 import style.styleWindow;
+import views.Dashboard;
+import views.Login;
 
 // colocar todo en español, pero despues de la entrega final, colocarlo en ingles para el portafolio y repositorio
 // optimizar codigo, testear las ventanas para conseguir errores, y si se puede implementar test unitarios, no mostrar los test en la entrega, 
 public class Main extends javax.swing.JFrame {
 
-    private model.dataBase.DataBase DB = new DataBase();
-    private views.Login login;
-    private views.Dashboard dashboard;
+    private DataBase DB = new DataBase();
+    private Login login;
+    private Dashboard dashboard;
 
-    private boolean admin = false;
+//    private boolean admin = false;
     private String[] datosEmpleado = {"0", "test", "test"};
 
     public Main() {
@@ -38,8 +40,8 @@ public class Main extends javax.swing.JFrame {
 
     }
 
-    public views.Dashboard viewAdmin(boolean admin, String[] datosUsuario) {
-        return dashboard = new views.Dashboard(this, admin, datosUsuario);
+    public Dashboard viewAdmin(boolean admin, String[] datosUsuario) {
+        return dashboard = new Dashboard(this, admin, datosUsuario);
     }
 
     public views.Login getLogin() {
