@@ -134,8 +134,11 @@ public class DialogEliminarPaciente extends javax.swing.JFrame {
     private void btnEliminarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPacienteActionPerformed
         // TODO add your handling code here:
         if (paciente.eliminar(cedula)) {
+            if(this.viewPaciente.tablaPacientes.getRowCount()==1){
+                this.dispose();
+                this.viewPaciente.tablaPacientes.setVisible(false);
+            }
             new ControllerPaciente(viewPaciente, dashBoard).cargarTabla();
-//            viewPaciente.cargarTabla();
             this.dispose();
         }
 
