@@ -32,6 +32,7 @@ public class ControllerEmpleado implements ActionListener {
     private void NuevoEmpleado() {
         this.viewGestionEmpleado = new GestionEmpleado(dashBoard, viewEmpleado, "Nuevo");
         dashBoard.initView(viewGestionEmpleado);
+        this.viewEmpleado.tablaEmpleados.setVisible(true);
     }
 
     private void borrarEmpleado() {

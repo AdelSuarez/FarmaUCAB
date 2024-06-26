@@ -31,6 +31,7 @@ public class ControllerPaciente implements ActionListener {
     private void nuevoPaciente() {
         this.viewGestionPaciente = new GestionPaciente(dashboard, viewPaciente, "Nuevo");
         dashboard.initView(viewGestionPaciente);
+        this.viewPaciente.tablaPacientes.setVisible(false);
         viewPaciente.repaint();
     }
 
@@ -46,6 +47,7 @@ public class ControllerPaciente implements ActionListener {
             viewPaciente.mensajeSeleccion.setVisible(true);
         }
         viewPaciente.repaint();
+        
 
     }
 

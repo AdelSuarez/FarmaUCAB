@@ -33,6 +33,7 @@ public class ControllerInsumo implements ActionListener {
     private void nuevoInsumo() {
         this.viewGestionInsumo = new GestionInsumo(dashboard, viewInsumo, "Nuevo");
         dashboard.initView(viewGestionInsumo);
+        this.viewInsumo.tablaInsumos.setVisible(true);
     }
 
     private void borrarInsumo() {
