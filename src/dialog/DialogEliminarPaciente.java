@@ -139,7 +139,7 @@ public class DialogEliminarPaciente extends javax.swing.JFrame {
             if(this.viewPaciente.tablaPacientes.getRowCount()==1){
                 this.viewPaciente.tablaPacientes.setVisible(false);
                 this.dispose();
-                /*try {
+                /*try {  
                     this.finalize();
                 } catch (Throwable ex) {
                     Logger.getLogger(DialogEliminarPaciente.class.getName()).log(Level.SEVERE, null, ex);
