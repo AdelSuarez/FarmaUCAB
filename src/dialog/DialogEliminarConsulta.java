@@ -153,6 +153,10 @@ public class DialogEliminarConsulta extends javax.swing.JDialog {
 
     private void btnEliminarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEmpleadoActionPerformed
         if (consulta.eliminarConsulta(usuario)) {
+            if(this.viewConsulta.tablaConsulta.getRowCount()==1){
+                this.viewConsulta.tablaConsulta.setVisible(false);
+                this.dispose();
+            }
             new ControllerGestionConsulta(dashBoard, viewConsulta).cargarTabla();
             this.dispose();
         }
