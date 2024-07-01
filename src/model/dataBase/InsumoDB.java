@@ -5,24 +5,45 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class InsumoDB extends DataBase implements OperationsDataBase {
+    public String nuevoGastoMensual(){
+        String texto="";
+        for(int i=0;i<31;i++){
+            texto=texto+"0,";
+        }
+        return texto;
+    }
 
     public boolean nuevo(String nombre, int stock, String descripcion, int cantidadBlister ,String fecha) {
         try {
+            InsumoDB insumo=new InsumoDB();
+            int cantidadStock;
+            if(cantidadBlister!=0){
+                cantidadStock=stock*cantidadBlister;
+            } else{
+                cantidadStock=stock;
+            }
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
             conexion.setAutoCommit(false);
 
-            String sqlInsert = "INSERT INTO Insumos (NOMBRE, FECHA, STOCK, CANTIDADBLISTER ,DESCRIPCION) VALUES (?, ?, ?, ?,?)";
+            String sqlInsert = "INSERT INTO Insumos (NOMBRE, FECHA, STOCK, CANTIDADBLISTER ,DESCRIPCION,GASTOMENSUAL,ULTIMACONSULTA,ULTIMAPOS) VALUES (?, ?, ?, ?,?,?,?,?)";
             PreparedStatement preparedStatement = conexion.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, nombre);
             preparedStatement.setString(2, fecha); // Utiliza la fecha proporcionada
-            preparedStatement.setInt(3, stock);
+            preparedStatement.setInt(3, cantidadStock);
             preparedStatement.setInt(4, cantidadBlister);
             preparedStatement.setString(5, descripcion);
+            preparedStatement.setString(6, insumo.nuevoGastoMensual());
+            preparedStatement.setString(7, String.valueOf(LocalDate.now()));
+            preparedStatement.setInt(8, 0);
+            
 
             int filasInsertadas = preparedStatement.executeUpdate();
             if (filasInsertadas > 0) {
@@ -65,14 +86,17 @@ public class InsumoDB extends DataBase implements OperationsDataBase {
             model.addColumn("ID");
             model.addColumn("Nombre");
             model.addColumn("Cant.");
-            model.addColumn("Cant. total (xBlister)");
+            model.addColumn("Blisters llenos");
             model.addColumn("Fecha Ingreso");
 
             table.setModel(model);
 
-            String[] datos = new String[5];
+            String[] datos = new String[5];           
             while (resultado.next()) {
-                int blisterTotal = Integer.parseInt(resultado.getString(5))* Integer.parseInt(resultado.getString(4));
+                int blisterTotal=1;
+                if(!"0".equals(resultado.getString(5))){
+                    blisterTotal = Integer.parseInt(resultado.getString(4))/ Integer.parseInt(resultado.getString(5));
+                }
                 datos[0] = resultado.getString(1);
                 datos[1] = resultado.getString(2);
                 datos[2] = resultado.getString(4);
@@ -98,29 +122,26 @@ public class InsumoDB extends DataBase implements OperationsDataBase {
 
     }
 
-    public String buscardorInsumo(String nombre) {
+    public List<String> buscadorInsumoTabla(String nombre) {
+        System.out.println(nombre);
+        List<String> nombresCoincidentes = new ArrayList<>();
         try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
             String sqlSelect = "SELECT NOMBRE FROM Insumos WHERE UPPER(NOMBRE) LIKE UPPER(?)";
 
             PreparedStatement preparedStatement = conexion.prepareStatement(sqlSelect);
-            preparedStatement.setString(1, "%" + nombre + "%"); // Agrega comodines para buscar por coincidencia de palabras
+            preparedStatement.setString(1, nombre + "%");
 
             ResultSet resultado = preparedStatement.executeQuery();
-            if (resultado.next()) {
+            while (resultado.next()) {
                 String nombreInsumo = resultado.getString("NOMBRE");
-                preparedStatement.close();
-                return nombreInsumo;
-            } else {
-                // No se encontró ningún insumo con ese nombre
-                preparedStatement.close();
-                return "";
+                nombresCoincidentes.add(nombreInsumo);
             }
+            preparedStatement.close();
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace(); // Registra el error para depuración
-            return "Error al buscar el insumo.";
         } finally {
             try {
                 if (conexion != null) {
@@ -130,6 +151,7 @@ public class InsumoDB extends DataBase implements OperationsDataBase {
                 System.out.println(e.getMessage());
             }
         }
+        return nombresCoincidentes;
     }
 
     public String buscarIdInsumo(String nombre) {
@@ -237,6 +259,12 @@ public class InsumoDB extends DataBase implements OperationsDataBase {
 
     public boolean editar(String id, String nuevoNombre, int nuevoStock, int nuevaCantidadBlister,String nuevaDescripcion) {
         try {
+            int cantidadStock;
+            if(nuevaCantidadBlister!=0){
+                cantidadStock=nuevoStock*nuevaCantidadBlister;
+            } else{
+                cantidadStock=nuevoStock;
+            }
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
             conexion.setAutoCommit(false);
@@ -244,7 +272,7 @@ public class InsumoDB extends DataBase implements OperationsDataBase {
             String sqlUpdate = "UPDATE Insumos SET NOMBRE = ?, STOCK = ?, CANTIDADBLISTER = ?,DESCRIPCION = ? WHERE ID = ?";
             PreparedStatement preparedStatement = conexion.prepareStatement(sqlUpdate);
             preparedStatement.setString(1, nuevoNombre);
-            preparedStatement.setInt(2, nuevoStock);
+            preparedStatement.setInt(2, cantidadStock);
             preparedStatement.setInt(3, nuevaCantidadBlister);
             preparedStatement.setString(4, nuevaDescripcion);
             preparedStatement.setString(5, id);
@@ -302,7 +330,343 @@ public class InsumoDB extends DataBase implements OperationsDataBase {
             }
         }
     }
+    
+    public String nuevoConsumoMensual(int[] consumo){
+        String consumoMensual="";
+        for(int i=0;i<31;i++){
+            consumoMensual=consumoMensual+String.valueOf(consumo[i]) + ",";
+        }
+        return consumoMensual;
+    }
+    
+    public int[] obtenerArrayConsumoMensual(String consumoMensual){
+        int[] consumo=new int[31];
+        String numero="";
+        int pos=0;
+        for(int i=0;i<consumoMensual.length();i++){
+            if(consumoMensual.charAt(i)!=','){
+                numero=numero+String.valueOf(consumoMensual.charAt(i));
+            }else{
+                consumo[pos]=Integer.parseInt(numero);
+                pos++;
+                numero="";
+            }
+        }
+        return consumo;
+    }
+    
+    public String buscarConsumoMensual(String id){
+        try {
+            Class.forName(ORG);
+            conexion = DriverManager.getConnection(DIRECCIONDB);
+            String sqlSelect = "SELECT * FROM Insumos WHERE id = ?";
 
+            PreparedStatement preparedStatement = conexion.prepareStatement(sqlSelect);
+            preparedStatement.setString(1, id);
+
+            ResultSet resultado = preparedStatement.executeQuery();
+            if (resultado.next()) {
+                String cantidad = resultado.getString("GASTOMENSUAL");
+
+                preparedStatement.close();
+                return cantidad;
+            } else {
+                preparedStatement.close();
+                return "";
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error al buscar el insumo.");
+        } finally {
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    
+    public String buscarUltimaConsulta(String id){
+        try {
+            Class.forName(ORG);
+            conexion = DriverManager.getConnection(DIRECCIONDB);
+            String sqlSelect = "SELECT * FROM Insumos WHERE id = ?";
+
+            PreparedStatement preparedStatement = conexion.prepareStatement(sqlSelect);
+            preparedStatement.setString(1, id);
+
+            ResultSet resultado = preparedStatement.executeQuery();
+            if (resultado.next()) {
+                String cantidad = resultado.getString("ULTIMACONSULTA");
+
+                preparedStatement.close();
+                return cantidad;
+            } else {
+                preparedStatement.close();
+                return "";
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error al buscar el insumo.");
+        } finally {
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    
+    public String buscarUltimaPos(String id){
+        try {
+            Class.forName(ORG);
+            conexion = DriverManager.getConnection(DIRECCIONDB);
+            String sqlSelect = "SELECT * FROM Insumos WHERE id = ?";
+
+            PreparedStatement preparedStatement = conexion.prepareStatement(sqlSelect);
+            preparedStatement.setString(1, id);
+
+            ResultSet resultado = preparedStatement.executeQuery();
+            if (resultado.next()) {
+                String cantidad = resultado.getString("ULTIMAPOS");
+
+                preparedStatement.close();
+                return cantidad;
+            } else {
+                preparedStatement.close();
+                return "";
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error al buscar el insumo.");
+        } finally {
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    
+    public boolean editarUltimaConsulta(String id) {
+        try {
+            Class.forName(ORG);
+            conexion = DriverManager.getConnection(DIRECCIONDB);
+            conexion.setAutoCommit(false);
+
+            String sqlUpdate = "UPDATE Insumos SET ULTIMACONSULTA = ? WHERE ID = ?";
+            PreparedStatement preparedStatement = conexion.prepareStatement(sqlUpdate);
+            preparedStatement.setString(1,String.valueOf(LocalDate.now()));
+            preparedStatement.setString(2, id);
+
+            int filasActualizadas = preparedStatement.executeUpdate();
+            if (filasActualizadas > 0) {
+                conexion.commit(); // Confirmar la transacción
+                System.out.println("Insumo actualizado correctamente.");
+                return true;
+            } else {
+                System.out.println("Error al actualizar el insumo.");
+                return false;
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error al editar el insumo.");
+        } finally {
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    
+    public boolean editarUltimaPos(String id,int ultimaPos) {
+        try {
+            Class.forName(ORG);
+            conexion = DriverManager.getConnection(DIRECCIONDB);
+            conexion.setAutoCommit(false);
+
+            String sqlUpdate = "UPDATE Insumos SET ULTIMAPOS = ? WHERE ID = ?";
+            PreparedStatement preparedStatement = conexion.prepareStatement(sqlUpdate);
+            preparedStatement.setInt(1,ultimaPos);
+            preparedStatement.setString(2, id);
+
+            int filasActualizadas = preparedStatement.executeUpdate();
+            if (filasActualizadas > 0) {
+                conexion.commit(); // Confirmar la transacción
+                System.out.println("Insumo actualizado correctamente.");
+                return true;
+            } else {
+                System.out.println("Error al actualizar el insumo.");
+                return false;
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error al editar el insumo.");
+        } finally {
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    
+    public boolean editarArrayConsumo(String id,String gastoMensual) {
+        try {
+            Class.forName(ORG);
+            conexion = DriverManager.getConnection(DIRECCIONDB);
+            conexion.setAutoCommit(false);
+
+            String sqlUpdate = "UPDATE Insumos SET GASTOMENSUAL = ? WHERE ID = ?";
+            PreparedStatement preparedStatement = conexion.prepareStatement(sqlUpdate);
+            preparedStatement.setString(1,gastoMensual);
+            preparedStatement.setString(2, id);
+
+            int filasActualizadas = preparedStatement.executeUpdate();
+            if (filasActualizadas > 0) {
+                conexion.commit(); // Confirmar la transacción
+                System.out.println("Insumo actualizado correctamente.");
+                return true;
+            } else {
+                System.out.println("Error al actualizar el insumo.");
+                return false;
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error al editar el insumo.");
+        } finally {
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    
+    public int devolverPosAAvanzar(String ultimaConsulta){
+        LocalDate ultima=LocalDate.parse(ultimaConsulta);
+        LocalDate ahora=LocalDate.now();
+        if(ultima.getYear()!=ahora.getYear()){
+            return 32;
+        }
+        if((ahora.getDayOfYear()-ultima.getDayOfYear())>31){
+            return 32;
+        }
+        else{
+            return (ahora.getDayOfYear()-ultima.getDayOfYear());
+        }       
+    }
+    
+    public void actualizarArrayConsumo(int[] arrayConsumo,String id,int ultimaPos,String ultimaConsulta){
+        InsumoDB insumo=new InsumoDB();
+        int posicion=ultimaPos;
+        for(int i=insumo.devolverPosAAvanzar(ultimaConsulta);i>0;i--){
+            posicion++;
+            if(posicion>=31){
+                posicion=0;
+            }
+            arrayConsumo[posicion]=0;
+        }
+        insumo.editarArrayConsumo(id, insumo.nuevoConsumoMensual(arrayConsumo));
+        insumo.editarUltimaPos(id, posicion);
+    }
+    
+    public void actualizarConsumoDelDia(int[] arrayConsumo,String id,int consumo){
+        InsumoDB insumo=new InsumoDB();
+        int posicion=Integer.parseInt(insumo.buscarUltimaPos(id));
+        arrayConsumo[posicion]=arrayConsumo[posicion]+consumo;
+        System.out.println(posicion);
+        System.out.println(consumo);
+        insumo.editarArrayConsumo(id, insumo.nuevoConsumoMensual(arrayConsumo));  
+    }
+    
+    public void actualizarInsumos(){
+        try {
+            Class.forName(ORG);
+            InsumoDB insumo=new InsumoDB();
+            conexion = DriverManager.getConnection(DIRECCIONDB);
+            conexion.setAutoCommit(false);
+            int[] arrayGasto;
+            ArrayList<Integer> ultimaPos=new ArrayList();
+            ArrayList<String> ultimaConsulta=new ArrayList();
+            ArrayList<String> id=new ArrayList();
+            String sqlSearch = "SELECT * FROM Insumos";
+            PreparedStatement preparedStatement = conexion.prepareStatement(sqlSearch);
+
+
+            ResultSet resultados = preparedStatement.executeQuery();
+            while(resultados.next()){
+                id.add(resultados.getString("ID"));
+                ultimaConsulta.add(resultados.getString("ULTIMACONSULTA"));
+                ultimaPos.add(resultados.getInt("ULTIMAPOS"));
+            }
+            conexion.close();
+            for(int i=0;i<ultimaPos.size();i++){
+                arrayGasto=insumo.obtenerArrayConsumoMensual(insumo.buscarConsumoMensual(id.get(0)));
+                insumo.actualizarArrayConsumo(arrayGasto, id.get(0),ultimaPos.get(0),ultimaConsulta.get(0));
+                insumo.editarUltimaConsulta(id.get(0));
+                id.remove(0);
+                ultimaPos.remove(0);
+                ultimaConsulta.remove(0);
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error al editar el insumo.");
+        } finally {
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    
+    public int calcularUsoSemanal(String id){
+        InsumoDB insumo=new InsumoDB();
+        int gastoSemanal=0;
+        int ultimaPos=Integer.parseInt(insumo.buscarUltimaPos(id));
+        int[] array=insumo.obtenerArrayConsumoMensual(insumo.buscarConsumoMensual(id));
+        for(int i=7;i>0;i--){
+            gastoSemanal=array[ultimaPos];
+            ultimaPos--;
+            if(ultimaPos<0){
+                ultimaPos=30;
+            }
+        }  
+        return gastoSemanal;
+    }
+    
+    public int calcularUsoMensual(String id){
+        InsumoDB insumo=new InsumoDB();
+        int gastoMensual=0;
+        int[] array=insumo.obtenerArrayConsumoMensual(insumo.buscarConsumoMensual(id));
+        for(int i=0;i<31;i++){
+            gastoMensual=array[i];
+        }  
+        return gastoMensual;
+    }
+    
+    public int usoDiario(String id){
+        InsumoDB insumo=new InsumoDB();
+        int[] array=insumo.obtenerArrayConsumoMensual(insumo.buscarConsumoMensual(id));
+        int ultimaPos=Integer.parseInt(insumo.buscarUltimaPos(id));
+        return array[ultimaPos];
+    }
     @Override
     public void nuevo() {
     }

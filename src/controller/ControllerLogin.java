@@ -2,13 +2,11 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
 import main.Main;
 import views.Login;
 import model.dataBase.DataBase;
 import model.dataBase.EmpleadoDB;
-import src.EnterKeyAdapter;
+import utils.EnterKeyAdapter;
 import style.MyColor;
 import validaciones.ValidacionLogin;
 
@@ -83,8 +81,8 @@ public class ControllerLogin implements ActionListener {
         if (validacionLogin.ceroCamposVaciosRegistro(login.inputNombre, login.inputApellido, login.inputTelefono, login.inputCorreo, login.inputUsuarioRegistro, login.inputPassword, login.inputRepetirPassword)
                 && validacionLogin.verificacionPassword(login.textoMensaje, login.inputPassword, login.inputRepetirPassword)) {
             empleado.nuevo(
-                    login.inputNombre.getText().trim(),
-                    login.inputApellido.getText().trim(),
+                    validacionLogin.primeraLetraMayuscula(login.inputNombre.getText().trim()),
+                    validacionLogin.primeraLetraMayuscula(login.inputApellido.getText().trim()),
                     login.inputTelefono.getText().trim(),
                     login.inputCorreo.getText().trim(),
                     login.inputUsuarioRegistro.getText().trim(),

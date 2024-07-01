@@ -3,17 +3,20 @@ package views;
 import controller.ControllerConsulta;
 
 public class ViewConsulta extends javax.swing.JPanel {
+    
+    private views.Dashboard dashboard;
+    private views.ViewConsulta viewConsulta;
     private ControllerConsulta controller;
     private String dato;
 
     public ViewConsulta (views.Dashboard dashboard) {
         initComponents();
         this.setSize(1180, 720);
-
+        
         this.mensajeDeGuardado.setVisible(false);
         this.controller = new ControllerConsulta(dashboard, this, dato);
         this.repaint();
-
+        Pacientes.setSelectedIndex(-1);
     }
 
     @SuppressWarnings("unchecked")
@@ -269,7 +272,7 @@ public class ViewConsulta extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public components.TextField CantidadInsumo;
     public javax.swing.JList<String> ListaDeInsumos;
-    public components.Combobox Pacientes;
+    public static components.Combobox Pacientes;
     public components.ButtonCustom btnAñadir;
     public components.ButtonCustom btnGuardarConsulta;
     public components.ButtonCustom btnMostrarConsulta;
@@ -278,7 +281,7 @@ public class ViewConsulta extends javax.swing.JPanel {
     public components.TextArea descripcionConsulta;
     public components.TextField doctoraCargo;
     public components.TextField fechaActual;
-    public components.Combobox insumosDelPaciente;
+    public static components.Combobox insumosDelPaciente;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel3;

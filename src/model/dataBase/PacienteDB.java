@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -130,30 +132,26 @@ public class PacienteDB extends DataBase implements OperationsDataBase {
             }
         }
     }
-
-    public String buscardorPaciente(String nombre) {
+     
+    public List<String> buscadorPacienteTabla(String cedula) {
+        List<String> resultadosCoincidentes = new ArrayList<>();
         try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
-            String sqlSelect = "SELECT NOMBRE, APELLIDO FROM Pacientes WHERE UPPER(NOMBRE) LIKE UPPER(?)";
+            String sqlSelect = "SELECT CEDULA FROM Pacientes WHERE UPPER(CEDULA) LIKE UPPER(?)";
 
             PreparedStatement preparedStatement = conexion.prepareStatement(sqlSelect);
-            preparedStatement.setString(1, "%" + nombre + "%"); // Agrega comodines para buscar por coincidencia de palabras
+            preparedStatement.setString(1, cedula + "%"); // Agrega comodines para buscar por coincidencia de palabras
 
             ResultSet resultado = preparedStatement.executeQuery();
-            if (resultado.next()) {
-                String nombrePaciente = resultado.getString("NOMBRE") + " " + resultado.getString("APELLIDO");
-                preparedStatement.close();
-                return nombrePaciente;
-            } else {
-                // No se encontró ningún paciente con ese nombre
-                preparedStatement.close();
-                return "";
+            while (resultado.next()) {
+                String Cedula = resultado.getString("CEDULA");
+                resultadosCoincidentes.add(Cedula);
             }
+            preparedStatement.close();
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace(); // Registra el error para depuración
-            return "Error al buscar el paciente.";
         } finally {
             try {
                 if (conexion != null) {
@@ -163,7 +161,9 @@ public class PacienteDB extends DataBase implements OperationsDataBase {
                 System.out.println(e.getMessage());
             }
         }
+        return resultadosCoincidentes;
     }
+
 
     public String[] buscar(String cedula) {
         try {

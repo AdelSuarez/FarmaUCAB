@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import model.dataBase.PacienteDB;
+import utils.BuscadorTabla;
 import validaciones.ValidacionPaciente;
 import views.ViewPaciente;
 import views.Dashboard;
@@ -43,6 +44,7 @@ public class ControllerPaciente implements ActionListener {
             String cedula = viewPaciente.tablaPacientes.getValueAt(filaSeleccionada, 0).toString();
             dialog.DialogEliminarPaciente dialog = new dialog.DialogEliminarPaciente(cedula, viewPaciente, dashboard);
             dialog.setVisible(true);
+            ContarPacientes();
         } else {
             viewPaciente.mensajeSeleccion.setVisible(true);
         }
@@ -71,14 +73,15 @@ public class ControllerPaciente implements ActionListener {
             configuracionTabla();
             viewPaciente.repaint();
         }
+        ContarPacientes();
     }
 
     private void buscarPaciente() {
         viewPaciente.mensajeSeleccion.setVisible(false);
-        validacionPaciente.buscador(viewPaciente.inputBuscarPaciente,
-                paciente.buscardorPaciente(viewPaciente.inputBuscarPaciente.getText().trim()),
+        new BuscadorTabla().buscadorTabla(viewPaciente.inputBuscarPaciente,
+                paciente.buscadorPacienteTabla(viewPaciente.inputBuscarPaciente.getText().trim()),
                 viewPaciente.tablaPacientes,
-                1);
+                0);
         viewPaciente.repaint();
     }
 
@@ -108,6 +111,15 @@ public class ControllerPaciente implements ActionListener {
         viewPaciente.tablaPacientes.setDefaultEditor(Object.class, null);
     }
 
+    public void ContarPacientes() {
+        int filas = viewPaciente.tablaPacientes.getRowCount();
+        if (!paciente.isEmptyTabla("Pacientes")) {
+            viewPaciente.numPacientes.setText("Pacientes Registrados: " + filas);
+        } else {
+            viewPaciente.numPacientes.setText("Pacientes Registrados: 0");
+        }
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == viewPaciente.btnNuevoPaciente) {

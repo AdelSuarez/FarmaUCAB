@@ -38,7 +38,6 @@ public class ViewEmpleado extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Empleados");
 
-        tablaEmpleados.setBackground(new java.awt.Color(255, 255, 255));
         tablaEmpleados.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tablaEmpleados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -50,7 +49,6 @@ public class ViewEmpleado extends javax.swing.JPanel {
         ));
         tablaEmpleados.setFocusable(false);
         tablaEmpleados.setGridColor(new java.awt.Color(153, 153, 153));
-        tablaEmpleados.setIntercellSpacing(new java.awt.Dimension(0, 0));
         tablaEmpleados.setOpaque(false);
         tablaEmpleados.setRowHeight(26);
         tablaEmpleados.setShowGrid(true);
@@ -59,7 +57,7 @@ public class ViewEmpleado extends javax.swing.JPanel {
         jScrollPane2.setViewportView(tablaEmpleados);
 
         inputBuscarEmpleado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        inputBuscarEmpleado.setLabelText("Buscar");
+        inputBuscarEmpleado.setLabelText("Buscar ( por Nombre )");
 
         btnNuevoEmpleado.setBackground(new java.awt.Color(0, 105, 255));
         btnNuevoEmpleado.setForeground(new java.awt.Color(255, 255, 255));

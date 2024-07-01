@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -203,7 +205,8 @@ public class EmpleadoDB extends DataBase implements OperationsDataBase {
         }
     }
 
-    public String buscardorEmpleado(String nombre) {
+    public List<String> buscadorEmpleadoTabla(String nombre) {
+        List<String> nombresCoincidentes = new ArrayList<>();
         try {
             Class.forName(ORG);
             conexion = DriverManager.getConnection(DIRECCIONDB);
@@ -213,19 +216,14 @@ public class EmpleadoDB extends DataBase implements OperationsDataBase {
             preparedStatement.setString(1, "%" + nombre + "%"); // Agrega comodines para buscar por coincidencia de palabras
 
             ResultSet resultado = preparedStatement.executeQuery();
-            if (resultado.next()) {
+            while (resultado.next()) {
                 String nombreEmpleado = resultado.getString("NOMBRE") + " " + resultado.getString("APELLIDO");
-                preparedStatement.close();
-                return nombreEmpleado;
-            } else {
-                // No se encontró ningún empleado con ese nombre
-                preparedStatement.close();
-                return "";
+                nombresCoincidentes.add(nombreEmpleado);
             }
+            preparedStatement.close();
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace(); // Registra el error para depuración
-            return "Error al buscar el empleado.";
         } finally {
             try {
                 if (conexion != null) {
@@ -235,6 +233,7 @@ public class EmpleadoDB extends DataBase implements OperationsDataBase {
                 System.out.println(e.getMessage());
             }
         }
+        return nombresCoincidentes;
     }
 
     public String[] buscar(String usuario) {

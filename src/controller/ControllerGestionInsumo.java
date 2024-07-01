@@ -6,6 +6,7 @@ import views.Dashboard;
 import views.ViewInsumo;
 import views.viewsGestion.GestionInsumo;
 import java.util.Calendar;
+import javax.swing.JComboBox;
 import model.dataBase.InsumoDB;
 import validaciones.ValidacionInsumo;
 
@@ -16,7 +17,6 @@ public class ControllerGestionInsumo implements ActionListener {
     private GestionInsumo viewGestionInsumo;
     private InsumoDB insumo = new InsumoDB();
     private ValidacionInsumo validacionesInsumo = new ValidacionInsumo();
-
     private String dato;
     private String[] datos;
 
@@ -34,7 +34,7 @@ public class ControllerGestionInsumo implements ActionListener {
         habilitarBlister();
     }
 
-    private void regresarView() {
+    public void regresarView() {
         dashboard.refrescarViewInsumo();
         dashboard.initView(dashboard.getViewInsumo());
         viewGestionInsumo.mensajeGuardado.setVisible(false);
@@ -58,7 +58,7 @@ public class ControllerGestionInsumo implements ActionListener {
                 viewGestionInsumo.activarBlister)) {
             
             if (insumo.nuevo(
-                    viewGestionInsumo.nombreInsumo.getText().trim(),
+                    validacionesInsumo.primeraLetraMayuscula(viewGestionInsumo.nombreInsumo.getText().trim()),
                     (int) viewGestionInsumo.StockInsumo.getValue(), // Realiza un casting a int
                     viewGestionInsumo.descripcionInsumo.getText().trim(),
                     (viewGestionInsumo.activarBlister.isSelected()) ? (Integer)viewGestionInsumo.cantidadBlister.getValue() : 0,
@@ -76,7 +76,7 @@ public class ControllerGestionInsumo implements ActionListener {
                 viewGestionInsumo.cantidadBlister,
                 viewGestionInsumo.activarBlister)) {
             if (insumo.editar(dato,
-                    viewGestionInsumo.nombreInsumo.getText().trim(),
+                    validacionesInsumo.primeraLetraMayuscula(viewGestionInsumo.nombreInsumo.getText().trim()),
                     (int) viewGestionInsumo.StockInsumo.getValue(),
                     (viewGestionInsumo.activarBlister.isSelected()) ? (Integer)viewGestionInsumo.cantidadBlister.getValue() : 0,
                     viewGestionInsumo.descripcionInsumo.getText().trim())) {
@@ -115,6 +115,7 @@ public class ControllerGestionInsumo implements ActionListener {
             viewGestionInsumo.StockInsumo.setValue(Integer.valueOf(datos[2]));
             viewGestionInsumo.descripcionInsumo.setText(datos[4]);
             if(Integer.valueOf(datos[3]) != 0){
+                viewGestionInsumo.StockInsumo.setValue(Integer.valueOf(datos[2])/Integer.valueOf(datos[3]));
                 viewGestionInsumo.activarBlister.setSelected(true);
             }
             System.out.println(datos[3]);

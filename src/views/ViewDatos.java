@@ -1,16 +1,16 @@
 package views;
 
-import controller.ControllerEstadistica;
+import controller.ControllerDatos;
 
-public class ViewEstadistica extends javax.swing.JPanel {
+public class ViewDatos extends javax.swing.JPanel {
 
-    private ControllerEstadistica controller;
+    private ControllerDatos controller;
 
-    public ViewEstadistica(views.Dashboard dashboard) {
+    public ViewDatos(views.Dashboard dashboard) {
         initComponents();
         this.setSize(1180, 720);
 
-        this.controller = new ControllerEstadistica(dashboard, this);
+        this.controller = new ControllerDatos(dashboard, this);
         this.repaint();
     }
 
@@ -24,16 +24,20 @@ public class ViewEstadistica extends javax.swing.JPanel {
         impPacientesPdf = new components.ButtonCustom();
         impConsultasPdf = new components.ButtonCustom();
         impInsumosPdf = new components.ButtonCustom();
-        impEstadisticasPdf = new components.ButtonCustom();
+        impUsoInsumosPdf = new components.ButtonCustom();
+        jLabel2 = new javax.swing.JLabel();
+        impConsultasMensualesPdf = new components.ButtonCustom();
+        jLabel3 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(1350, 920));
         jPanel1.setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("Estadisticas");
+        jLabel1.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel1.setText("//Todos los PDFs se envian a la carpeta en la que esta la aplicación");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(38, 25, 141, 29);
+        jLabel1.setBounds(30, 550, 820, 29);
 
         impPacientesPdf.setBackground(new java.awt.Color(0, 105, 255));
         impPacientesPdf.setForeground(new java.awt.Color(255, 255, 255));
@@ -74,23 +78,50 @@ public class ViewEstadistica extends javax.swing.JPanel {
         jPanel1.add(impInsumosPdf);
         impInsumosPdf.setBounds(50, 290, 230, 50);
 
-        impEstadisticasPdf.setBackground(new java.awt.Color(0, 105, 255));
-        impEstadisticasPdf.setForeground(new java.awt.Color(255, 255, 255));
-        impEstadisticasPdf.setText("Imprimir Estadísticas Pdf");
-        impEstadisticasPdf.setBorderColor(new java.awt.Color(255, 255, 255));
-        impEstadisticasPdf.setColor(new java.awt.Color(0, 105, 255));
-        impEstadisticasPdf.setColorClick(new java.awt.Color(0, 95, 230));
-        impEstadisticasPdf.setColorOver(new java.awt.Color(0, 84, 204));
-        impEstadisticasPdf.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        impEstadisticasPdf.setPreferredSize(new java.awt.Dimension(230, 50));
-        impEstadisticasPdf.setRadius(15);
-        impEstadisticasPdf.addActionListener(new java.awt.event.ActionListener() {
+        impUsoInsumosPdf.setBackground(new java.awt.Color(0, 105, 255));
+        impUsoInsumosPdf.setForeground(new java.awt.Color(255, 255, 255));
+        impUsoInsumosPdf.setText("Uso de Insumos Pdf");
+        impUsoInsumosPdf.setBorderColor(new java.awt.Color(255, 255, 255));
+        impUsoInsumosPdf.setColor(new java.awt.Color(0, 105, 255));
+        impUsoInsumosPdf.setColorClick(new java.awt.Color(0, 95, 230));
+        impUsoInsumosPdf.setColorOver(new java.awt.Color(0, 84, 204));
+        impUsoInsumosPdf.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        impUsoInsumosPdf.setPreferredSize(new java.awt.Dimension(230, 50));
+        impUsoInsumosPdf.setRadius(15);
+        impUsoInsumosPdf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                impEstadisticasPdfActionPerformed(evt);
+                impUsoInsumosPdfActionPerformed(evt);
             }
         });
-        jPanel1.add(impEstadisticasPdf);
-        impEstadisticasPdf.setBounds(50, 380, 230, 50);
+        jPanel1.add(impUsoInsumosPdf);
+        impUsoInsumosPdf.setBounds(50, 380, 230, 50);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel2.setText("Datos en PDF");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(38, 25, 190, 29);
+
+        impConsultasMensualesPdf.setBackground(new java.awt.Color(0, 105, 255));
+        impConsultasMensualesPdf.setForeground(new java.awt.Color(255, 255, 255));
+        impConsultasMensualesPdf.setText("Consultas Mensules Pdf");
+        impConsultasMensualesPdf.setBorderColor(new java.awt.Color(255, 255, 255));
+        impConsultasMensualesPdf.setColor(new java.awt.Color(0, 105, 255));
+        impConsultasMensualesPdf.setColorClick(new java.awt.Color(0, 95, 230));
+        impConsultasMensualesPdf.setColorOver(new java.awt.Color(0, 84, 204));
+        impConsultasMensualesPdf.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        impConsultasMensualesPdf.setPreferredSize(new java.awt.Dimension(230, 50));
+        impConsultasMensualesPdf.setRadius(15);
+        impConsultasMensualesPdf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                impConsultasMensualesPdfActionPerformed(evt);
+            }
+        });
+        jPanel1.add(impConsultasMensualesPdf);
+        impConsultasMensualesPdf.setBounds(50, 470, 230, 50);
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/imagenPDF.png"))); // NOI18N
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(490, 50, 490, 460);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -104,17 +135,24 @@ public class ViewEstadistica extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void impEstadisticasPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_impEstadisticasPdfActionPerformed
+    private void impUsoInsumosPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_impUsoInsumosPdfActionPerformed
 
-    }//GEN-LAST:event_impEstadisticasPdfActionPerformed
+    }//GEN-LAST:event_impUsoInsumosPdfActionPerformed
+
+    private void impConsultasMensualesPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_impConsultasMensualesPdfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_impConsultasMensualesPdfActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public components.ButtonCustom impConsultasMensualesPdf;
     public components.ButtonCustom impConsultasPdf;
-    public components.ButtonCustom impEstadisticasPdf;
     public components.ButtonCustom impInsumosPdf;
     public components.ButtonCustom impPacientesPdf;
+    public components.ButtonCustom impUsoInsumosPdf;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

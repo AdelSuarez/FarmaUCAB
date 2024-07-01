@@ -73,25 +73,21 @@ public class ValidacionLogin extends Validacion {
             validarCaracteresInput(inputCorreo, "Correo", getREGEXCORREO(), contadorInput);
 
         }
-        if (validarInput(inputUsuarioRegistro, "Usuario")) {
+        if (validarInput(inputUsuarioRegistro, "Usuario") && longitudUsuario(inputUsuarioRegistro, "Usuario")) {
             contadorInput[0]++;
         }
-        if (validarInputPassword(inputPassword, "Contraseña")) {
-            contadorInput[0]++;
-        }
-
-        if (validarInputPassword(inputRepetirPassword, "Confirmar contraseña")) {
+        if (validarInputPassword(inputPassword, "Contraseña") && longitudPasswordCorrecta(inputPassword, "Contraseña")) {
             contadorInput[0]++;
         }
 
-        if (contadorInput[0] == 7) {
-//            estanVacios = true;
-            return true;
-        } else {
-            return false;
+        if (validarInputPassword(inputRepetirPassword, "Confirmar contraseña") && longitudPasswordCorrecta(inputRepetirPassword, "Confirmar contraseña")) {
+            contadorInput[0]++;
         }
-//        return estanVacios;
+        return (contadorInput[0] == 7) ? true : false;
+
     }
+    
+
 
     @Override
     public void mensaje(JLabel jlabel, String mensaje) {

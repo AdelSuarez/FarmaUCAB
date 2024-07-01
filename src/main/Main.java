@@ -10,6 +10,9 @@ import java.awt.BorderLayout;
 import style.styleWindow;
 import views.Dashboard;
 import views.Login;
+import model.dataBase.InsumoDB;
+import java.time.LocalDate;
+import model.dataBase.NumeroConsultas;
 
 // colocar todo en español, pero despues de la entrega final, colocarlo en ingles para el portafolio y repositorio
 // optimizar codigo, testear las ventanas para conseguir errores, y si se puede implementar test unitarios, no mostrar los test en la entrega, 
@@ -19,13 +22,15 @@ public class Main extends javax.swing.JFrame {
     private Login login;
     private Dashboard dashboard;
 
-//    private boolean admin = false;
+    private boolean admin = false;
     private String[] datosEmpleado = {"0", "test", "test"};
 
     public Main() {
+        InsumoDB insumo=new InsumoDB();
+        NumeroConsultas numeroConsultas=new NumeroConsultas();
 //      Configuraciones de la ventana
         login = new views.Login(this);
-//        dashboard = new views.Dashboard(this, admin, datosEmpleado);
+        dashboard = new views.Dashboard(this, admin, datosEmpleado);
         styleWindow ventana = new styleWindow();
         initComponents();
         ventana.configuracionesVentana(this, 1400, 800, "Enfermeria UCAB");
@@ -33,10 +38,12 @@ public class Main extends javax.swing.JFrame {
 
         // DB
         iniciadorDB();
+        insumo.actualizarInsumos();
+        numeroConsultas.buscarConsultasDia(String.valueOf(LocalDate.now()));
 
         // Interfaz
         initView(viewAdmin(true, datosEmpleado));
-//        initView(login);
+        initView(login);
 
     }
 
@@ -61,7 +68,7 @@ public class Main extends javax.swing.JFrame {
         DB.createTabla(DB.getSqlCreateTablaPacientes());
         DB.createTabla(DB.getSqlCreateTablaInsumo());
         DB.createTabla(DB.getSqlCreateTablaConsultas());
-
+        DB.createTabla(DB.getSqlCreateTablaConsultasMensuales());
     }
 
     @SuppressWarnings("unchecked")
