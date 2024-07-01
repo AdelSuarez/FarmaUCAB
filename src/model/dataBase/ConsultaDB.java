@@ -7,6 +7,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import model.dataBase.NumeroConsultas;
 
 public class ConsultaDB extends DataBase {
 
@@ -31,6 +35,8 @@ public class ConsultaDB extends DataBase {
                     }
                 }
                 conexion.commit(); // Confirmar la transacción
+                NumeroConsultas numeroConsultas=new NumeroConsultas();
+                numeroConsultas.agregarUnaConsulta(String.valueOf(LocalDate.now()));
                 System.out.println("Consulta insertada correctamente.");
                 return true;
             } else {
@@ -94,6 +100,39 @@ public class ConsultaDB extends DataBase {
 
     }
 
+    public List<String> buscadorConsultaTabla(String cedula) {
+        System.out.println(cedula);
+        List<String> resultadosCoincidentes = new ArrayList<>();
+        try {
+            Class.forName(ORG);
+            conexion = DriverManager.getConnection(DIRECCIONDB);
+            String sqlSelect = "SELECT CIPACIENTE FROM Consultas WHERE UPPER(CIPACIENTE) LIKE UPPER(?)";
+
+            PreparedStatement preparedStatement = conexion.prepareStatement(sqlSelect);
+            preparedStatement.setString(1, "%" + cedula + "%");
+
+            ResultSet resultado = preparedStatement.executeQuery();
+            while (resultado.next()) {
+                String Cedula = resultado.getString("CIPACIENTE");
+                
+                resultadosCoincidentes.add(Cedula);
+            }
+            preparedStatement.close();
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace(); // Registra el error para depuración
+        } finally {
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return resultadosCoincidentes;
+    }
+    
     public String buscarConsulta(String CI) {
         try {
             Class.forName(ORG);
@@ -150,6 +189,48 @@ public class ConsultaDB extends DataBase {
 
         } catch (ClassNotFoundException | SQLException e) {
             return false;
+        } finally {
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    
+    public void mostrarConsultaPorCI(JTable table) {
+        try {
+            Class.forName(ORG);
+            conexion = DriverManager.getConnection(DIRECCIONDB);
+            String sqlConsulta = "SELECT * FROM Consultas ORDER BY CIPACIENTE";
+
+            statement = (Statement) conexion.createStatement();
+            ResultSet resultado = statement.executeQuery(sqlConsulta);
+            DefaultTableModel model = new DefaultTableModel();
+            model.addColumn("ID");
+            model.addColumn("FECHA");
+            model.addColumn("CIPACIENTE");
+            model.addColumn("DOCTOR");
+            model.addColumn("INSUMO");
+            table.setModel(model);
+
+            String[] datos = new String[5];
+            while (resultado.next()) {
+                datos[0] = resultado.getString(1);
+                datos[1] = resultado.getString(2);
+                datos[2] = resultado.getString(3);
+                datos[3] = resultado.getString(4);
+                datos[4] = resultado.getString(5);
+                model.addRow(datos);
+            }
+
+            resultado.close();
+            statement.close();
+
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e.getMessage() + " error al mostrar los datos de la tabla Consultas");
         } finally {
             try {
                 if (conexion != null) {

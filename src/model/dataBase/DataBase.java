@@ -14,7 +14,7 @@ public class DataBase {
             + " NOMBRE           TEXT    NOT NULL, "
             + " APELLIDO         TEXT    NOT NULL, "
             + " TELEFONO         TEXT    NOT NULL, "
-            + " CORREO           TEXT    NOT NULL UNIQUE, "
+            + " CORREO           TEXT    NOT NULL, "
             + " USUARIO          TEXT    NOT NULL UNIQUE, "
             + " ADMIN            BOOLEAN NOT NULL, "
             + " PASSWORD         TEXT    NOT NULL )";
@@ -34,6 +34,9 @@ public class DataBase {
             + " FECHA            TEXT    NOT NULL, "
             + " STOCK            INT     NOT NULL, "
             + " CANTIDADBLISTER  INT, "
+            + " GASTOMENSUAL            TEXT     NOT NULL, "
+            + " ULTIMACONSULTA            TEXT     NOT NULL, "
+            + " ULTIMAPOS            INT     NOT NULL, "
             + " DESCRIPCION      TEXT ) ";
     private final String sqlCreateTablaConsultas = "CREATE TABLE IF NOT EXISTS Consultas"
             + "(ID INTEGER PRIMARY KEY   NOT NULL,"
@@ -41,6 +44,10 @@ public class DataBase {
             + " CIPACIENTE         TEXT  NOT NULL, "
             + " DOCTOR             TEXT  NOT NULL, "
             + " INSUMO             TEXT  NOT NULL) ";
+    private final String sqlCreateTablaConsultasMensuales="CREATE TABLE IF NOT EXISTS ConsultasMensuales"
+            + "(ID INTEGER PRIMARY KEY   NOT NULL,"
+            + " DIA              TEXT  NOT NULL, "
+            + " CONSULTAS         TEXT  NOT NULL) ";
     protected final String ORG = "org.sqlite.JDBC";
     protected final String DIRECCIONDB = "jdbc:sqlite:./DataBase.db";
 
@@ -59,6 +66,10 @@ public class DataBase {
 
     public String getSqlCreateTablaConsultas() {
         return sqlCreateTablaConsultas;
+    }
+    
+    public String getSqlCreateTablaConsultasMensuales() {
+        return sqlCreateTablaConsultasMensuales;
     }
 
     public void createDB() {
@@ -124,7 +135,6 @@ public class DataBase {
                     }
                 }
                 statement.close();
-
             }
 
         } catch (ClassNotFoundException | SQLException e) {

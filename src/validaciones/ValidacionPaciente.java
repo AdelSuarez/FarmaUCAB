@@ -46,12 +46,9 @@ public class ValidacionPaciente extends Validacion {
         if (!validarComboBox(combobox).equals("")) {
             contadorInput[0]++;
         }
-        if (contadorInput[0] == 7) {
-            return true;
-        } else {
-            return false;
+        
+        return (contadorInput[0] == 7) ? true : false;
 
-        }
     }
 
     private String validarComboBox(components.Combobox combobox) {

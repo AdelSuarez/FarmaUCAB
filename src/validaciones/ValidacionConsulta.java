@@ -6,15 +6,15 @@ import javax.swing.JLabel;
 public class ValidacionConsulta extends Validacion{
 
     public boolean datosValidados(
-            components.TextField CIPaciente,
+            components.Combobox combobox,
             components.TextField doctoraCargo
         ){
         int[] contadorInput = {0};
-        if(validarInput(CIPaciente, "Cédula del paciente") && validarCantidadDigitos(CIPaciente, "Cédula del paciente", 6)  ){
-            validarCaracteresInput(CIPaciente, "Cédula del paciente ", getREGEXNUMERO(), contadorInput);
+        if (!validarComboBox(combobox).equals("")) {
+            contadorInput[0]++;
         }
-        if(validarInput(doctoraCargo, "Doctor a Cargo")){
-            validarCaracteresInput(doctoraCargo, "Doctor a Cargo", getREGEXNOMBRE(), contadorInput);
+        if(validarInput(doctoraCargo, "Doctor / Enfermera")){
+            validarCaracteresInput(doctoraCargo, "Doctor / Enfermera", getREGEXNOMBRE(), contadorInput);
         }
         if(contadorInput[0] == 2){
             return true;
@@ -36,6 +36,15 @@ public class ValidacionConsulta extends Validacion{
         } 
     }
     
+    private String validarComboBox(components.Combobox combobox) {
+        try {
+            String cedula = combobox.getSelectedItem().toString();
+            return cedula;
+        } catch (Exception e) {
+            combobox.setLabeText("Paciente (No seleccionado)");
+        }
+        return "";
+    }
     
     @Override
     public void mensaje(JLabel jlabel, String mensaje) {

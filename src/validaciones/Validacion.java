@@ -1,7 +1,6 @@
 package validaciones;
 
 import javax.swing.JLabel;
-import javax.swing.table.DefaultTableModel;
 import style.MyColor;
 
 public abstract class Validacion {
@@ -12,6 +11,7 @@ public abstract class Validacion {
     private final String REGEXNOMBRE = "^[A-Za-z ]*$";
     private final String REGEXCORREO = "[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}";
     private final String REGEXNUMERO = "^[0-9 ]+$";
+    private final String REGEXARCHIVO = "^[a-zA-Z0-9_-]+$";
 
     public String getREGEXNOMBRE() {
         return REGEXNOMBRE;
@@ -23,6 +23,10 @@ public abstract class Validacion {
 
     public String getREGEXNUMERO() {
         return REGEXNUMERO;
+    }
+    
+    public String getREGEXARCHIVO() {
+        return REGEXARCHIVO;
     }
 
     public abstract void mensaje(JLabel jlabel, String mensaje);
@@ -37,6 +41,31 @@ public abstract class Validacion {
         }
 
     }
+    
+    public boolean longitudPasswordCorrecta(components.PasswordField textfielpassword, String Texto) {
+        if (textfielpassword.getText().length() >= 4) {
+            textfielpassword.setLabelText(Texto);
+            return true;
+        } else {
+            textfielpassword.setLabelText(Texto + " (Mas de 4 caracteres)");
+            return false;
+        }
+
+    }
+    
+    public boolean longitudUsuario(components.TextField usuario, String Texto) {
+        if (usuario.getText().length() >= 4) {
+            usuario.setLabelText(Texto);
+            usuario.setLineColor(new MyColor().getAZUL());
+            return true;
+        } else {
+            usuario.setLabelText(Texto + " (Mas de 4 caracteres)");
+            usuario.setLineColor(new MyColor().getREDPRIMARIO());
+            return false;
+        }
+
+    }
+    
     public boolean validarCantidadDigitos(components.TextField textfiel, String texto, int cantidad) {
         if (textfiel.getText().length() < cantidad) {
             textfiel.setLineColor(new MyColor().getREDPRIMARIO());
@@ -76,41 +105,18 @@ public abstract class Validacion {
 
     }
 
-    public void buscador(
-            components.TextField inputBuscar,
-            String nombre,
-            javax.swing.JTable tabla,
-            int index
-    ) {
-        
-        if (validarInput(inputBuscar, "Buscar")) {
-            int filaSeleccionada = -1;
-            String nombreEmpleado = nombre;
-            if (!nombreEmpleado.equals("")) {
-                inputBuscar.setLabelText("Buscar");
-
-                DefaultTableModel modeloTabla = (DefaultTableModel) tabla.getModel();
-                for (int i = 0; i < modeloTabla.getRowCount(); i++) {
-                    String nombreEnFila = (String) modeloTabla.getValueAt(i, index); // Ajusta la columna según tu modelo
-                    if (nombreEnFila.equals(nombreEmpleado)) {
-                        // Encontramos la fila, ahora enfocamos
-                        tabla.setRowSelectionInterval(i, i);
-                        tabla.scrollRectToVisible(tabla.getCellRect(i, 0, true));
-                        break;
-                    }
-                }
-                if (filaSeleccionada != -1) {
-                    // La fila está seleccionada, puedes enfocarla en el JTable
-                    tabla.setRowSelectionInterval(filaSeleccionada, filaSeleccionada);
-                    tabla.scrollRectToVisible(tabla.getCellRect(filaSeleccionada, 0, true));
-
-                }
-                inputBuscar.setText("");
-            } else {
-                inputBuscar.setLabelText("Buscar (0 resultados)");
-            }
-
+    public String primeraLetraMayuscula(String texto){
+        return texto.substring(0, 1).toUpperCase() + texto.substring(1).toLowerCase();
+    }
+    
+    public String primeraLetraPalabraMayuscula(String texto){
+        String[] palabras = texto.split(" ");
+        for(int i = 0; i < palabras.length; i++){
+            palabras[i] = primeraLetraMayuscula(palabras[i]);
         }
+        String palabrasEnMayuscula = String.join(" ", palabras);
+        return palabrasEnMayuscula;
+                
     }
     
 }

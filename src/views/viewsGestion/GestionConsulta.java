@@ -1,8 +1,11 @@
 package views.viewsGestion;
 
 import controller.ControllerGestionConsulta ;
+import javax.swing.JTable;
 import model.dataBase.ConsultaDB;
 import validaciones.ValidacionConsulta;
+import model.dataBase.NumeroConsultas;
+import java.time.LocalDate;
 
 
 public class GestionConsulta extends javax.swing.JPanel {
@@ -14,8 +17,10 @@ public class GestionConsulta extends javax.swing.JPanel {
     public GestionConsulta (views.Dashboard dashboard) {
         initComponents();
         this.setSize(1180, 720);
+        NumeroConsultas numero=new NumeroConsultas();
 
         mensajeSeleccion.setVisible(false);
+        this.mensajeSeleccion1.setText("Número de consultas de hoy: " + numero.buscarConsultasDia(String.valueOf(LocalDate.now())));
         this.controller = new ControllerGestionConsulta(dashboard, this);
         this.controller.cargarTabla();
         this.repaint();
@@ -35,6 +40,7 @@ public class GestionConsulta extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaConsulta = new javax.swing.JTable();
         btnRegresar = new components.ButtonCustom();
+        mensajeSeleccion1 = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -45,7 +51,7 @@ public class GestionConsulta extends javax.swing.JPanel {
         jLabel1.setText("Consulta");
 
         inputBuscarConsulta.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        inputBuscarConsulta.setLabelText("Buscar");
+        inputBuscarConsulta.setLabelText("Buscar ( por Cédula )");
 
         btnBorrarConsulta.setForeground(new java.awt.Color(255, 255, 255));
         btnBorrarConsulta.setText("Borrar");
@@ -102,15 +108,15 @@ public class GestionConsulta extends javax.swing.JPanel {
         btnRegresar.setPreferredSize(new java.awt.Dimension(40, 40));
         btnRegresar.setRadius(15);
 
+        mensajeSeleccion1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        mensajeSeleccion1.setText("Numero de consultas de hoy:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1073, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,7 +132,12 @@ public class GestionConsulta extends javax.swing.JPanel {
                                 .addComponent(inputBuscarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnBuscarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(377, 377, 377)))))
+                                .addGap(377, 377, 377))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1073, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(mensajeSeleccion1, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(345, 345, 345))
         );
         jPanel1Layout.setVerticalGroup(
@@ -145,7 +156,10 @@ public class GestionConsulta extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnBorrarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mensajeSeleccion)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(mensajeSeleccion1)
+                        .addGap(3, 3, 3)
+                        .addComponent(mensajeSeleccion))))
         );
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -166,6 +180,7 @@ public class GestionConsulta extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     public javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JLabel mensajeSeleccion;
+    public javax.swing.JLabel mensajeSeleccion1;
     public javax.swing.JTable tablaConsulta;
     // End of variables declaration//GEN-END:variables
 }

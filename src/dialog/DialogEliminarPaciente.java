@@ -2,6 +2,8 @@ package dialog;
 
 import java.awt.Color;
 import controller.ControllerPaciente;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DialogEliminarPaciente extends javax.swing.JFrame {
 
@@ -135,8 +137,13 @@ public class DialogEliminarPaciente extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (paciente.eliminar(cedula)) {
             if(this.viewPaciente.tablaPacientes.getRowCount()==1){
-                this.dispose();
                 this.viewPaciente.tablaPacientes.setVisible(false);
+                this.dispose();
+                /*try {  
+                    this.finalize();
+                } catch (Throwable ex) {
+                    Logger.getLogger(DialogEliminarPaciente.class.getName()).log(Level.SEVERE, null, ex);
+                }*/
             }
             new ControllerPaciente(viewPaciente, dashBoard).cargarTabla();
             this.dispose();

@@ -136,6 +136,10 @@ public class DialogEliminarEmpleado extends javax.swing.JFrame {
 
     private void btnEliminarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEmpleadoActionPerformed
         if (Empleado.eliminar(usuario)) {
+            if(this.viewEmpleado.tablaEmpleados.getRowCount()==1){
+                this.viewEmpleado.tablaEmpleados.setVisible(false);
+                this.dispose();
+            }
             new ControllerEmpleado(dashBoard, viewEmpleado).cargarTabla();
             this.dispose();
         }

@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import model.dataBase.EmpleadoDB;
+import utils.BuscadorTabla;
 import validaciones.ValidacionesEmpleado;
 import views.Dashboard;
 import views.ViewEmpleado;
@@ -32,6 +33,7 @@ public class ControllerEmpleado implements ActionListener {
     private void NuevoEmpleado() {
         this.viewGestionEmpleado = new GestionEmpleado(dashBoard, viewEmpleado, "Nuevo");
         dashBoard.initView(viewGestionEmpleado);
+        this.viewEmpleado.tablaEmpleados.setVisible(true);
     }
 
     private void borrarEmpleado() {
@@ -65,8 +67,8 @@ public class ControllerEmpleado implements ActionListener {
 
     private void buscarEmpleado() {
         viewEmpleado.mensajeSeleccion.setVisible(false);
-        validacionesEmpleado.buscador(viewEmpleado.inputBuscarEmpleado,
-                empleado.buscardorEmpleado(viewEmpleado.inputBuscarEmpleado.getText().trim()),
+        new BuscadorTabla().buscadorTabla(viewEmpleado.inputBuscarEmpleado,
+                empleado.buscadorEmpleadoTabla(viewEmpleado.inputBuscarEmpleado.getText().trim()),
                 viewEmpleado.tablaEmpleados, 0);
         viewEmpleado.repaint();
     }

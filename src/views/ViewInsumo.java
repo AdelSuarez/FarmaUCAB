@@ -4,7 +4,7 @@ import controller.ControllerInsumo;
 
 public class ViewInsumo extends javax.swing.JPanel {
 
-    private ControllerInsumo controller;
+    public ControllerInsumo controller;
 
     public ViewInsumo(views.Dashboard dashboard) {
         initComponents();
@@ -39,7 +39,6 @@ public class ViewInsumo extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Medicamentos");
 
-        tablaInsumos.setBackground(new java.awt.Color(255, 255, 255));
         tablaInsumos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tablaInsumos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -51,7 +50,6 @@ public class ViewInsumo extends javax.swing.JPanel {
         ));
         tablaInsumos.setFocusable(false);
         tablaInsumos.setGridColor(new java.awt.Color(153, 153, 153));
-        tablaInsumos.setIntercellSpacing(new java.awt.Dimension(0, 0));
         tablaInsumos.setOpaque(false);
         tablaInsumos.setRowHeight(26);
         tablaInsumos.setShowGrid(true);
@@ -60,7 +58,7 @@ public class ViewInsumo extends javax.swing.JPanel {
         jScrollPane2.setViewportView(tablaInsumos);
 
         inputBuscarInsumo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        inputBuscarInsumo.setLabelText("Buscar");
+        inputBuscarInsumo.setLabelText("Buscar ( por ID )");
 
         btnNuevoInsumo.setBackground(new java.awt.Color(0, 105, 255));
         btnNuevoInsumo.setForeground(new java.awt.Color(255, 255, 255));
@@ -155,7 +153,7 @@ public class ViewInsumo extends javax.swing.JPanel {
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1180, -1));
     }// </editor-fold>//GEN-END:initComponents
-
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public components.ButtonCustom btnBorrarInsumo;

@@ -12,7 +12,8 @@ public class ValidacionesEmpleado extends Validacion {
             components.TextField telefonoEmpleado,
             components.TextField correoEmpleado,
             components.TextField usuarioEmpleado,
-            components.PasswordField passwordEmpleado) {
+            components.PasswordField passwordEmpleado,
+            String tipoAcccion){
         int[] contadorInput = {0};
 
         if (validarInput(nombreEmpleado, "Nombre")) {
@@ -27,17 +28,22 @@ public class ValidacionesEmpleado extends Validacion {
         if (validarInput(correoEmpleado, "Correo")) {
             validarCaracteresInput(correoEmpleado, "Correo", getREGEXCORREO(), contadorInput);
         }
-        if (validarInput(usuarioEmpleado, "Usuario") && usuarioRepetida(usuarioEmpleado, "Usuario")) {
-            contadorInput[0]++;
-        }
-        if (validarInputPassword(passwordEmpleado, "Contraseña")) {
-            contadorInput[0]++;
-        }
-        if (contadorInput[0] == 6) {
-            return true;
+        if (tipoAcccion.equals("Nuevo")){
+            if (validarInput(usuarioEmpleado, "Usuario") && usuarioRepetida(usuarioEmpleado, "Usuario")  && longitudUsuario(usuarioEmpleado, "Usuario")) {
+                contadorInput[0]++;
+            }
         } else {
-            return false;
+            if (validarInput(usuarioEmpleado, "Usuario") && longitudUsuario(usuarioEmpleado, "Usuario")) {
+                contadorInput[0]++;
+            }
         }
+
+        if (validarInputPassword(passwordEmpleado, "Contraseña") && longitudPasswordCorrecta(passwordEmpleado, "Contraseña")) {
+            contadorInput[0]++;
+        }
+        
+        return (contadorInput[0] == 6) ? true : false;
+
     }
     
     private boolean usuarioRepetida(components.TextField usuarioEmpleado, String texto){

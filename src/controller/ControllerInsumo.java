@@ -10,6 +10,7 @@ import validaciones.ValidacionInsumo;
 import views.Dashboard;
 import views.ViewInsumo;
 import views.viewsGestion.GestionInsumo;
+import utils.BuscadorTabla;
 
 public class ControllerInsumo implements ActionListener {
 
@@ -33,6 +34,7 @@ public class ControllerInsumo implements ActionListener {
     private void nuevoInsumo() {
         this.viewGestionInsumo = new GestionInsumo(dashboard, viewInsumo, "Nuevo");
         dashboard.initView(viewGestionInsumo);
+        this.viewInsumo.tablaInsumos.setVisible(true);
     }
 
     private void borrarInsumo() {
@@ -64,8 +66,8 @@ public class ControllerInsumo implements ActionListener {
 
     private void buscarInsumo() {
         viewInsumo.mensajeSeleccion.setVisible(false);
-        validacionInsumo.buscador(viewInsumo.inputBuscarInsumo,
-                insumo.buscardorInsumo(viewInsumo.inputBuscarInsumo.getText().trim()),
+        new BuscadorTabla().buscadorTabla(viewInsumo.inputBuscarInsumo,
+                insumo.buscadorInsumoTabla(viewInsumo.inputBuscarInsumo.getText().trim()),
                 viewInsumo.tablaInsumos,
                 1);
         viewInsumo.repaint();
@@ -109,7 +111,7 @@ public class ControllerInsumo implements ActionListener {
         viewInsumo.tablaInsumos.getTableHeader().setDefaultRenderer(headerRenderer);
         viewInsumo.tablaInsumos.setDefaultEditor(Object.class, null);
     }
-
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == viewInsumo.btnNuevoInsumo) {

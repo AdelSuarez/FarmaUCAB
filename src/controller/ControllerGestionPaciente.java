@@ -15,10 +15,10 @@ public class ControllerGestionPaciente implements ActionListener {
     private GestionPaciente viewGestionPaciente;
     private ValidacionPaciente validacionPaciente = new ValidacionPaciente();
     private PacienteDB paciente = new PacienteDB();
-
     private String[] datosPaciente;
     private String id;
     private String dato;
+    
 
     public ControllerGestionPaciente(Dashboard dashboard, ViewPaciente viewPaciente, GestionPaciente viewGestionPaciente, String dato) {
         this.dashboard = dashboard;
@@ -37,20 +37,20 @@ public class ControllerGestionPaciente implements ActionListener {
         dashboard.refrescarViewPacientes();
         dashboard.initView(dashboard.getViewPaciente());
         viewGestionPaciente.mensajeGuardado.setVisible(false);
-        new ControllerPaciente(viewPaciente, dashboard).cargarTabla();
+        //new ControllerPaciente(viewPaciente, dashboard).cargarTabla();
         viewGestionPaciente.repaint();
     }
 
     private void guardarAccion() {
         if (dato.equals("Nuevo")) {
-            guardarPaciete();
+            guardarPaciente();
 
         } else {
             editarPaciente();
         }
     }
 
-    private void guardarPaciete() {
+    private void guardarPaciente() {
         if (validacionPaciente.datosValidados(
                 viewGestionPaciente.nombrePaciente,
                 viewGestionPaciente.apellidoPaciente,
@@ -59,8 +59,9 @@ public class ControllerGestionPaciente implements ActionListener {
                 viewGestionPaciente.telefonoPaciente,
                 viewGestionPaciente.DEPaciente,
                 viewGestionPaciente.generoPaciente)) {
-            if (paciente.nuevo(viewGestionPaciente.nombrePaciente.getText().trim(),
-                    viewGestionPaciente.apellidoPaciente.getText().trim(),
+            
+            if (paciente.nuevo(validacionPaciente.primeraLetraPalabraMayuscula(viewGestionPaciente.nombrePaciente.getText().trim()),
+                    validacionPaciente.primeraLetraPalabraMayuscula(viewGestionPaciente.apellidoPaciente.getText().trim()),
                     viewGestionPaciente.cedulaPaciente.getText().trim(),
                     viewGestionPaciente.telefonoPaciente.getText().trim(),
                     viewGestionPaciente.DEPaciente.getText().trim(),
@@ -85,8 +86,8 @@ public class ControllerGestionPaciente implements ActionListener {
                 viewGestionPaciente.DEPaciente,
                 viewGestionPaciente.generoPaciente)) {
             if (paciente.editar(id,
-                    viewGestionPaciente.nombrePaciente.getText().trim(),
-                    viewGestionPaciente.apellidoPaciente.getText().trim(),
+                    validacionPaciente.primeraLetraPalabraMayuscula(viewGestionPaciente.nombrePaciente.getText().trim()),
+                    validacionPaciente.primeraLetraPalabraMayuscula(viewGestionPaciente.apellidoPaciente.getText().trim()),
                     viewGestionPaciente.cedulaPaciente.getText().trim(),
                     viewGestionPaciente.telefonoPaciente.getText().trim(),
                     viewGestionPaciente.DEPaciente.getText().trim(),
@@ -146,5 +147,5 @@ public class ControllerGestionPaciente implements ActionListener {
             guardarAccion();
         }
     }
-
+    
 }

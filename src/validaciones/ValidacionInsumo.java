@@ -13,8 +13,9 @@ public class ValidacionInsumo extends Validacion{
         ){
         int[] contadorInput = {0};
         if(validarInput(nombreInsumo, "Nombre")){
-            validarCaracteresInput(nombreInsumo, "nombre", getREGEXNOMBRE(), contadorInput);
+            contadorInput[0]++;
         }
+        
         if (validarCantidad(stockInsumo, "Cant.") && cantidadValida(stockInsumo, "Cant.")){
             contadorInput[0]++;
         }
@@ -28,12 +29,8 @@ public class ValidacionInsumo extends Validacion{
             contadorInput[0]++;
         }
         
-        
-        if(contadorInput[0] == 3){
-            return true;
-        } else {
-            return false;
-        }
+        return (contadorInput[0] == 3) ? true : false;
+
     }
     
     private boolean validarCantidad(components.Spinner inputCantidad, String texto){

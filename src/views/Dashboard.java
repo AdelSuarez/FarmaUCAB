@@ -8,7 +8,7 @@ public class Dashboard extends javax.swing.JPanel {
 
     private ViewPaciente viewPaciente = new ViewPaciente(this);
     private ViewConsulta viewConsulta = new ViewConsulta(this);
-    private ViewInsumo viewInsumo = new ViewInsumo(this);
+    public ViewInsumo viewInsumo = new ViewInsumo(this);
     private ViewEmpleado viewEmpleado = new ViewEmpleado(this);
     private ControllerDashBoard controller;
 
@@ -80,8 +80,7 @@ public class Dashboard extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         NombreEmpleado = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        btnControl = new components.ButtonCustom();
-        btnEstadistica = new components.ButtonCustom();
+        btnDatos = new components.ButtonCustom();
         jPanel3 = new javax.swing.JPanel();
         btnCerrarSesion = new components.ButtonCustom();
         containerTurno = new components.PanelRound();
@@ -211,31 +210,23 @@ public class Dashboard extends javax.swing.JPanel {
         panelOpciones.add(jSeparator2);
         jSeparator2.setBounds(1, 699, 248, 10);
 
-        btnControl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/data_table_black.png"))); // NOI18N
-        btnControl.setText("Control");
-        btnControl.setBorderColor(new java.awt.Color(250, 250, 250));
-        btnControl.setColor(new java.awt.Color(250, 250, 250));
-        btnControl.setColorClick(new java.awt.Color(230, 230, 230));
-        btnControl.setColorOver(new java.awt.Color(215, 215, 215));
-        btnControl.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btnControl.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnControl.setPreferredSize(new java.awt.Dimension(230, 50));
-        btnControl.setRadius(15);
-        panelOpciones.add(btnControl);
-        btnControl.setBounds(13, 404, 230, 50);
-
-        btnEstadistica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/bar_chart_black.png"))); // NOI18N
-        btnEstadistica.setText("Estadisticas");
-        btnEstadistica.setBorderColor(new java.awt.Color(250, 250, 250));
-        btnEstadistica.setColor(new java.awt.Color(250, 250, 250));
-        btnEstadistica.setColorClick(new java.awt.Color(230, 230, 230));
-        btnEstadistica.setColorOver(new java.awt.Color(215, 215, 215));
-        btnEstadistica.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btnEstadistica.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnEstadistica.setPreferredSize(new java.awt.Dimension(230, 50));
-        btnEstadistica.setRadius(15);
-        panelOpciones.add(btnEstadistica);
-        btnEstadistica.setBounds(13, 292, 230, 50);
+        btnDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/bar_chart_black.png"))); // NOI18N
+        btnDatos.setText("Datos en PDF");
+        btnDatos.setBorderColor(new java.awt.Color(250, 250, 250));
+        btnDatos.setColor(new java.awt.Color(250, 250, 250));
+        btnDatos.setColorClick(new java.awt.Color(230, 230, 230));
+        btnDatos.setColorOver(new java.awt.Color(215, 215, 215));
+        btnDatos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnDatos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnDatos.setPreferredSize(new java.awt.Dimension(230, 50));
+        btnDatos.setRadius(15);
+        btnDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDatosActionPerformed(evt);
+            }
+        });
+        panelOpciones.add(btnDatos);
+        btnDatos.setBounds(13, 292, 230, 50);
 
         jPanel1.add(panelOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, -1));
 
@@ -354,15 +345,18 @@ public class Dashboard extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEmpleadoActionPerformed
 
+    private void btnDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDatosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel Content;
     public javax.swing.JLabel NombreEmpleado;
     public components.ButtonCustom btnCerrarSesion;
     public components.ButtonCustom btnConsulta;
-    public components.ButtonCustom btnControl;
+    public components.ButtonCustom btnDatos;
     public components.ButtonCustom btnEmpleado;
-    public components.ButtonCustom btnEstadistica;
     public components.ButtonCustom btnInsumo;
     public components.ButtonCustom btnPaciente;
     public components.PanelRound containerTurno;

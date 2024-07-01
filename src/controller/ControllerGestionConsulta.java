@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import model.dataBase.ConsultaDB;
+import utils.BuscadorTabla;
 import validaciones.ValidacionConsulta;
 import views.Dashboard;
 import views.viewsGestion.GestionConsulta;
@@ -49,10 +50,13 @@ public class ControllerGestionConsulta implements ActionListener {
 
     private void buscarConsulta() {
         viewGestionConsulta.mensajeSeleccion.setVisible(false);
-        validacionConsulta.buscador(viewGestionConsulta.inputBuscarConsulta,
-                consulta.buscarConsulta(viewGestionConsulta.inputBuscarConsulta.getText().trim()),
+        consulta.mostrarConsultaPorCI(viewGestionConsulta.tablaConsulta);
+        configuracionesTabla();
+        new BuscadorTabla().buscadorTabla(viewGestionConsulta.inputBuscarConsulta,
+                consulta.buscadorConsultaTabla(viewGestionConsulta.inputBuscarConsulta.getText().trim()),
                 viewGestionConsulta.tablaConsulta,
                 2);
+                
         viewGestionConsulta.repaint();
     }
 

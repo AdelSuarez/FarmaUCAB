@@ -61,10 +61,11 @@ public class ControllerGestionEmpleado implements ActionListener {
                 viewGestionEmpleado.telefonoEmpleado,
                 viewGestionEmpleado.CorreoEmpleado,
                 viewGestionEmpleado.usuarioEmpleado,
-                viewGestionEmpleado.passwordField1)) {
+                viewGestionEmpleado.passwordField1,
+                "Nuevo")) {
             empleado.nuevo(
-                    viewGestionEmpleado.nombreEmpleado.getText().trim(),
-                    viewGestionEmpleado.apellidoEmpleado.getText().trim(),
+                    valicacionEmpleado.primeraLetraPalabraMayuscula(viewGestionEmpleado.nombreEmpleado.getText().trim()),
+                    valicacionEmpleado.primeraLetraPalabraMayuscula(viewGestionEmpleado.apellidoEmpleado.getText().trim()),
                     viewGestionEmpleado.telefonoEmpleado.getText().trim(),
                     viewGestionEmpleado.CorreoEmpleado.getText().trim(),
                     viewGestionEmpleado.usuarioEmpleado.getText().trim(),
@@ -82,10 +83,11 @@ public class ControllerGestionEmpleado implements ActionListener {
                 viewGestionEmpleado.telefonoEmpleado,
                 viewGestionEmpleado.CorreoEmpleado,
                 viewGestionEmpleado.usuarioEmpleado,
-                viewGestionEmpleado.passwordField1)) {
+                viewGestionEmpleado.passwordField1,
+                "Editar")) {
             empleado.editar(idEmpleado,
-                    viewGestionEmpleado.nombreEmpleado.getText().trim(),
-                    viewGestionEmpleado.apellidoEmpleado.getText().trim(),
+                    valicacionEmpleado.primeraLetraPalabraMayuscula(viewGestionEmpleado.nombreEmpleado.getText().trim()),
+                    valicacionEmpleado.primeraLetraPalabraMayuscula(viewGestionEmpleado.apellidoEmpleado.getText().trim()),
                     viewGestionEmpleado.telefonoEmpleado.getText().trim(),
                     viewGestionEmpleado.CorreoEmpleado.getText().trim(),
                     viewGestionEmpleado.usuarioEmpleado.getText().trim(),
